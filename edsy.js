@@ -12549,3 +12549,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const icon = document.querySelector('.iconsvg.shipyard');
   if (icon) icon.remove();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const iconSvgs = document.querySelectorAll("svg[class^='iconsvg']");
+    iconSvgs.forEach(el => el.remove());
+});
