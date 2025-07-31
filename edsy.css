@@ -20,10 +20,10 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 	--colorgrey3: #808080; /* hsl(0,0%,50%); */
 	--colorgrey2: #4d4d4d; /* hsl(0,0%,30%); */
 	--colorgrey1: #262626; /* hsl(0,0%,15%); */
-	--colororange5: #ADD8E6; /* hsl(27,100%,60%); */
-	--colororange4: #87CEFA; /* hsl(27,100%,48%); */
-	--colororange3: #6495ED; /* hsl(27,100%,36%); */
-	--colororange2: #4169E1; /* hsl(27, 85%,18%); */
+	--colororange5: #4169E1; /* hsl(27,100%,60%); */
+	--colororange4: #40E0D0; /* hsl(27,100%,48%); */
+	--colororange3: #4169E1; /* hsl(27,100%,36%); */
+	--colororange2: #191970; /* hsl(27, 85%,18%); */
 	--colororange1: #191970; /* hsl(27, 65%,12%); */
 	--colorred5: #ff3333; /* hsl(0,100%,60%); */
 	--colorred4: #f50000; /* hsl(0,100%,48%); */
@@ -3763,4 +3763,9 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	align-self: flex-end;
 	margin: 0.25rem;
 	padding: 0.125rem 0.5rem;
+}
+
+/* Custom overrides */
+TABLE.striped THEAD TH {
+  color: #00FFFF !important;
 }
