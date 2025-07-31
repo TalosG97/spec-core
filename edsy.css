@@ -3000,7 +3000,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	top: 0;
 	bottom: 0;
 	right: 10%;
-	border-right: 1px solid var(--colorred5);
+	border-right: 1px solid var(--colorblue3);
 	padding-right: 3px;
 }
 .outfitting_stats_panel .outfitting_stats_powerbar SPAN.marker50 {
