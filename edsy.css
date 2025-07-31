@@ -3792,3 +3792,9 @@ TABLE.striped TBODY TR > TD:first-child > A.label {
   color: #00CED1 !important;
   font-weight: bold !important;
 }
+
+/* FINAL override for ship names (inside A.label in first TD) */
+TABLE.striped TBODY TR > TD:first-child > A.label {
+  color: #00CED1 !important;
+  font-weight: bold !important;
+}
