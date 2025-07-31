@@ -3774,3 +3774,9 @@ TABLE.striped THEAD TH {
 TABLE.striped TBODY TD:first-child {
   color: #20B2AA !important; /* Light Sea Green */
 }
+
+/* Updated ship name color (first column in ship table) */
+TABLE.striped TBODY TD:first-child {
+  color: #00CED1 !important; /* Dark Turquoise for better visibility and softer feel */
+  font-weight: bold;
+}
