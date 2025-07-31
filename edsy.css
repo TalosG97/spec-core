@@ -3798,3 +3798,25 @@ TABLE.striped TBODY TR > TD:first-child > A.label {
   color: #00CED1 !important;
   font-weight: bold !important;
 }
+
+
+/* EDGE Branding - Top bar & alignment */
+#header {
+  background-color: #191970 !important; /* Deep midnight blue */
+  color: #00CED1 !important;
+  font-family: 'EuroCaps', sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+}
+
+/* Align nav buttons left */
+#header > DIV {
+  justify-content: flex-start !important;
+  margin-left: 1em !important;
+}
+
+/* Override link colors in top nav */
+#header A, #header A:visited {
+  color: #00CED1 !important;
+  text-decoration: none !important;
+}
