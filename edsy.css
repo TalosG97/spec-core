@@ -20,11 +20,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 	--colorgrey3: #808080; /* hsl(0,0%,50%); */
 	--colorgrey2: #4d4d4d; /* hsl(0,0%,30%); */
 	--colorgrey1: #262626; /* hsl(0,0%,15%); */
-	--colororange5: #4169E1; /* hsl(27,100%,60%); */
-	--colororange4: #40E0D0; /* hsl(27,100%,48%); */
-	--colororange3: #4169E1; /* hsl(27,100%,36%); */
-	--colororange2: #191970; /* hsl(27, 85%,18%); */
-	--colororange1: #191970; /* hsl(27, 65%,12%); */
+	--colororange5: #5A76F0; /* hsl(27,100%,60%); */
+	--colororange4: #20B2AA; /* hsl(27,100%,48%); */
+	--colororange3: #5A76F0; /* hsl(27,100%,36%); */
+	--colororange2: #2C2C6C; /* hsl(27, 85%,18%); */
+	--colororange1: #1A1A40; /* hsl(27, 65%,12%); */
 	--colorred5: #ff3333; /* hsl(0,100%,60%); */
 	--colorred4: #f50000; /* hsl(0,100%,48%); */
 	--colorred3: #b80000; /* hsl(0,100%,36%); */
@@ -3765,7 +3765,12 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	padding: 0.125rem 0.5rem;
 }
 
-/* Custom overrides */
+/* Soft text color for top header row */
 TABLE.striped THEAD TH {
-  color: #00FFFF !important;
+  color: #87CEFA !important; /* Light Sky Blue */
+}
+
+/* Ship name column soft aqua color */
+TABLE.striped TBODY TD:first-child {
+  color: #20B2AA !important; /* Light Sea Green */
 }
