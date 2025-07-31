@@ -1258,5 +1258,22 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 </div>
 </form>
 </div>
+
+<script>
+  function enterEDGE() {
+    const name = document.getElementById("commanderName").value.trim();
+    if (!name) {
+      alert("Please enter your name, CMDR.");
+      return;
+    }
+    localStorage.setItem("commanderName", name);
+    const welcomeOverlay = document.getElementById("welcome-overlay");
+    welcomeOverlay.style.transform = "translateY(-100%)";
+    setTimeout(() => {
+      welcomeOverlay.style.display = "none";
+    }, 1000);
+  }
+</script>
+
 </body>
 </html>
