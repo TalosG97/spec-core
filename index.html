@@ -1287,9 +1287,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		</div>
 	
 <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const label = document.querySelector("#header_title a");
-    if (label) label.textContent = "EDGE";
+  document.addEventListener("DOMContentLoaded", function () {
+    const headerLink = document.querySelector("#header_title a");
+    if (headerLink) {
+      headerLink.textContent = "EDGE";
+    }
   });
 </script>
 
