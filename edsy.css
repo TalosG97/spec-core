@@ -3780,3 +3780,9 @@ TABLE.striped TBODY TD:first-child {
   color: #00CED1 !important; /* Dark Turquoise for better visibility and softer feel */
   font-weight: bold;
 }
+
+/* FINAL override: Ensure ship names (first column) use soft turquoise */
+TABLE.striped TBODY TR > TD:first-child {
+  color: #00CED1 !important;
+  font-weight: bold !important;
+}
