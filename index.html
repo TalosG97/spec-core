@@ -1287,12 +1287,15 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		</div>
 	
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const headerLink = document.querySelector("#header_title a");
-    if (headerLink) {
-      headerLink.textContent = "EDGE";
+  function replaceEDSYwithEDGE(retries = 20) {
+    const header = document.querySelector("#header_title a");
+    if (header && header.textContent.trim() === "EDSY") {
+      header.textContent = "EDGE";
+    } else if (retries > 0) {
+      setTimeout(() => replaceEDSYwithEDGE(retries - 1), 250);
     }
-  });
+  }
+  window.addEventListener("load", () => replaceEDSYwithEDGE());
 </script>
 
 </body>
