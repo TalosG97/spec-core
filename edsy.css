@@ -933,7 +933,7 @@ TABLE.striped .togglebutton INPUT:active + DIV .iconsvg {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #191970; /* Midnight Blue */
+	background-color: var(--colororange1);
 }
 
 #header_title {
