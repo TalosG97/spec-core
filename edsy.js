@@ -12543,3 +12543,9 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		this.Slot = Slot;
 	}
 })();
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const icon = document.querySelector('.iconsvg.shipyard');
+  if (icon) icon.remove();
+});
