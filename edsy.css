@@ -3820,3 +3820,14 @@ TABLE.striped TBODY TR > TD:first-child > A.label {
   color: #00CED1 !important;
   text-decoration: none !important;
 }
+
+
+/* === Pressed or active link styles updated === */
+a:active,
+a:focus,
+a.selected,
+nav a.selected,
+#header_title a:focus,
+#header_title a:active {
+    color: var(--colorblue3); /* Turquoise like ship names */
+}
