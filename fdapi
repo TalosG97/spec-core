@@ -1,0 +1,709 @@
+#!/usr/local/bin/python3
+
+"""
+EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
+It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
+
+Except where noted otherwise, all design, markup and script code for EDSY is copyright (c) 2015-2024 taleden
+and is provided under a Creative Commons Attribution-NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/).
+
+The Elite Dangerous game logic and data in this file remains the property of Frontier Developments plc, and is used here as authorized by
+Frontier Customer Services (https://forums.frontier.co.uk/index.php?threads/elite-dangerous-media-usage-rules.510879/).
+"""
+
+import base64, cgi, cgitb, hashlib, html, http.cookies, itertools, json, math, numpy, os, requests, sys, urllib, zlib
+cgitb.enable()
+
+try:
+	http.cookies.Morsel._reserved['same-site'] = 'SameSite'
+	
+	EMPTY_OBJ = {}
+	SECS_PER_HOUR = 60 * 60
+	SECS_PER_MONTH = SECS_PER_HOUR * 24 * 30
+	UINT64_MAX = numpy.iinfo(numpy.uint64).max
+	LOCAL = ('REQUEST_URI' not in os.environ)
+	DEV = (not LOCAL) and os.environ['REQUEST_URI'].startswith('/dev/')
+	COOKIE = ('edsydev_fdapi_' if DEV else 'edsy_fdapi_')
+	COOKIE_SALT = COOKIE + 'salt'
+	COOKIE_STATE = COOKIE + 'state'
+	COOKIE_VERIFIER = COOKIE + 'verifier'
+	COOKIEPFX_CMDR = COOKIE + 'cmdr_'
+	COOKIEPFX_ACCESS = COOKIE + 'access_'
+	COOKIEPFX_REFRESH = COOKIE + 'refresh_'
+	
+	
+	def b64enc(data):
+		return base64.urlsafe_b64encode(data).decode().rstrip("=")
+	#b64enc()
+	
+	
+	def b64dec(text):
+		return base64.urlsafe_b64decode(text + "=" * (-len(text) % 4))
+	#b64dec()
+	
+	
+	def xor(data, mask):
+		return bytes( a^b for a,b in zip(data, itertools.cycle(mask[:len(data)])) )
+	#strxor()
+	
+	
+	def getRandomText(size=1, seed=None):
+		return b64enc(numpy.random.RandomState(seed).bytes(size))
+	#getRandomText()
+	
+	
+	def getMask(salt):
+		seed = int(os.lstat('.' if (LOCAL or DEV) else __file__).st_ino) # '.' for consistency during development; __file__ for production
+		pepper = getRandomText(24, seed)
+		return hashlib.sha512((salt+pepper).encode()).digest()
+	#getMask()
+	
+	
+	def getMasked(text, mask, after=None):
+		if not after:
+			return b64enc(xor(text.encode(), mask))
+		parts = text.rsplit(after,1)
+		parts[-1] = b64enc(xor(parts[-1].encode(), mask))
+		return after.join(parts)
+	#getMasked()
+	
+	
+	def getUnmasked(text, mask, after=None):
+		if not after:
+			return xor(b64dec(text), mask).decode()
+		parts = text.rsplit(after,1)
+		parts[-1] = xor(b64dec(parts[-1]), mask).decode()
+		return after.join(parts)
+	#getUnmasked()
+	
+	
+	class FDAPIError(Exception):
+		def __init__(self, message, status=None):
+			super().__init__(message)
+			self.message = str(message)
+			self.status = int(status) if status != None else None
+		#__init__()
+	#FDAPIError
+	
+	
+	class FDAPILocalError(FDAPIError):
+		"""For errors arising in this script or with its supporting cookies"""
+	
+	
+	class FDAPIRemoteError(FDAPIError):
+		"""For errors during communication with or received from the remote Frontier API server"""
+	
+	
+	class FDAPIRemoteUnauthorizedError(FDAPIRemoteError):
+		"""For 401 Unauthorized responses, indicating a revoked refresh token"""
+	
+	
+	class FDAPIRemoteUnprocessableError(FDAPIRemoteError):
+		"""For 422 Unprocessable Entity responses, indicating an expired or invalid access token"""
+	
+	
+	class FDAPIRemoteNoContentError(FDAPIRemoteError):
+		"""For 204 No Content responses, indicating no journal entries today"""
+	
+	
+	class FDAPIRemoteTemporaryError(FDAPIRemoteError):
+		"""For responses we believe to be temporary errors"""
+	
+	
+	class FDAPIHandler:
+		EDSY_USERAGENT = 'EDCD-EDSY-4.19.0.0.0'
+		EDSY_CLIENTID = '398bde95-e204-4b08-b837-eff7b5304ddb'
+		EDSY_URL_REDIRECT = 'https://edsy.org/dev/fdapi' if DEV else 'https://edsy.org/fdapi'
+		EDSY_SCOPE = 'auth capi' # TODO: wish in vain for Frontier to fix their scope bug correctly rather than force all clients to request PII even when it's not needed or wanted
+		FDAPI_TIMEOUT = 10
+		FDAPI_URL_AUTH = 'https://auth.frontierstore.net/auth'
+		FDAPI_URL_TOKEN = 'https://auth.frontierstore.net/token'
+		FDAPI_URL_PROFILE = 'https://companion.orerve.net/profile'
+		FDAPI_URL_JOURNAL = 'https://companion.orerve.net/journal'
+		
+		
+		def __init__(self):
+			self.debug = list() if (LOCAL or DEV) else None
+			self.inCookies = http.cookies.SimpleCookie(os.environ.get('HTTP_COOKIE'))
+			self.inForm = cgi.FieldStorage(keep_blank_values=True)
+			self.outHeaders = {
+				'status': 500,
+				'cache-control': 'no-cache,no-store,must-revalidate,private',
+				'expires': 'Sat, 01 Jan 2000 00:00:00 GMT',
+				'pragma': 'no-cache',
+				'strict-transport-security': 'max-age=300; includeSubDomains', # max-age=31536000; preload
+			}
+			self.outCookies = http.cookies.SimpleCookie()
+			self.outHTML = list()
+			self.outJSON = dict()
+			self.salt = None
+			self.mask = None
+			self.code = None
+			self.verifier = None
+			self.cmdr64 = None
+			self.access = None
+			self.refresh = None
+		#__init__()
+		
+		
+		def HasFormField(self, field):
+			return (field in self.inForm)
+		#HasFormField()
+		
+		
+		def GetFormField(self, field, default=None):
+			return self.inForm.getfirst(field, default)
+		#GetFormField()
+		
+		
+		# only used for clearing obsolete cookies
+	#	def HasCookie(self, name):
+	#		return (name in self.inCookies)
+	#	#HasCookie()
+		
+		
+		def IterCookies(self):
+			return self.inCookies.__iter__()
+		#IterCookies()
+		
+		
+		def GetCookie(self, name, default=None):
+			return (self.inCookies[name].value if (name in self.inCookies) else default)
+		#GetCookie()
+		
+		
+		def UnsetCookie(self, name, httponly=True):
+			if name not in self.inCookies:
+				return False
+			del self.inCookies[name]
+			return self.SetCookie(name, httponly=httponly)
+		#UnsetCookie()
+		
+		
+		def SetCookie(self, name, value=None, age=None, httponly=True):
+			if not name:
+				return False
+			if value:
+				self.outCookies[name] = value
+				self.outCookies[name]['max-age'] = age
+			else:
+				self.outCookies[name] = ""
+				self.outCookies[name]['max-age'] = 0
+				self.outCookies[name]['expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
+			#if
+			self.outCookies[name]['path'] = ('/dev' if DEV else '/')
+			self.outCookies[name]['secure'] = True
+			self.outCookies[name]['httponly'] = httponly
+			self.outCookies[name]['same-site'] = 'lax' # TODO: see if Frontier needs to change post-auth redirect from 302 to 303 to allow 'strict'
+			return True
+		#SetCookie()
+		
+		
+		def ClearCookies(self):
+			for name in self.inCookies:
+				if name.startswith(COOKIE):
+					self.SetCookie(name, httponly=self.inCookies[name]['httponly'])
+			#for
+			self.inCookies = http.cookies.SimpleCookie()
+		#ClearCookies()
+		
+		
+		def Process(self):
+		#	if self.debug != None:
+		#		for k in os.environ:
+		#			self.debug.append(k+' = '+os.environ[k])
+			
+			# load or create the salt and mask
+			self.salt = self.GetCookie(COOKIE_SALT)
+			if not self.salt:
+				self.salt = getRandomText(24)
+				self.ClearCookies()
+			self.mask = getMask(self.salt)
+			if self.debug != None:
+				self.debug.append("salt = " + str(self.salt))
+				self.debug.append("mask = " + str(self.mask))
+			#if
+			
+		#	# delete obsolete cookies (until ~ 2019-09-01, then they should all be expired anyway)
+		#	for name in ['edsy_fdapi_access','edsy_fdapi_refresh']:
+		#		if self.HasCookie(name):
+		#			self.SetCookie(name, httponly=True)
+		#	#for
+			
+			# sync cmdr/access/refresh cookies
+			cmdrs = dict()
+			accesses = dict()
+			refreshes = dict()
+			for cookie in self.IterCookies():
+				if cookie.startswith(COOKIEPFX_CMDR):
+					cmdrs[cookie[len(COOKIEPFX_CMDR):]] = cookie
+				elif cookie.startswith(COOKIEPFX_ACCESS):
+					accesses[cookie[len(COOKIEPFX_ACCESS):]] = cookie
+				elif cookie.startswith(COOKIEPFX_REFRESH):
+					refreshes[cookie[len(COOKIEPFX_REFRESH):]] = cookie
+			#for
+			for suffix,cookie in cmdrs.items():
+				if (suffix not in accesses) and (suffix not in refreshes):
+					self.UnsetCookie(cookie, httponly=False)
+					if self.debug != None:
+						self.debug.append("expired = " + cookie)
+			#for
+			for suffix,cookie in accesses.items():
+				if suffix not in cmdrs:
+					self.UnsetCookie(cookie)
+					if self.debug != None:
+						self.debug.append("removed = " + cookie)
+			#for
+			for suffix,cookie in refreshes.items():
+				if suffix not in cmdrs:
+					self.UnsetCookie(cookie)
+					if self.debug != None:
+						self.debug.append("removed = " + cookie)
+			#for
+			
+			# decide what format to respond in
+			if self.HasFormField('auth') or self.HasFormField('state'): # explicit (re-)auth request or OAuth callback state
+				self.outHTML.extend( (
+					'<!DOCTYPE html>',
+					'<meta charset="utf-8">',
+					'<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; base-uri \'none\'; object-src \'none\'; script-src \'unsafe-inline\';">',
+					'<link rel="stylesheet" type="text/css" href="edsy-mini.css">',
+				) )
+				try:
+					if not self.mask:
+						raise FDAPILocalError("mask error")
+					redirect = self.GenerateAuthURL() if self.HasFormField('auth') else self.ProcessAuth()
+					if not redirect:
+						raise FDAPILocalError("auth prep error" if self.HasFormField('auth') else "access token not received")
+					self.outHeaders['status'] = 303
+					self.outHeaders['location'] = redirect
+					lines = (
+						'<meta http-equiv="refresh" content="0; url=%s" />' % html.escape(redirect),
+						'<script type="application/javascript">window.addEventListener("DOMContentLoaded", (function(e) { window.location.href = %s; }));</script>' % json.dumps(redirect),
+					)
+					self.outHTML.extend(lines)
+				except FDAPIError as exc:
+					self.outHeaders['status'] = 500
+					header = ("Frontier API error" if isinstance(exc, FDAPIRemoteError) else "EDSY-FDAPI error") + " " + str(exc.status or "")
+					message = html.escape(exc.message or "unknown error")
+					self.outHTML.extend( (
+						'<div id="page_modal">',
+						'<div id="page_box">',
+						'<p>' + header + '<br>' + message + '<br><br>',
+						'The authorization attempt failed. You can try again, but if<br>',
+						'the error persists then there may be a temporary API outage.</p>',
+						'<ul><li><a href="fdapi?auth=A">Re-Try Authorization</a></li>',
+						'<li><a href="' + ('/dev/' if DEV else '/') + '">Return to EDSY</a></li></ul>',
+						'</div>',
+						'</div>',
+					) )
+					if self.debug != None:
+						self.debug.append(repr(exc))
+				#try/except
+			else: # AJAX call
+				try:
+					if not self.mask:
+						raise FDAPILocalError("mask error")
+					data,status = self.ProcessQuery()
+					if data:
+						self.outHeaders['status'] = 200
+						self.outJSON['status'] = status
+						self.outJSON['import'] = b64enc(zlib.compress(json.dumps(data).encode()))
+					else:
+						authurl = self.GenerateAuthURL()
+						self.outHeaders['status'] = 200
+						self.outJSON['status'] = 303
+						self.outJSON['location'] = authurl
+					#if
+				except FDAPIError as exc:
+					self.outHeaders['status'] = 500
+					self.outJSON['message'] = exc.message or "unknown error"
+					if exc.status != None:
+						self.outJSON['status'] = exc.status
+					if self.debug != None:
+						self.debug.append(repr(exc))
+				#try/except
+			#if
+		#Process()
+		
+		
+		def ProcessAuth(self):
+			# gather data
+			codestate = self.GetFormField('state')
+			self.code = self.GetFormField('code')
+			error = self.GetFormField('error')
+			errordesc = self.GetFormField('error_description')
+			state = self.GetCookie(COOKIE_STATE)
+			verifier_masked = self.GetCookie(COOKIE_VERIFIER)
+			try:
+				self.verifier = getUnmasked(verifier_masked, self.mask)
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				self.verifier = None
+			#try/except
+			
+			# debug
+			if self.debug != None:
+				self.debug.append("codestate = " + str(codestate))
+				self.debug.append("code = " + str(self.code))
+				self.debug.append("error = " + str(error))
+				self.debug.append("errordesc = " + str(errordesc))
+				self.debug.append("state = " + str(state))
+				self.debug.append("verifier_masked = " + str(verifier_masked))
+				self.debug.append("verifier = " + str(self.verifier))
+			#if
+			
+			# check for local errors
+			if not (state and self.verifier):
+				raise FDAPILocalError("auth state data expired" if verifier_masked else "auth state data missing")
+			
+			# check for remote errors
+			if codestate != state:
+				raise FDAPIRemoteError("auth state mismatch", 0)
+			if not self.code:
+				raise FDAPIRemoteError((str(error) or "auth code missing") + ((" (" + str(errordesc) + ")") if errordesc else ""), 0)
+			
+			# proceed
+			if not self.FetchAccessToken():
+				return None
+			return ('/dev/#/I=FDAPI:' if DEV else '/#/I=FDAPI:') + (str(self.cmdr64 or '') if state.startswith('I') else '')
+		#ProcessAuth()
+		
+		
+		def ProcessQuery(self):
+			# gather data
+			self.cmdr64 = self.GetFormField('c', '')
+			access_masked = self.GetCookie(COOKIEPFX_ACCESS + self.cmdr64)
+			refresh_masked = self.GetCookie(COOKIEPFX_REFRESH + self.cmdr64)
+			
+			# debug
+			if self.debug != None:
+				self.debug.append("cmdr64 = " + str(self.cmdr64))
+				self.debug.append("access_masked = " + str(access_masked))
+				self.debug.append("refresh_masked = " + str(refresh_masked))
+			#if
+			
+			# if we have tokens, use them
+			data = None
+			status = 0
+			try:
+				if self.cmdr64 and access_masked:
+					try:
+						self.access = getUnmasked(access_masked, self.mask, after='.')
+						if self.debug != None:
+							self.debug.append("access = " + str(self.access))
+					except Exception as exc:
+						if self.debug != None:
+							self.debug.append(repr(exc))
+						raise FDAPILocalError("access token mask error")
+					#try/except
+					
+					try:
+						data,status = self.FetchBuilds()
+					except (FDAPIRemoteUnauthorizedError, FDAPIRemoteUnprocessableError) as exc:
+						if self.debug != None:
+							self.debug.append(repr(exc))
+						data = None
+						status = 0
+					#try/except
+				#if
+				
+				if self.cmdr64 and refresh_masked and not data:
+					try:
+						self.refresh = getUnmasked(refresh_masked, self.mask)
+						if self.debug != None:
+							self.debug.append("refresh = " + str(self.refresh))
+					except Exception as exc:
+						if self.debug != None:
+							self.debug.append(repr(exc))
+						raise FDAPILocalError("refresh token mask error")
+					#try/except
+					
+					try:
+						self.FetchAccessToken()
+						data,status = self.FetchBuilds()
+					except FDAPIRemoteUnauthorizedError as exc:
+						if self.debug != None:
+							self.debug.append(repr(exc))
+						data = None
+						status = 0
+					#try/except
+				#if
+			except FDAPILocalError as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				data = None
+				status = 0
+			#try/except
+			
+			return data,status
+		#ProcessQuery()
+		
+		
+		def GenerateAuthURL(self):
+			try:
+				# generate auth state data
+				state = ("A" if (self.GetFormField('auth') == "A") else "I") + getRandomText(8)
+				self.verifier = getRandomText(32)
+				verifier_masked = getMasked(self.verifier, self.mask)
+				challenge = b64enc(hashlib.sha256(self.verifier.encode()).digest())
+				if not (state and self.verifier and verifier_masked and challenge):
+					raise Exception()
+				
+				# debug
+				if self.debug != None:
+					self.debug.append("state = " + str(state))
+					self.debug.append("verifier = " + str(self.verifier))
+					self.debug.append("verifier_masked = " + str(verifier_masked))
+					self.debug.append("challenge = " + str(challenge))
+				#if
+				
+				# proceed
+				self.SetCookie(COOKIE_SALT, self.salt, SECS_PER_MONTH)
+				self.SetCookie(COOKIE_STATE, state, SECS_PER_HOUR)
+				self.SetCookie(COOKIE_VERIFIER, verifier_masked, SECS_PER_HOUR)
+				authurl = (
+					self.FDAPI_URL_AUTH +
+					'?scope=' + urllib.parse.quote_plus(self.EDSY_SCOPE) +
+					'&audience=all' +
+					'&client_id=' + urllib.parse.quote_plus(self.EDSY_CLIENTID) +
+					'&response_type=code' +
+					'&code_challenge=' + urllib.parse.quote_plus(challenge) +
+					'&code_challenge_method=S256' +
+					'&state=' + urllib.parse.quote_plus(state) +
+					'&redirect_uri=' + urllib.parse.quote_plus(self.EDSY_URL_REDIRECT)
+				)
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				raise FDAPILocalError("auth init error")
+			#try/except
+			
+			return authurl
+		#GenerateAuthURL()
+		
+		
+		def DebugRequest(self, request):
+			self.debug.append("%s\n%s%s" % (
+				str(request.status_code),
+				"\n".join( (k+": "+v) for k,v in request.headers.items() ),
+				"\n" if request.headers else "",
+			))
+		#DebugRequest()
+		
+		
+		def FetchAccessToken(self):
+			# send request
+			reqHeaders = {
+				'user-agent': self.EDSY_USERAGENT,
+				'content-type': 'application/json',
+			}
+			if self.code and self.verifier:
+				self.SetCookie(COOKIE_STATE)
+				self.SetCookie(COOKIE_VERIFIER)
+				reqBodyJSON = {
+					'grant_type': 'authorization_code',
+					'client_id': self.EDSY_CLIENTID,
+					'code_verifier': self.verifier,
+					'code': self.code,
+					'redirect_uri': self.EDSY_URL_REDIRECT,
+				}
+			elif self.refresh:
+				reqBodyJSON = {
+					'grant_type': 'refresh_token',
+					'client_id': self.EDSY_CLIENTID,
+					'refresh_token': self.refresh,
+				}
+			else:
+				raise FDAPILocalError("token request data missing")
+			#if
+			request = requests.post(self.FDAPI_URL_TOKEN, headers=reqHeaders, json=reqBodyJSON, allow_redirects=False, timeout=self.FDAPI_TIMEOUT)
+			if self.debug != None:
+				self.DebugRequest(request)
+			
+			# parse response
+			response = None
+			try:
+				if request.headers['content-type'] == 'application/json' or request.headers['content-type'] == 'json':
+					response = request.json()
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				response = None
+			#try/except
+			
+			# check for response errors
+			if request.status_code == requests.codes.unauthorized: # = 401
+				raise FDAPIRemoteUnauthorizedError("token revoked", request.status_code)
+			elif request.status_code != requests.codes.ok: # != 200
+				raise FDAPIRemoteError((response or EMPTY_OBJ).get('message', 'unknown error'), request.status_code)
+			if not response:
+				raise FDAPIRemoteError("invalid response", request.status_code)
+			
+			# get and mask tokens
+			try:
+				self.access = response['access_token']
+				access_masked = getMasked(self.access, self.mask, after='.')
+				access_expires = min(SECS_PER_MONTH, response.get('expires_in',SECS_PER_MONTH*2) - 60)
+				self.refresh = response.get('refresh_token')
+				refresh_masked = getMasked(self.refresh, self.mask) if self.refresh else None
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				raise FDAPILocalError("token masking error")
+			#try/except
+			
+			# set cookies
+			if not self.cmdr64:
+				data,status = self.FetchProfileData()
+				self.cmdr64 = b64enc((data or EMPTY_OBJ).get('commander',EMPTY_OBJ).get('name','').encode())
+				if not self.cmdr64:
+					raise FDAPIRemoteError("unknown CMDR", status)
+			#if
+			self.SetCookie(COOKIE_SALT, self.salt, SECS_PER_MONTH)
+			self.SetCookie(COOKIEPFX_CMDR + self.cmdr64, "1", SECS_PER_MONTH, httponly=False)
+			self.SetCookie(COOKIEPFX_ACCESS + self.cmdr64, access_masked, access_expires)
+			self.SetCookie(COOKIEPFX_REFRESH + self.cmdr64, refresh_masked, SECS_PER_MONTH)
+			
+			return self.access
+		#FetchAccessToken()
+		
+		
+		def FetchBuilds(self):
+			try:
+				data,status = self.FetchJournalData()
+			except FDAPIRemoteNoContentError:
+				data,status = self.FetchProfileData()
+			#try/except
+			return data,status
+		#FetchBuilds()
+		
+		
+		def FetchJournalData(self):
+			# send request
+			reqHeaders = {
+				'user-agent': self.EDSY_USERAGENT,
+				'authorization': ('Bearer '+self.access),
+			}
+			request = requests.get(self.FDAPI_URL_JOURNAL, headers=reqHeaders, allow_redirects=False, timeout=self.FDAPI_TIMEOUT, stream=True)
+			if self.debug != None:
+				self.DebugRequest(request)
+			
+			# check for response errors
+			if request.status_code == requests.codes.unprocessable_entity: # = 422
+				raise FDAPIRemoteUnprocessableError("token expired", request.status_code)
+			if request.status_code == requests.codes.no_content: # = 204
+				raise FDAPIRemoteNoContentError("no data", request.status_code)
+			if request.status_code != requests.codes.ok and request.status_code != requests.codes.partial_content: # != 200,206
+				raise FDAPIRemoteError("unknown error", request.status_code)
+			if request.headers['content-type'] != 'application/json' and request.headers['content-type'] != 'json':
+				raise FDAPIRemoteError("invalid response", request.status_code)
+			
+			# identify last Loadout event per ShipID
+			# TODO: retain EngineerCraft events between Loadouts; maybe also MassModuleStore, ModuleBuy, ModuleRetrieve, ModuleSell, ModuleStore, ModuleSwap?
+			try:
+				if request.encoding is None:
+					request.encoding = 'utf-8'
+				loadouts = {}
+				for line in request.iter_lines(decode_unicode=True):
+					if line == 'Journal unavailable':
+						raise FDAPIRemoteTemporaryError(request.text, request.status_code)
+					try:
+						response = json.loads(line) if line else None
+					except Exception as exc:
+						if self.debug != None:
+							self.debug.append(repr(exc))
+						response = None
+					#try/except
+					if response:
+						event = response.get('event')
+						shipid = response.get('ShipID')
+						if (event == 'Loadout') and shipid:
+							loadouts[shipid] = response
+					#if
+				#for
+				data = list(loadouts.values())
+				status = request.status_code
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				raise FDAPILocalError("journal parsing error")
+			#try/except
+			
+			return data,status
+		#FetchJournalData()
+		
+		
+		def FetchProfileData(self):
+			# send request
+			reqHeaders = {
+				'user-agent': self.EDSY_USERAGENT,
+				'authorization': ('Bearer '+self.access),
+			}
+			request = requests.get(self.FDAPI_URL_PROFILE, headers=reqHeaders, allow_redirects=False, timeout=self.FDAPI_TIMEOUT)
+			if self.debug != None:
+				self.DebugRequest(request)
+			
+			# check for response errors
+			if request.status_code == requests.codes.unprocessable_entity: # = 422
+				raise FDAPIRemoteUnprocessableError("token expired", request.status_code)
+			if request.status_code != requests.codes.ok: # != 200
+				raise FDAPIRemoteError("unknown error", request.status_code)
+			if request.headers['content-type'] != 'application/json' and request.headers['content-type'] != 'json':
+				raise FDAPIRemoteError("invalid response", request.status_code)
+			
+			# collect relevant data
+			try:
+				response = request.json()
+				data = {}
+				if 'commander' in response:
+					data['commander'] = response['commander']
+				if 'ship' in response:
+					data['ship'] = response['ship']
+				if 'ships' in response:
+					data['ships'] = response['ships']
+				status = request.status_code
+			except Exception as exc:
+				if self.debug != None:
+					self.debug.append(repr(exc))
+				raise FDAPILocalError("profile parsing error")
+			#try/except
+			
+			return data,status
+		#FetchProfileData()
+		
+		
+		def Output(self):
+			if self.outJSON:
+				if self.debug:
+					self.outJSON['debug'] = self.debug
+				self.outHeaders['content-type'] = 'application/json';
+				body = json.dumps(self.outJSON)
+			elif self.outHTML:
+				self.outHeaders['content-type'] = 'text/html';
+				body = "\n".join(self.outHTML)
+				if self.debug:
+					body += ("\n<!--\n%s\n-->" % "\n".join(self.debug))
+			else:
+				self.outHeaders['status'] = 500
+				body = ""
+			#if
+			return ("%s%s%s%s\r\n%s" % (
+				"\r\n".join(("%s: %s" % (key,val)) for key,val in self.outHeaders.items()),
+				"\r\n" if self.outHeaders else "",
+				self.outCookies.output(),
+				"\r\n" if self.outCookies else "",
+				body
+			))
+		#Output()
+		
+	#FDAPIHandler
+	
+	handler = FDAPIHandler()
+	handler.Process()
+	print(handler.Output(), end="")
+except:
+	print("Status:500\r\nCache-Control: no-cache,no-store,must-revalidate,private\r\nExpires: Sat, 01 Jan 2000 00:00:00 GMT\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=300; includeSubDomains\r\nContent-type: text/html\r\n\r\n", end="")
+	print(cgitb.html(sys.exc_info()))
+#try/except
