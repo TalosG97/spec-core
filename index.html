@@ -40,17 +40,6 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 <link color="#ff7f00" href="favicon.svg" rel="mask-icon"/>
 </head>
 <body class="">
-<!-- Welcome Overlay -->
-<div id="welcomeScreen">
-<img alt="Welcome" id="welcomeGif" src="welcome.gif"/>
-<div id="welcomeText">
-<h1>Welcome, CMDR</h1>
-<p>What is your name?</p>
-<input id="commanderName" placeholder="Enter your name" type="text"/>
-<button onclick="enterSite()">Enter</button>
-</div>
-</div>
-
 <div id="svg_defs">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
@@ -1269,30 +1258,5 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 </div>
 </form>
 </div>
-<script>
-  function enterEDGE() {
-    const name = document.getElementById("commanderName").value.trim();
-    if (!name) {
-      alert("Please enter your name, CMDR.");
-      return;
-    }
-    localStorage.setItem("commanderName", name);
-    const welcomeOverlay = document.getElementById("welcome-overlay");
-    welcomeOverlay.style.transform = "translateY(-100%)";
-    setTimeout(() => {
-      welcomeOverlay.style.display = "none";
-    }, 1000);
-  }
-</script>
-
-<script>
-  function enterSite() {
-    const name = document.getElementById("commanderName").value;
-    if (name.trim()) {
-      document.getElementById("welcomeScreen").classList.add("slideUp");
-      localStorage.setItem("commanderName", name);
-    }
-  }
-</script>
 </body>
 </html>
