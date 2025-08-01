@@ -12553,3 +12553,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const iconSvgs = document.querySelectorAll("svg[class^='iconsvg']");
     iconSvgs.forEach(el => el.remove());
 });
+
+
+
+
+function enterSite() {
+  const name = document.getElementById('commanderName').value.trim();
+  if (name.length === 0) return;
+
+  const welcome = document.getElementById('welcomeScreen');
+  welcome.style.transition = "opacity 1s ease";
+  welcome.style.opacity = "0";
+
+  setTimeout(() => {
+    welcome.style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  }, 1000);
+}
