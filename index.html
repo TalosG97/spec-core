@@ -40,26 +40,6 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 <link color="#ff7f00" href="favicon.svg" rel="mask-icon"/>
 </head>
 <body class="">
-<!-- Welcome Overlay -->
-<div id="welcomeScreen">
-
-<video autoplay muted loop id="welcomeGif">
-  <source src="welcome.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
-
-<div id="welcomeText">
-<h1>Welcome, CMDR</h1>
-<p>What is your name?</p>
-<input id="commanderName" placeholder="Enter your name" type="text"/>
-<button onclick="enterSite()">Enter</button>
-</div>
-</div>
-
-</div>
-
-<!-- Main content hidden until welcome is dismissed -->
-<div id="mainContent" style="display: none;">
 <div id="svg_defs">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
@@ -1277,70 +1257,6 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 </div>
 </div>
 </form>
-</div>
-<script>
-  function enterEDGE() {
-    const name = document.getElementById("commanderName").value.trim();
-    if (!name) {
-      alert("Please enter your name, CMDR.");
-      return;
-    }
-    localStorage.setItem("commanderName", name);
-    const welcomeOverlay = document.getElementById("welcome-overlay");
-    welcomeOverlay.style.transform = "translateY(-100%)";
-    setTimeout(() => {
-      welcomeOverlay.style.display = "none";
-    }, 1000);
-  }
-</script>
-
-
-<script>
-(function() {
-  // Utility: safely get elements
-  function $(id){ return document.getElementById(id); }
-
-  // Reveal the app and optionally remove the overlay
-  function revealApp() {
-    var main = $('mainContent');
-    if (main) { main.style.display = 'block'; }
-    var overlay = $('welcomeScreen');
-    if (overlay) {
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-      // Remove overlay after fade to avoid intercepting clicks
-      setTimeout(function(){ if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 400);
-    }
-  }
-
-  // Called by the Enter button
-  window.enterSite = function enterSite() {
-    var nameInput = $('commanderName');
-    var name = nameInput ? nameInput.value.trim() : '';
-    if (name) try { localStorage.setItem('commanderName', name); } catch (e) {}
-    revealApp();
-  };
-
-  // Keyboard: press Enter inside the input
-  document.addEventListener('keydown', function(ev){
-    if (ev.key === 'Enter') {
-      var active = document.activeElement;
-      if (active && active.id === 'commanderName') {
-        ev.preventDefault();
-        window.enterSite();
-      }
-    }
-  });
-
-  // On load: auto-skip if we already have a name saved
-  window.addEventListener('DOMContentLoaded', function(){
-    var saved = null;
-    try { saved = localStorage.getItem('commanderName'); } catch (e) {}
-    if (saved) { revealApp(); }
-  });
-})();
-</script>
-
 </div>
 </body>
 </html>
