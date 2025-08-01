@@ -3867,3 +3867,37 @@ TABLE.striped TBODY TR > TD:first-child > A.label {
 #welcome-overlay button:hover {
   background-color: #00cccc;
 }
+
+
+#welcomeScreen {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#welcomeGif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#welcomeText {
+  z-index: 2;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
