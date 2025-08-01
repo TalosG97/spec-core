@@ -12554,54 +12554,96 @@ document.addEventListener("DOMContentLoaded", function () {
     iconSvgs.forEach(el => el.remove());
 });
 
+/* ==== Welcome Overlay Helper (non-invasive) ==================================
+   Adds a safe, global `enterSite()` and wires events for the welcome overlay.
+   It does not depend on EDSY internals and can live alongside existing code.
+   IDs used: #welcomeScreen, #welcomeGif, #welcomeText button, #commanderName, #mainContent
+=============================================================================== */
+(function () {
+  function byId(id) { return document.getElementById(id); }
 
-function enterSite() {
-  const name = document.getElementById('commanderName').value.trim();
-  if (name.length === 0) return;
-
-  const welcome = document.getElementById('welcomeScreen');
-  welcome.style.transition = "opacity 1s ease";
-  welcome.style.opacity = "0";
-
-  setTimeout(() => {
-    welcome.style.display = 'none';
-    document.getElementById('mainContent').style.display = 'block';
-  }, 1000);
-}
-
-window.enterSite = enterSite;
-
-/* Welcome overlay bootstrap (non-intrusive) */
-(function(){
-  function go(){
-    var overlay = document.getElementById('welcomeScreen');
-    if(!overlay){ return; }
-    var input = document.getElementById('commanderName');
-    var btn   = document.getElementById('enterBtn');
-    function finish(){
-      try{
-        var name = (input && input.value || '').trim();
-        if(name){ localStorage.setItem('edsy_commander_name', name); }
-      }catch(e){}
-      overlay.classList.add('fade-out');
-      var done = false;
-      var remove = function(){
-        if(done) return; done = true;
-        overlay.parentNode && overlay.parentNode.removeChild(overlay);
-      };
-      overlay.addEventListener('transitionend', remove, {once:true});
-      setTimeout(remove, 800); // fallback
+  function showMain() {
+    var main = byId('mainContent');
+    if (main) {
+      // reveal main app even if inline styles hid it
+      try { main.style.removeProperty('display'); } catch (e) { main.style.display = 'block'; }
     }
-    if(btn){ btn.addEventListener('click', finish); }
-    if(input){
-      input.addEventListener('keydown', function(e){
-        if(e.key === 'Enter'){ finish(); }
-      });
-      setTimeout(function(){ try{ input.focus(); }catch(e){} }, 50);
-    }
-    // Expose global in case markup still references onclick="enterSite()"
-    window.enterSite = finish;
+    // restore scroll in case it was disabled
+    document.body && (document.body.style.overflow = '');
   }
-  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', go); }
-  else { go(); }
+
+  // Expose a defensive enterSite globally
+  window.enterSite = function () {
+    var input = byId('commanderName');
+    var overlay = byId('welcomeScreen');
+    var video = byId('welcomeGif');
+    var name = input ? (input.value || '').trim() : '';
+
+    // Persist (optional)
+    try { if (name) localStorage.setItem('cmdrName', name); } catch (e) {}
+
+    // Pause background video if present
+    try { if (video && typeof video.pause === 'function') video.pause(); } catch (e) {}
+
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      // Remove overlay so it can't intercept clicks
+      try { if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay); } catch (e) {}
+      showMain();
+    }
+
+    if (overlay) {
+      // If CSS class exists, use it; otherwise force a transition inline
+      overlay.classList.add('fade-out');
+      try {
+        var cs = window.getComputedStyle(overlay);
+        var hasTransition = cs && (cs.transitionDuration !== '0s' || cs.transitionProperty !== 'all');
+        if (!hasTransition) {
+          overlay.style.transition = 'opacity 400ms ease';
+          overlay.style.opacity = '0';
+        }
+      } catch (e) {
+        overlay.style.transition = 'opacity 400ms ease';
+        overlay.style.opacity = '0';
+      }
+      overlay.addEventListener('transitionend', finish, { once: true });
+      // Fallback in case transition event never fires
+      window.setTimeout(finish, 700);
+    } else {
+      finish();
+    }
+    return false;
+  };
+
+  function bindWelcome() {
+    var btn = document.querySelector('#welcomeText button');
+    var input = byId('commanderName');
+    var overlay = byId('welcomeScreen');
+    var main = byId('mainContent');
+
+    // If overlay missing, ensure main app shows
+    if (!overlay && main) {
+      try { main.style.removeProperty('display'); } catch (e) { main.style.display = 'block'; }
+    }
+
+    if (btn) btn.addEventListener('click', window.enterSite);
+    if (input) {
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          window.enterSite();
+        }
+      });
+      try { input.focus(); } catch (e) {}
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindWelcome);
+  } else {
+    bindWelcome();
+  }
 })();
+/* ==== End Welcome Overlay Helper ============================================ */
