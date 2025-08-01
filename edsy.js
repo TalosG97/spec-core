@@ -12139,7 +12139,93 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 	*/
 	
 	
-	var verifyVersionSync = function() { return true; }; // verifyVersionSync()
+	var verifyVersionSync = function() {
+		var vH,vC,vD,vJ;
+		var dH,dC,dD,dJ;
+		try {
+			vH = document.getElementById('edsy_versions_html').getAttribute('content').split(',');
+			vH = [ parseInt(vH[0]),parseInt(vH[1]),parseInt(vH[2]),parseInt(vH[3]) ];
+			dH = parseInt((document.getElementById('last_modified').getAttribute('content') || '0').replace(/-/g,''));
+		} catch (e) {
+			vH = [ 0,0,0,0 ];
+			dH = 0;
+		}
+		try {
+			var compstyle = getComputedStyle(document.documentElement);
+			vC = compstyle.getPropertyValue('--edsy-versions-css').trim();
+			dC = compstyle.getPropertyValue('--edsy-lastmodified-css').trim();
+			if (dC[0] == 'd') {
+				vC = vC.split('-');
+				vC = [ parseInt(vC[1]),parseInt(vC[2]),parseInt(vC[3]),parseInt(vC[4]) ];
+				dC = parseInt(dC.split('-')[1] || 0);
+			} else {
+				vC = vC.split(',');
+				vC = [ parseInt(vC[0]),parseInt(vC[1]),parseInt(vC[2]),parseInt(vC[3]) ];
+				dC = parseInt(dC || 0);
+			}
+		} catch (e) {
+			vC = [ 0,0,0,0 ];
+			dC = 0;
+		}
+		try {
+			vD = ((eddb || EMPTY_OBJ).edsy_versions_db || EMPTY_ARR);
+			vD = [ parseInt(vD[0]),parseInt(vD[1]),parseInt(vD[2]),parseInt(vD[3]) ];
+			dD = ((eddb || EMPTY_OBJ).edsy_lastmodified_db || 0);
+		} catch (e) {
+			vD = [ 0,0,0,0 ];
+			dD = 0;
+		}
+		try {
+			vJ = (VERSIONS || EMPTY_ARR);
+			vJ = [ parseInt(vJ[0]),parseInt(vJ[1]),parseInt(vJ[2]),parseInt(vJ[3]) ];
+			dJ = LASTMODIFIED;
+		} catch (e) {
+			vJ = [ 0,0,0,0 ];
+			dJ = 0;
+		}
+		
+		// fill in the current version and update date
+		var v = ('0000000000' + max(vH[0], vC[1], vD[2], vJ[3])).slice(-10);
+		var d = '' + max(dH, dC, dD, dJ) + '00000000';
+		document.getElementById('version_label').setAttribute('edsy-vals', JSON.stringify({
+			'a':parseInt(v.slice(0,2)),
+			'b':parseInt(v.slice(2,4)),
+			'c':parseInt(v.slice(4,6)),
+			'rc':(['-','a','b','rc'][parseInt(v.slice(6,8))] || '.'),
+			'd':parseInt(v.slice(8,10)),
+			'date':(d.slice(0,4) + '-' + d.slice(4,6) + '-' + d.slice(6,8)),
+		}));
+		document.getElementById('version_label').setAttribute('edsy-text', 'interp-version-abcd');
+		document.getElementById('version_label').innerHTML = ('v' + parseInt(v.slice(0,2)) + '.' + parseInt(v.slice(2,4)) + '.' + parseInt(v.slice(4,6)) + (['-','a','b','rc'][parseInt(v.slice(6,8))] || '.') + parseInt(v.slice(8,10)));
+		document.getElementById('version_label').setAttribute('edsy-title', 'interp-updated-date');
+		document.getElementById('version_label').title = ('updated ' + d.slice(0,4) + '-' + d.slice(4,6) + '-' + d.slice(6,8));
+		
+		// cross check expected versions
+		var vM = [
+			max(vC[0], max(vD[0], vJ[0])),
+			max(vH[1], max(vD[1], vJ[1])),
+			max(vH[2], max(vC[2], vJ[2])),
+			max(vH[3], max(vC[3], vD[3])),
+		];
+		var ok = true;
+		if (vH[0] < vM[0]) {
+			ok = false;
+			console.log('ERROR: EDSY HTML version mismatch: (' + vH[0] + ') / ' + vC[0] + ' / ' + vD[0] + ' / ' + vJ[0]);
+		}
+		if (vC[1] < vM[1]) {
+			ok = false;
+			console.log('ERROR: EDSY CSS version mismatch: ' + vH[1] + ' / (' + vC[1] + ') / ' + vD[1] + ' / ' + vJ[1]);
+		}
+		if (vD[2] < vM[2]) {
+			ok = false;
+			console.log('ERROR: EDSY DB version mismatch: ' + vH[2] + ' / ' + vC[2] + ' / (' + vD[2] + ') / ' + vJ[2]);
+		}
+		if (vJ[3] < vM[3]) {
+			ok = false;
+			console.log('ERROR: EDSY JS version mismatch: ' + vH[3] + ' / ' + vC[3] + ' / ' + vD[3] + ' / (' + vJ[3] + ')');
+		}
+		return ok;
+	}; // verifyVersionSync()
 	
 	
 	var initBrowser = function() {
@@ -12386,7 +12472,16 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		document.getElementById('popup_okay').addEventListener('click', onUIPopupButtonClick);
 		
 		// check all source file versions
-		// Update check removed
+		if (!verifyVersionSync()) {
+			document.forms.popup.addEventListener('submit', onFormSubmit);
+			showUITextPopup(
+					("<h1>" + getTranslation('message-version') + "</h1><h3>" + getTranslation('message-version-desc') + "</h3>"),
+					"",
+					null, true,
+					function() { window.location = 'update.html'; }, null
+			);
+			return false;
+		}
 		
 		// process remaining initialization asynchronously so that the loading animation can run
 		var steps = [
