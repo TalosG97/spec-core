@@ -12571,52 +12571,37 @@ function enterSite() {
 
 window.enterSite = enterSite;
 
-
-// === Welcome Overlay wiring (EDSY custom) ===
-(function() {
-  function byId(id){ return document.getElementById(id); }
-  function revealMain() {
-    var overlay = byId('welcomeScreen');
-    var main = byId('mainContent');
-    if (overlay) {
+/* Welcome overlay bootstrap (non-intrusive) */
+(function(){
+  function go(){
+    var overlay = document.getElementById('welcomeScreen');
+    if(!overlay){ return; }
+    var input = document.getElementById('commanderName');
+    var btn   = document.getElementById('enterBtn');
+    function finish(){
+      try{
+        var name = (input && input.value || '').trim();
+        if(name){ localStorage.setItem('edsy_commander_name', name); }
+      }catch(e){}
       overlay.classList.add('fade-out');
-      overlay.addEventListener('transitionend', function onEnd() {
-        overlay.removeEventListener('transitionend', onEnd);
-        overlay.classList.add('hidden');
-        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        document.body.classList.remove('lock-scroll');
-        if (main) main.style.display = '';
-      });
-      // Fallback in case transitionend doesn't fire
-      setTimeout(function(){
-        if (overlay && overlay.parentNode) {
-          overlay.parentNode.removeChild(overlay);
-        }
-        document.body.classList.remove('lock-scroll');
-        if (main) main.style.display = '';
-      }, 900);
-    } else if (main) {
-      main.style.display = '';
+      var done = false;
+      var remove = function(){
+        if(done) return; done = true;
+        overlay.parentNode && overlay.parentNode.removeChild(overlay);
+      };
+      overlay.addEventListener('transitionend', remove, {once:true});
+      setTimeout(remove, 800); // fallback
     }
+    if(btn){ btn.addEventListener('click', finish); }
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ finish(); }
+      });
+      setTimeout(function(){ try{ input.focus(); }catch(e){} }, 50);
+    }
+    // Expose global in case markup still references onclick="enterSite()"
+    window.enterSite = finish;
   }
-  window.enterSite = function() {
-    try {
-      var name = (byId('commanderName') && byId('commanderName').value || '').trim();
-      if (name) {
-        try { localStorage.setItem('edsy_commander_name', name); } catch(e) {}
-      }
-    } catch(e) {}
-    revealMain();
-    return false;
-  };
-  document.addEventListener('DOMContentLoaded', function(){
-    document.body.classList.add('lock-scroll');
-    var main = byId('mainContent'); if (main) main.style.display = 'none';
-    var btn = byId('enterBtn');
-    var input = byId('commanderName');
-    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); window.enterSite(); });
-    if (input) input.addEventListener('keydown', function(e){
-      if (e.key === 'Enter') { e.preventDefault(); window.enterSite(); }
-    });
-  });
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', go); }
+  else { go(); }
 })();
