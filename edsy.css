@@ -3820,3 +3820,50 @@ TABLE.striped TBODY TR > TD:first-child > A.label {
   color: #00CED1 !important;
   text-decoration: none !important;
 }
+
+
+
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  color: #00ffff;
+  font-family: 'EuroCaps', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: transform 1s ease-in-out;
+}
+#welcome-overlay img {
+  max-width: 70%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+#welcome-overlay input {
+  padding: 0.5rem;
+  background: #111;
+  color: #00ffff;
+  border: none;
+  margin-top: 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+#welcome-overlay button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #00ffff;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#welcome-overlay button:hover {
+  background-color: #00cccc;
+}
