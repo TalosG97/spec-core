@@ -12555,8 +12555,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-
 function enterSite() {
   const name = document.getElementById('commanderName').value.trim();
   if (name.length === 0) return;
@@ -12570,3 +12568,5 @@ function enterSite() {
     document.getElementById('mainContent').style.display = 'block';
   }, 1000);
 }
+
+window.enterSite = enterSite;
