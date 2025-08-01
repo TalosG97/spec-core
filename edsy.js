@@ -12570,3 +12570,53 @@ function enterSite() {
 }
 
 window.enterSite = enterSite;
+
+
+// === Welcome Overlay wiring (EDSY custom) ===
+(function() {
+  function byId(id){ return document.getElementById(id); }
+  function revealMain() {
+    var overlay = byId('welcomeScreen');
+    var main = byId('mainContent');
+    if (overlay) {
+      overlay.classList.add('fade-out');
+      overlay.addEventListener('transitionend', function onEnd() {
+        overlay.removeEventListener('transitionend', onEnd);
+        overlay.classList.add('hidden');
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        document.body.classList.remove('lock-scroll');
+        if (main) main.style.display = '';
+      });
+      // Fallback in case transitionend doesn't fire
+      setTimeout(function(){
+        if (overlay && overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
+        }
+        document.body.classList.remove('lock-scroll');
+        if (main) main.style.display = '';
+      }, 900);
+    } else if (main) {
+      main.style.display = '';
+    }
+  }
+  window.enterSite = function() {
+    try {
+      var name = (byId('commanderName') && byId('commanderName').value || '').trim();
+      if (name) {
+        try { localStorage.setItem('edsy_commander_name', name); } catch(e) {}
+      }
+    } catch(e) {}
+    revealMain();
+    return false;
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    document.body.classList.add('lock-scroll');
+    var main = byId('mainContent'); if (main) main.style.display = 'none';
+    var btn = byId('enterBtn');
+    var input = byId('commanderName');
+    if (btn) btn.addEventListener('click', function(e){ e.preventDefault(); window.enterSite(); });
+    if (input) input.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') { e.preventDefault(); window.enterSite(); }
+    });
+  });
+})();
