@@ -20,11 +20,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 	--colorgrey3: #808080; /* hsl(0,0%,50%); */
 	--colorgrey2: #4d4d4d; /* hsl(0,0%,30%); */
 	--colorgrey1: #262626; /* hsl(0,0%,15%); */
-	--colororange5: #5A76F0; /* hsl(27,100%,60%); */
-	--colororange4: #20B2AA; /* hsl(27,100%,48%); */
-	--colororange3: #5A76F0; /* hsl(27,100%,36%); */
-	--colororange2: #2C2C6C; /* hsl(27, 85%,18%); */
-	--colororange1: #1A1A40; /* hsl(27, 65%,12%); */
+	--colororange5: #ff8f33; /* hsl(27,100%,60%); */
+	--colororange4: #f56e00; /* hsl(27,100%,48%); */
+	--colororange3: #b85300; /* hsl(27,100%,36%); */
+	--colororange2: #552a07; /* hsl(27, 85%,18%); */
+	--colororange1: #321d0b; /* hsl(27, 65%,12%); */
 	--colorred5: #ff3333; /* hsl(0,100%,60%); */
 	--colorred4: #f50000; /* hsl(0,100%,48%); */
 	--colorred3: #b80000; /* hsl(0,100%,36%); */
@@ -329,7 +329,7 @@ TEXTAREA::-webkit-scrollbar-thumb {
 	color: var(--colorblue5);
 }
 .modbad {
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 .modoverride {
 	background-color: var(--colorgrey1);
@@ -933,7 +933,7 @@ TABLE.striped .togglebutton INPUT:active + DIV .iconsvg {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--colororange1);
+	background-color: var(--colorred2);
 }
 
 #header_title {
@@ -982,7 +982,7 @@ TABLE.striped .togglebutton INPUT:active + DIV .iconsvg {
 }
 #page_tabs .togglebutton INPUT:checked + DIV {
 	background-color: var(--colorgrey1);
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 #page_tabs .togglebutton INPUT:active + DIV {
 	background-color: var(--colorwhite);
@@ -1421,7 +1421,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_modules_picker.size8 .sized:not(.fitsize8) .togglebutton INPUT + DIV,
 #outfitting_modules_picker.reserved .mtype:not(.reserved) .togglebutton INPUT + DIV {
 	background-color: var(--colorred1);
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 #outfitting_modules_picker .togglebutton INPUT.notallowed:checked + DIV,
 #outfitting_modules_picker.size1 .sized:not(.fitsize1) .togglebutton INPUT:checked + DIV,
@@ -1433,7 +1433,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_modules_picker.size7 .sized:not(.fitsize7) .togglebutton INPUT:checked + DIV,
 #outfitting_modules_picker.size8 .sized:not(.fitsize8) .togglebutton INPUT:checked + DIV,
 #outfitting_modules_picker.reserved .mtype:not(.reserved) .togglebutton INPUT:checked + DIV {
-	border-color: var(--colorblue3); /* Changed from red to turquoise */
+	border-color: var(--colorred5);
 }
 #page_body_outfitting.focusmodule #outfitting_modules_picker .togglebutton INPUT.notallowed:checked + DIV,
 #page_body_outfitting.focusmodule #outfitting_modules_picker.size1 .sized:not(.fitsize1) .togglebutton INPUT:checked + DIV,
@@ -1445,7 +1445,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #page_body_outfitting.focusmodule #outfitting_modules_picker.size7 .sized:not(.fitsize7) .togglebutton INPUT:checked + DIV,
 #page_body_outfitting.focusmodule #outfitting_modules_picker.size8 .sized:not(.fitsize8) .togglebutton INPUT:checked + DIV,
 #page_body_outfitting.focusmodule #outfitting_modules_picker.reserved .mtype:not(.reserved) .togglebutton INPUT:checked + DIV {
-	background-color: var(--colorblue3); /* Changed from red to turquoise */
+	background-color: var(--colorred5);
 	color: var(--colorblack);
 }
 #outfitting_modules_picker .togglebutton INPUT.notallowed + DIV .iconsvg,
@@ -1962,15 +1962,15 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_fit_slots .notallowed .togglebutton INPUT + DIV,
 #outfitting_fit_slots .overlimit .togglebutton INPUT + DIV {
 	background-color: var(--colorred1);
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 #outfitting_fit_slots .notallowed .togglebutton INPUT:checked + DIV,
 #outfitting_fit_slots .overlimit .togglebutton INPUT:checked + DIV {
-	border-color: var(--colorblue3); /* Changed from red to turquoise */
+	border-color: var(--colorred5);
 }
 #page_body_outfitting.focusslot #outfitting_fit_slots .notallowed .togglebutton INPUT:checked + DIV,
 #page_body_outfitting.focusslot #outfitting_fit_slots .overlimit .togglebutton INPUT:checked + DIV {
-	background-color: var(--colorblue3); /* Changed from red to turquoise */
+	background-color: var(--colorred5);
 	color: var(--colorblack);
 }
 
@@ -2142,7 +2142,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_fit_slots.priority3errdep .priority3dep .checkbox INPUT:checked + DIV .check,
 #outfitting_fit_slots.priority4errdep .priority4dep .checkbox INPUT:checked + DIV .check,
 #outfitting_fit_slots.priority5errdep .priority5dep .checkbox INPUT:checked + DIV .check {
-	background-color: var(--colorblue3); /* Changed from red to turquoise */
+	background-color: var(--colorred5);
 }
 #outfitting_fit_slots.priority1errret .priority1 .checkbox INPUT + DIV .check::before,
 #outfitting_fit_slots.priority2errret .priority2 .checkbox INPUT + DIV .check::before,
@@ -2186,7 +2186,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_fit_slots.priority3errdep .priority3dep .checkbox INPUT:checked + DIV .check::after,
 #outfitting_fit_slots.priority4errdep .priority4dep .checkbox INPUT:checked + DIV .check::after,
 #outfitting_fit_slots.priority5errdep .priority5dep .checkbox INPUT:checked + DIV .check::after {
-	border-color: var(--colorblue3); /* Changed from red to turquoise */
+	border-color: var(--colorred5);
 }
 
 
@@ -2288,7 +2288,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #outfitting_fit_slots.priority3errdep .priority3 BUTTON.outfitting_fit_priority,
 #outfitting_fit_slots.priority4errdep .priority4 BUTTON.outfitting_fit_priority,
 #outfitting_fit_slots.priority5errdep .priority5 BUTTON.outfitting_fit_priority {
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 #outfitting_fit_slots.priority1errret .priority1 BUTTON.outfitting_fit_priority::before,
 #outfitting_fit_slots.priority2errret .priority2 BUTTON.outfitting_fit_priority::before,
@@ -2916,10 +2916,10 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 }
 
 .outfitting_stats_panel .error {
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 .outfitting_stats_panel ABBR.error {
-	border-color: var(--colorblue3); /* Changed from red to turquoise */
+	border-color: var(--colorred5);
 }
 
 .outfitting_stats_panel .error SMALL {
@@ -3000,7 +3000,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	top: 0;
 	bottom: 0;
 	right: 10%;
-	border-right: 1px solid var(--colorblue3);
+	border-right: 1px solid var(--colorred5);
 	padding-right: 3px;
 }
 .outfitting_stats_panel .outfitting_stats_powerbar SPAN.marker50 {
@@ -3520,7 +3520,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 #page_body_options .colorpicker BUTTON.colorred2 { background-color: var(--colorred2); }
 #page_body_options .colorpicker BUTTON.colorred3 { background-color: var(--colorred3); }
 #page_body_options .colorpicker BUTTON.colorred4 { background-color: var(--colorred4); }
-#page_body_options .colorpicker BUTTON.colorred5 { background-color: var(--colorblue3); /* Changed from red to turquoise */ }
+#page_body_options .colorpicker BUTTON.colorred5 { background-color: var(--colorred5); }
 #page_body_options .colorpicker BUTTON.colorblue1 { background-color: var(--colorblue1); }
 #page_body_options .colorpicker BUTTON.colorblue2 { background-color: var(--colorblue2); }
 #page_body_options .colorpicker BUTTON.colorblue3 { background-color: var(--colorblue3); }
@@ -3670,7 +3670,7 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	margin: 0.25rem;
 }
 #popup_table ABBR .iconsvg.warning {
-	color: var(--colorblue3); /* Changed from red to turquoise */
+	color: var(--colorred5);
 }
 
 #popup_table DIV.import_store {
