@@ -10,8 +10,6 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 */
 
 :root {
-	--edsy-versions-css: v-100000000-100000000-100000000-100000000; /* HTML,CSS,DB,JS */
-	--edsy-lastmodified-css: d-20250805;
 	
 	--colorblack: black;
 	--colorwhite: white;
