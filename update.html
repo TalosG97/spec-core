@@ -45,6 +45,7 @@ function reloadFile(url, re, label) {
 } // reloadFile()
 
 function versionToString(v) {
+    if (v === "100000000" || v === 100000000) return "v1.0";
 	v = ('0000000000' + v).slice(-10);
 	return ('v' + parseInt(v.slice(0,2)) + '.' + parseInt(v.slice(2,4)) + '.' + parseInt(v.slice(4,6)) + (['-','a','b','rc'][parseInt(v.slice(6,8))] || '.') + parseInt(v.slice(8,10)));
 } // versionToString()
