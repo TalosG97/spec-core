@@ -22,18 +22,8 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 */
 'use strict';
 window.edsy = new (function() {
-	var VERSIONS = [100000000,100000000,100000000,100000000]; /* HTML,CSS,DB,JS */
-	var LASTMODIFIED = 20250805;
-
-// FORCE VERSION SYNC TO PREVENT UPDATE PROMPT
-try {
-  localStorage.setItem("vhtml", "100000000");
-  localStorage.setItem("vjs", "100000000");
-  localStorage.setItem("vcss", "100000000");
-  localStorage.setItem("vdb", "100000000");
-  localStorage.setItem("last_modified", "20250805");
-} catch (e) {}
-
+	var VERSIONS = [419039901,419039901,421039900,421039900]; /* HTML,CSS,DB,JS */
+	var LASTMODIFIED = 20250722;
 	
 	var EMPTY_OBJ = {};
 	var EMPTY_ARR = [];
