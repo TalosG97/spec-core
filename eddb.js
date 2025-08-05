@@ -1,4 +1,4 @@
-﻿/*
+/*
 EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
 It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
 
@@ -10,9 +10,9 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 */
 'use strict';
 var eddb = {
-	version : 421039900,
-	edsy_versions_db : [419039901,419039901,421039900,421039900], /* HTML,CSS,DB,JS */
-	edsy_lastmodified_db : 20250722,
+	version : 100000000,
+	edsy_versions_db : [100000000,100000000,100000000,100000000], /* HTML,CSS,DB,JS */
+	edsy_lastmodified_db : 20250805,
 	ship : {
 		 1 : {
 			fdid:128049249, fdname:'SideWinder', eddbid:18,
