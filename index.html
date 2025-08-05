@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
+	<head>
+		<meta charset="utf-8">
 <!--
 EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
 It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
@@ -13,207 +12,227 @@ and is provided under a Creative Commons Attribution-NonCommercial 4.0 Internati
 The Elite Dangerous game logic and data in this file remains the property of Frontier Developments plc, and is used here as authorized by
 Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerous-media-usage-rules.510879/).
 -->
-<title>EDGE</title>
-<meta content="EDSY" name="application-name"/>
-<meta content="419039901,419039901,419039901,419039901" id="edsy_versions_html" name="edsy-versions-html"/><!-- HTML,CSS,DB,JS -->
-<meta content="20241212" id="last_modified" name="last-modified"/>
-<meta content="taleden" name="author"/>
-<meta content="EDSY is a ship outfitting tool for Elite Dangerous" name="description"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'" http-equiv="Content-Security-Policy"/>
-<script async="" src="nocache"></script>
-<script defer="" src="pako.min.js"></script>
-<script defer="" src="eddb.js"></script>
-<script defer="" src="edsy.js"></script>
-<link as="font" crossorigin="anonymous" href="EuroCaps.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="anonymous" href="Sintony.woff2" rel="preload" type="font/woff2"/>
-<link as="font" crossorigin="anonymous" href="Telegrama.woff2" rel="preload" type="font/woff2"/>
-<link href="edsy.css" rel="stylesheet" type="text/css"/>
-<link href="favicon.ico" rel="icon" sizes="16x16 32x32"/>
-<link href="favicon-16.png" rel="icon" sizes="16x16"/>
-<link href="favicon-32.png" rel="icon" sizes="32x32"/>
-<link href="favicon-48.png" rel="icon" sizes="48x48"/>
-<link href="favicon-152.png" rel="icon" sizes="152x152"/>
-<link href="favicon-196.png" rel="icon" sizes="196x196"/>
-<link href="favicon-196.png" rel="apple-touch-icon"/>
-<link href="favicon-196.png" rel="apple-touch-icon-precomposed"/>
-<link color="#ff7f00" href="favicon.svg" rel="mask-icon"/>
-</head>
-<body class="">
-<div id="svg_defs">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<defs>
-<symbol fill="currentColor" id="icon_unknown" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 2,4 a 4.5,4 0 1 1 7.75,2.75 l -2.25,2.25 h -2.5 v -1.5 l 2.5,-2.5 a 1.75,1.25 0 1 0 -2.75,-1 z"></path>
-<circle cx="6.5" cy="11.5" r="1.75"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_menudots" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<circle cx="6.5" cy="1.5" r="1.5"></circle>
-<circle cx="6.5" cy="6.5" r="1.5"></circle>
-<circle cx="6.5" cy="11.5" r="1.5"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_minus" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1,5 h 11 v 3 h -11 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_plus" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1,5 h 4 v -4 h 3 v 4 h 4 v 3 h -4 v 4 h -3 v -4 h -4 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_copy" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1,0 h 9 v 2 h 2 v 11 h -9 v -2 h -2 z M 2,1 v 9 h 1 v -8 h 6 v -1 z M 4,3 v 9 h 7 v -9 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_ignore" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0.75 a 5.75,5.75 0 1 1 0,11.5 a 5.75,5.75 0 1 1 0,-11.5 M 6.5,2.25 a 4.25,4.25 0 1 0 0,8.5 a 4.25,4.25 0 1 0 0,-8.5 z M 11.25,0.5 l 1.25,1.25 -10.75,10.75 -1.25,-1.25 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_eye" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,6.5 a 6.5,3.75 0 0 1 13,0 a 6.5,3.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,2.5 0 0 0 10.5,0 a 5.25,2.5 0 0 0 -10.5,0 z"></path>
-<circle cx="6.5" cy="6.5" r="1.75"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_save" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_saveas" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z M 6,6 h 1 v 2 h 2 v 1 h -2 v 2 h -1 v -2 h -2 v -1 h 2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_reload" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 12,8 a 5.75,5.75 0 1 1 0,-3 l -1.5,0 a 4.25,4.25 0 1 0 0,3 z M 13,0.25 v 5.75 h -5.75 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_rename" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 2,2 h 4 a 2,2 0 0 1 2,2 v 7 h -6 a 2,2 0 0 1 -2,-2 v -2 a 2,2 0 0 1 2,-2 h 4 a 1,1 0 0 0 -1,-1 h -5 a 2,2 0 0 1 2,-2 z M 3,7 a 1,1 0 0 0 0,2 h 3 v -2 z M 8,0 a 3,3 0 0 1 3,3 v 7 a 3,3 0 0 1 -3,3 v -1 a 2,2 0 0 0 2,-2 v -7 a 2,2 0 0 0 -2,-2 z M 13,0 v 1 a 2,2 0 0 0 -2,2 h -1 a 3,3 0 0 1 3,-3 z M 13,13 a 3,3 0 0 1 -3,-3 h 1 a 2,2 0 0 0 2,2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_delete" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 3,0 h 7 v 1 h 3 v 1 h -2 v 9.75 l -2,1.25 h -5 l -2,-1.25 v -9.75 h -2 v -1 h 3 z M 3,2 v 9 l 1.5,1 h 4 l 1.5,-1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_clipboard" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,6 h 5 v -2.5 l 4,4 -4,4 v -2.5 h -5 z M 3,1 h 10 v 12 h -10 v -3 h 1 v 2 h 8 v -10 h -1 v 1 h -6 v -1 h -1 v 3 h -1 z"></path>
-<circle cx="8" cy="1.5" r="1.5"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_xref" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6,0 v 1 h -5 v 11 h 11 v -5 h 1 v 6 h -13 v -13 z M 13,0 v 5.75 l -1.75,-1.75 l -3.5,3.5 l -2.25,-2.25 l 3.5,-3.5 l -1.75,-1.75 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_import" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 6.5,0 l 4,4 h -2.5 v 5 h -3 v -5 h -2.5 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_export" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 5,0 h 3 v 5 h 2.5 l -4,4 l -4,-4 h 2.5 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_shipyard" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1.5,7.5 l 1.5,2.5 3.5,-3.5 3.5,3.5 1.5,-2.5 M 3,10 l 2,-6 1.5,2.5 1.5,-2.5 2,6" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1"></path>
-<path d="M 5,3 l 3,0 4.5,4.5 0.5,3.5 -13,0 0.5,-3.5 z M 5.75,4 l -4,4 -0.25,2 10,0 -0.25,-2 -4,-4 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_repair" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<circle cx="2" cy="11" r="2"></circle>
-<polygon points="8,3.25 9.75,5 3.75,11 2,9.25"></polygon>
-<path d="M 11.25,0 l -1.5,1.5 v 1.75 h 1.75 l 1.5,-1.5 v 1 a 2.75,2.75 0 1 1 -2.75,-2.75 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_analysis" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1,3 h 2 v 10 h -2 z M 4,9 h 2 v 4 h -2 z M 7,0 h 2 v 13 h -2 z M 10,6 h 2 v 7 h -2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_warning" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 l 6.5,13 -13,0 z M 6.5,2.5 l -4.75,9.5 9.5,0 z M 5.75,5.5 a 0.75,0.75 0 0 1 1.5,0 v 3 a 0.75,0.75 0 0 1 -1.5,0 z"></path>
-<circle cx="6.5" cy="10.5" r="0.75"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_fixed" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 1.75,6.5 a 4.75,4.75 0 0 1 9.5,0 a 4.75,4.75 0 0 1 -9.5,0 z M 3,6.5 a 3.5,3.5 0 0 0 7,0 a 3.5,3.5 0 0 0 -7,0 z M 6,0 h 1 v 4 h -1 z M 6,9 h 1 v 4 h -1 z M 0,6 h 4 v 1 h -4 z M 9,6 h 4 v 1 h -4 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_gimballed" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 2.75,6.5 0 0 1 0,13 a 2.75,6.5 0 0 1 0,-13 z M 6.5,1.25 a 1.5,5.25 0 0 0 0,10.5 a 1.5,5.25 0 0 0 0,-10.5 z"></path>
-<path d="M 0,6.5 a 6.5,2.75 0 0 1 13,0 a 6.5,2.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,1.5 0 0 0 10.5,0 a 5.25,1.5 0 0 0 -10.5,0 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_turreted" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 2,2 h 6 l 2,4.5 l -1,3.5 h -8 l -1,-3.5 z M 9,6 h 4 v 1 h -4 z M 2.75,3 l -1.5,3.5 l 0.75,2.5 h 6 l 0.75,-2.5 l -1.5,-3.5 z M 1,11 h 8 v 1 h -8 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_dumbfire" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.25,0 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 9.25,2 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 11.25,5 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z"></path>
-<circle cx="4.5" cy="3.5" r="0.75"></circle><circle cx="2.5" cy="5.5" r="0.75"></circle><circle cx="0.5" cy="7.5" r="0.75"></circle>
-<circle cx="7.5" cy="5.5" r="0.75"></circle><circle cx="5.5" cy="7.5" r="0.75"></circle><circle cx="3.5" cy="9.5" r="0.75"></circle><circle cx="1.5" cy="11.5" r="0.75"></circle>
-<circle cx="9.5" cy="8.5" r="0.75"></circle><circle cx="7.5" cy="10.5" r="0.75"></circle><circle cx="5.5" cy="12.5" r="0.75"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_seeker" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 10,0 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,4 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,8 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z"></path>
-<circle cx="8.5" cy="1.5" r="0.75"></circle><circle cx="6.5" cy="1.5" r="0.75"></circle><circle cx="4.5" cy="1.5" r="0.75"></circle><circle cx="2.5" cy="2.5" r="0.75"></circle><circle cx="1.5" cy="4.5" r="0.75"></circle><circle cx="0.5" cy="6.5" r="0.75"></circle><circle cx="0.5" cy="8.5" r="0.75"></circle><circle cx="0.5" cy="10.5" r="0.75"></circle><circle cx="0.5" cy="12.5" r="0.75"></circle>
-<circle cx="8.5" cy="5.5" r="0.75"></circle><circle cx="6.5" cy="5.5" r="0.75"></circle><circle cx="4.5" cy="6.5" r="0.75"></circle><circle cx="3.5" cy="8.5" r="0.75"></circle><circle cx="3.5" cy="10.5" r="0.75"></circle><circle cx="3.5" cy="12.5" r="0.75"></circle>
-<circle cx="8.5" cy="9.5" r="0.75"></circle><circle cx="6.5" cy="10.5" r="0.75"></circle><circle cx="6.5" cy="12.5" r="0.75"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_guardian" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,1 l 4,0 -2,3.5 z M 9,1 l 4,0 -2,3.5 z M 4.5,9 l 4,0 -2,3.5 z M 6.5,0.75 l 3.5,6.25 -7,0 z M 6.5,2.75 l -1.75,3.25 3.5,0 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_powerplay" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 l 6.5,6.5 -6.5,6.5 -6.5,-6.5 z M 2,2 h 9 v 9 h -9 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_engineer" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 6.5,1.25 l -4.5,2.5 0,4.5 4.5,2.5 4.5,-2.5 0,-4.5 z M 6.5,3.5 a 2.5,2.5 0 0 1 0,5 a 2.5,2.5 0 0 1 0,-5 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_engineered" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_techbroker" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,2 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
-<path d="M 9.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
-<path d="M 6.5,8 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
-<path d="M 3.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
-<path d="M 3.75,2 a 2.75,2 0 0 1 5.5,0 h -1.25 a 1.5,1 0 0 0 -3,0 z"></path>
-<path d="M 3.75,11 a 2.75,2 0 0 0 5.5,0 h -1.25 a 1.5,1 0 0 1 -3,0 z"></path>
-<path d="M 0,5 v -1 a 2,2 0 0 1 2,-2 v 1 a 1,1 0 0 0 -1,1 v 1 z"></path>
-<path d="M 13,5 v -1 a 2,2 0 0 0 -2,-2 v 1 a 1,1 0 0 1 1,1 v 1 z"></path>
-<path d="M 0,6 h 2.5 v 1 h -1.5 v 2 a 1,1 0 0 0 1,1 v 1 a 2,2 0 0 1 -2,-2 z"></path>
-<path d="M 13,6 h -2.5 v 1 h 1.5 v 2 a 1,1 0 0 1 -1,1 v 1 a 2,2 0 0 0 2,-2 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_community" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<!--
+		<title>EDSY</title>
+		<meta name="application-name" content="EDSY">
+		<meta name="edsy-versions-html" id="edsy_versions_html" content="419039901,419039901,419039901,419039901"><!-- HTML,CSS,DB,JS -->
+		<meta name="last-modified" id="last_modified" content="20241212">
+		<meta name="author" content="taleden">
+		<meta name="description" content="EDSY is a ship outfitting tool for Elite Dangerous">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'">
+		<script async src="nocache"></script>
+		<script defer src="pako.min.js"></script>
+		<script defer src="eddb.js"></script>
+		<script defer src="edsy.js"></script>
+		<link rel="preload" as="font" href="EuroCaps.woff2" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="edsy.css">
+		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
+		<link rel="icon" sizes="16x16" href="favicon-16.png">
+		<link rel="icon" sizes="32x32" href="favicon-32.png">
+		<link rel="icon" sizes="48x48" href="favicon-48.png">
+		<link rel="icon" sizes="152x152" href="favicon-152.png">
+		<link rel="icon" sizes="196x196" href="favicon-196.png">
+		<link rel="apple-touch-icon" href="favicon-196.png">
+		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
+		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
+	</head>
+	<body class="">
+		<div id="svg_defs">
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<defs>
+					<symbol id="icon_unknown" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 2,4 a 4.5,4 0 1 1 7.75,2.75 l -2.25,2.25 h -2.5 v -1.5 l 2.5,-2.5 a 1.75,1.25 0 1 0 -2.75,-1 z"/>
+						<circle cx="6.5" cy="11.5" r="1.75"/>
+					</symbol>
+					<symbol id="icon_menudots" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<circle cx="6.5" cy="1.5" r="1.5"/>
+						<circle cx="6.5" cy="6.5" r="1.5"/>
+						<circle cx="6.5" cy="11.5" r="1.5"/>
+					</symbol>
+					<symbol id="icon_minus" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1,5 h 11 v 3 h -11 z"/>
+					</symbol>
+					<symbol id="icon_plus" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1,5 h 4 v -4 h 3 v 4 h 4 v 3 h -4 v 4 h -3 v -4 h -4 z"/>
+					</symbol>
+					<symbol id="icon_copy" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1,0 h 9 v 2 h 2 v 11 h -9 v -2 h -2 z M 2,1 v 9 h 1 v -8 h 6 v -1 z M 4,3 v 9 h 7 v -9 z"/>
+					</symbol>
+					<symbol id="icon_ignore" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0.75 a 5.75,5.75 0 1 1 0,11.5 a 5.75,5.75 0 1 1 0,-11.5 M 6.5,2.25 a 4.25,4.25 0 1 0 0,8.5 a 4.25,4.25 0 1 0 0,-8.5 z M 11.25,0.5 l 1.25,1.25 -10.75,10.75 -1.25,-1.25 z"/>
+					</symbol>
+					<symbol id="icon_eye" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,6.5 a 6.5,3.75 0 0 1 13,0 a 6.5,3.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,2.5 0 0 0 10.5,0 a 5.25,2.5 0 0 0 -10.5,0 z"/>
+						<circle cx="6.5" cy="6.5" r="1.75"/>
+					</symbol>
+					<symbol id="icon_save" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z"/>
+					</symbol>
+					<symbol id="icon_saveas" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z M 6,6 h 1 v 2 h 2 v 1 h -2 v 2 h -1 v -2 h -2 v -1 h 2 z"/>
+					</symbol>
+					<symbol id="icon_reload" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 12,8 a 5.75,5.75 0 1 1 0,-3 l -1.5,0 a 4.25,4.25 0 1 0 0,3 z M 13,0.25 v 5.75 h -5.75 z"/>
+					</symbol>
+					<symbol id="icon_rename" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 2,2 h 4 a 2,2 0 0 1 2,2 v 7 h -6 a 2,2 0 0 1 -2,-2 v -2 a 2,2 0 0 1 2,-2 h 4 a 1,1 0 0 0 -1,-1 h -5 a 2,2 0 0 1 2,-2 z M 3,7 a 1,1 0 0 0 0,2 h 3 v -2 z M 8,0 a 3,3 0 0 1 3,3 v 7 a 3,3 0 0 1 -3,3 v -1 a 2,2 0 0 0 2,-2 v -7 a 2,2 0 0 0 -2,-2 z M 13,0 v 1 a 2,2 0 0 0 -2,2 h -1 a 3,3 0 0 1 3,-3 z M 13,13 a 3,3 0 0 1 -3,-3 h 1 a 2,2 0 0 0 2,2 z"/>
+					</symbol>
+					<symbol id="icon_delete" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 3,0 h 7 v 1 h 3 v 1 h -2 v 9.75 l -2,1.25 h -5 l -2,-1.25 v -9.75 h -2 v -1 h 3 z M 3,2 v 9 l 1.5,1 h 4 l 1.5,-1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 z"/>
+					</symbol>
+					<symbol id="icon_clipboard" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,6 h 5 v -2.5 l 4,4 -4,4 v -2.5 h -5 z M 3,1 h 10 v 12 h -10 v -3 h 1 v 2 h 8 v -10 h -1 v 1 h -6 v -1 h -1 v 3 h -1 z"/>
+						<circle cx="8" cy="1.5" r="1.5"/>
+					</symbol>
+					<symbol id="icon_xref" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6,0 v 1 h -5 v 11 h 11 v -5 h 1 v 6 h -13 v -13 z M 13,0 v 5.75 l -1.75,-1.75 l -3.5,3.5 l -2.25,-2.25 l 3.5,-3.5 l -1.75,-1.75 z"/>
+					</symbol>
+					<symbol id="icon_import" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 6.5,0 l 4,4 h -2.5 v 5 h -3 v -5 h -2.5 z"/>
+					</symbol>
+					<symbol id="icon_export" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 5,0 h 3 v 5 h 2.5 l -4,4 l -4,-4 h 2.5 z"/>
+					</symbol>
+					<symbol id="icon_shipyard" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1.5,7.5 l 1.5,2.5 3.5,-3.5 3.5,3.5 1.5,-2.5 M 3,10 l 2,-6 1.5,2.5 1.5,-2.5 2,6" stroke="currentColor" stroke-width="1" stroke-linejoin="round" fill="none"/>
+						<path d="M 5,3 l 3,0 4.5,4.5 0.5,3.5 -13,0 0.5,-3.5 z M 5.75,4 l -4,4 -0.25,2 10,0 -0.25,-2 -4,-4 z"/>
+					</symbol>
+					<symbol id="icon_repair" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<circle cx="2" cy="11" r="2"/>
+						<polygon points="8,3.25 9.75,5 3.75,11 2,9.25"/>
+						<path d="M 11.25,0 l -1.5,1.5 v 1.75 h 1.75 l 1.5,-1.5 v 1 a 2.75,2.75 0 1 1 -2.75,-2.75 z"/>
+					</symbol>
+					<symbol id="icon_analysis" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1,3 h 2 v 10 h -2 z M 4,9 h 2 v 4 h -2 z M 7,0 h 2 v 13 h -2 z M 10,6 h 2 v 7 h -2 z"/>
+					</symbol>
+					<symbol id="icon_warning" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 l 6.5,13 -13,0 z M 6.5,2.5 l -4.75,9.5 9.5,0 z M 5.75,5.5 a 0.75,0.75 0 0 1 1.5,0 v 3 a 0.75,0.75 0 0 1 -1.5,0 z"/>
+						<circle cx="6.5" cy="10.5" r="0.75"/>
+					</symbol>
+					<symbol id="icon_fixed" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 1.75,6.5 a 4.75,4.75 0 0 1 9.5,0 a 4.75,4.75 0 0 1 -9.5,0 z M 3,6.5 a 3.5,3.5 0 0 0 7,0 a 3.5,3.5 0 0 0 -7,0 z M 6,0 h 1 v 4 h -1 z M 6,9 h 1 v 4 h -1 z M 0,6 h 4 v 1 h -4 z M 9,6 h 4 v 1 h -4 z"/>
+					</symbol>
+					<symbol id="icon_gimballed" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 2.75,6.5 0 0 1 0,13 a 2.75,6.5 0 0 1 0,-13 z M 6.5,1.25 a 1.5,5.25 0 0 0 0,10.5 a 1.5,5.25 0 0 0 0,-10.5 z"/>
+						<path d="M 0,6.5 a 6.5,2.75 0 0 1 13,0 a 6.5,2.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,1.5 0 0 0 10.5,0 a 5.25,1.5 0 0 0 -10.5,0 z"/>
+					</symbol>
+					<symbol id="icon_turreted" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 2,2 h 6 l 2,4.5 l -1,3.5 h -8 l -1,-3.5 z M 9,6 h 4 v 1 h -4 z M 2.75,3 l -1.5,3.5 l 0.75,2.5 h 6 l 0.75,-2.5 l -1.5,-3.5 z M 1,11 h 8 v 1 h -8 z"/>
+					</symbol>
+					<symbol id="icon_dumbfire" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.25,0 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 9.25,2 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 11.25,5 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z"/>
+						<circle cx="4.5" cy="3.5" r="0.75"/><circle cx="2.5" cy="5.5" r="0.75"/><circle cx="0.5" cy="7.5" r="0.75"/>
+						<circle cx="7.5" cy="5.5" r="0.75"/><circle cx="5.5" cy="7.5" r="0.75"/><circle cx="3.5" cy="9.5" r="0.75"/><circle cx="1.5" cy="11.5" r="0.75"/>
+						<circle cx="9.5" cy="8.5" r="0.75"/><circle cx="7.5" cy="10.5" r="0.75"/><circle cx="5.5" cy="12.5" r="0.75"/>
+					</symbol>
+					<symbol id="icon_seeker" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 10,0 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,4 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,8 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z"/>
+						<circle cx="8.5" cy="1.5" r="0.75"/><circle cx="6.5" cy="1.5" r="0.75"/><circle cx="4.5" cy="1.5" r="0.75"/><circle cx="2.5" cy="2.5" r="0.75"/><circle cx="1.5" cy="4.5" r="0.75"/><circle cx="0.5" cy="6.5" r="0.75"/><circle cx="0.5" cy="8.5" r="0.75"/><circle cx="0.5" cy="10.5" r="0.75"/><circle cx="0.5" cy="12.5" r="0.75"/>
+						<circle cx="8.5" cy="5.5" r="0.75"/><circle cx="6.5" cy="5.5" r="0.75"/><circle cx="4.5" cy="6.5" r="0.75"/><circle cx="3.5" cy="8.5" r="0.75"/><circle cx="3.5" cy="10.5" r="0.75"/><circle cx="3.5" cy="12.5" r="0.75"/>
+						<circle cx="8.5" cy="9.5" r="0.75"/><circle cx="6.5" cy="10.5" r="0.75"/><circle cx="6.5" cy="12.5" r="0.75"/>
+					</symbol>
+					<symbol id="icon_guardian" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,1 l 4,0 -2,3.5 z M 9,1 l 4,0 -2,3.5 z M 4.5,9 l 4,0 -2,3.5 z M 6.5,0.75 l 3.5,6.25 -7,0 z M 6.5,2.75 l -1.75,3.25 3.5,0 z"/>
+					</symbol>
+					<symbol id="icon_powerplay" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 l 6.5,6.5 -6.5,6.5 -6.5,-6.5 z M 2,2 h 9 v 9 h -9 z"/>
+					</symbol>
+					<symbol id="icon_engineer" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 6.5,1.25 l -4.5,2.5 0,4.5 4.5,2.5 4.5,-2.5 0,-4.5 z M 6.5,3.5 a 2.5,2.5 0 0 1 0,5 a 2.5,2.5 0 0 1 0,-5 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"/>
+					</symbol>
+					<symbol id="icon_engineered" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"/>
+					</symbol>
+					<symbol id="icon_techbroker" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,2 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
+						<path d="M 9.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
+						<path d="M 6.5,8 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
+						<path d="M 3.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
+						<path d="M 3.75,2 a 2.75,2 0 0 1 5.5,0 h -1.25 a 1.5,1 0 0 0 -3,0 z"/>
+						<path d="M 3.75,11 a 2.75,2 0 0 0 5.5,0 h -1.25 a 1.5,1 0 0 1 -3,0 z"/>
+						<path d="M 0,5 v -1 a 2,2 0 0 1 2,-2 v 1 a 1,1 0 0 0 -1,1 v 1 z"/>
+						<path d="M 13,5 v -1 a 2,2 0 0 0 -2,-2 v 1 a 1,1 0 0 1 1,1 v 1 z"/>
+						<path d="M 0,6 h 2.5 v 1 h -1.5 v 2 a 1,1 0 0 0 1,1 v 1 a 2,2 0 0 1 -2,-2 z"/>
+						<path d="M 13,6 h -2.5 v 1 h 1.5 v 2 a 1,1 0 0 1 -1,1 v 1 a 2,2 0 0 0 2,-2 z"/>
+					</symbol>
+					<symbol id="icon_community" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<!--
 						<ellipse cx="6.5" cy="7" rx="1.5" ry="2.5"/>
 						<path d="M 3,11 a 3.5,2 0 0 1 7,0 z"/>
 						<path d="M 0,9 a 3.5,2 0 0 1 2.625,-1.875 a 1.5,2.5 0 1 1 2.25,-3 l -0.875,1.875 v 2.5 l -1,0.5 z"/>
 						<path d="M 13,9 a 3.5,2 0 0 0 -2.625,-1.875 a 1.5,2.5 0 1 0 -2.25,-3 l 0.875,1.875 v 2.5 l 1,0.5 z"/>
 						-->
-<path d="M 5,0 h 0.75 v 3 l -2.5,1.75 l -3.25,-0.75 v -0.25 z"></path>
-<path d="M 8,0 h -0.75 v 3 l 2.5,1.75 l 3.25,-0.75 v -0.25 z"></path>
-<path d="M 0,7 v -1.25 l 2.875,0.625 l 0.875,2.625 l -2.125,3 z"></path>
-<path d="M 13,7 v -1.25 l -2.875,0.625 l -0.875,2.625 l 2.125,3 z"></path>
-<path d="M 5,10 h 3 l 2,3 h -7 z"></path>
-</symbol>
-<symbol fill="black" id="icon_blueprint_rand_band" opacity="0.33" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 5.125,0.125 a 6.5,6.5 0 0 1 2.75,0 l -0.375,2.5 a 4,4 0 0 0 -2,0 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_blueprint_rand" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
-<use transform="rotate(22.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(67.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(112.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(157.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(202.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(247.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(292.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<use transform="rotate(337.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
-<path d="M 3.875,6 a 2.75,1.75 0 1 1 5.25,0 l -2.125,2 h -1 v -0.5 l 1.75,-1.5 a 1.75,0.75 0 1 0 -2.5,0 z"></path>
-<circle cx="6.5" cy="9.5" r="0.5"></circle>
-</symbol>
-<symbol fill="currentColor" id="icon_blueprint_min" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z" fill="black" opacity="0.33"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_blueprint_avg" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
-<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_blueprint_high" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
-<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"></path>
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 v -2.5 a 4,4 0 0 0 0,-8 z" transform="rotate(108,6.5,6.5)"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_blueprint_max" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_maximize" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 0,0 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 13,0 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 0,13 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 13,13 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"></path>
-</symbol>
-<symbol fill="currentColor" id="icon_minimize" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
-<path d="M 7,7 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 5,7 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 7,5 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 5,5 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"></path>
-</symbol>
-</defs>
-</svg>
-</div>
-<!-- TODO --
-		<div style="z-index:9999;position:absolute;background-color:white;color:black;"><div id="query_info"></div>
+						<path d="M 5,0 h 0.75 v 3 l -2.5,1.75 l -3.25,-0.75 v -0.25 z"/>
+						<path d="M 8,0 h -0.75 v 3 l 2.5,1.75 l 3.25,-0.75 v -0.25 z"/>
+						<path d="M 0,7 v -1.25 l 2.875,0.625 l 0.875,2.625 l -2.125,3 z"/>
+						<path d="M 13,7 v -1.25 l -2.875,0.625 l -0.875,2.625 l 2.125,3 z"/>
+						<path d="M 5,10 h 3 l 2,3 h -7 z"/>
+					</symbol>
+					<symbol id="icon_blueprint_rand_band" viewbox="0 0 13 13" stroke="none" fill="black" opacity="0.33" shape-rendering="geometricPrecision">
+						<path d="M 5.125,0.125 a 6.5,6.5 0 0 1 2.75,0 l -0.375,2.5 a 4,4 0 0 0 -2,0 z"/>
+					</symbol>
+					<symbol id="icon_blueprint_rand" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(22.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(67.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(112.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(157.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(202.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(247.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(292.5,6.5,6.5)"/>
+						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(337.5,6.5,6.5)"/>
+						<path d="M 3.875,6 a 2.75,1.75 0 1 1 5.25,0 l -2.125,2 h -1 v -0.5 l 1.75,-1.5 a 1.75,0.75 0 1 0 -2.5,0 z"/>
+						<circle cx="6.5" cy="9.5" r="0.5"/>
+					</symbol>
+					<symbol id="icon_blueprint_min" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z" fill="black" opacity="0.33"/>
+					</symbol>
+					<symbol id="icon_blueprint_avg" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
+						<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"/>
+					</symbol>
+					<symbol id="icon_blueprint_high" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
+						<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"/>
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 v -2.5 a 4,4 0 0 0 0,-8 z" transform="rotate(108,6.5,6.5)"/>
+					</symbol>
+					<symbol id="icon_blueprint_max" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
+					</symbol>
+					<symbol id="icon_maximize" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 0,0 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 13,0 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 0,13 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 13,13 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"/>
+					</symbol>
+					<symbol id="icon_minimize" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
+						<path d="M 7,7 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 5,7 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 7,5 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 5,5 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"/>
+					</symbol>
+				</defs>
+			</svg>
+		</div>
+		<!-- TODO --
+		<div style="z-index:9999;position:absolute;background-color:white;color:black;"><svg class="iconsvg" style="height:500px;width:500px;"><use xlink:href="#icon_community"/></svg></div>
+		<!-- -->
+		<div id="page">
+			<div id="query_glow"></div>
+			<div id="page_header">
+				<header id="header_title">
+					<a href="">EDSY</a>
+					<button id="window_maximize"><svg class="iconsvg maximize"><use xlink:href="#icon_maximize"/></svg></button>
+					<button id="window_minimize"><svg class="iconsvg minimize"><use xlink:href="#icon_minimize"/></svg></button>
+				</header>
+				<form id="page_tabs" name="header">
+					<label class="togglebutton"><input name="tab" type="radio" value="shipyard"><div><svg class="iconsvg shipyard"><use xlink:href="#icon_shipyard"/></svg><span edsy-text="ui-shipyard">Shipyard</span></div></label>
+					<label class="togglebutton"><input name="tab" type="radio" value="outfitting"><div><svg class="iconsvg turreted"><use xlink:href="#icon_turreted"/></svg><span edsy-text="ui-outfitting">Outfitting</span></div></label>
+					<label class="togglebutton"><input name="tab" type="radio" value="analysis"><div><svg class="iconsvg analysis"><use xlink:href="#icon_analysis"/></svg><span edsy-text="ui-analysis">Analysis</span></div></label>
+					<label class="togglebutton"><input name="tab" type="radio" value="options"><div><svg class="iconsvg unknown"><use xlink:href="#icon_unknown"/></svg><svg class="iconsvg repair"><use xlink:href="#icon_repair"/></svg><span edsy-text="ui-help">Help</span></div></label>
+				</form>
+				<div id="header_version">
+					<abbr id="query_start" edsy-title="ui-query-desc" title="Drag this icon over abbreviated page elements to see more details">
+						<div id="query_tool">
+							<svg class="iconsvg unknown"><use xlink:href="#icon_unknown"/></svg>
+							<div id="query_info"></div>
 						</div>
 					</abbr>
 					<abbr id="version_label" title=""></abbr>
@@ -257,7 +276,16 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 									<select id="outfitting_fit_stored" name="outfitting_fit_stored">
 										<option value="" edsy-text="option-stock">(Stock)</option>
 									</select>
-									<button id="outfitting_fit_stored_reload"><span edsy-text="ui-slots-show">SHOW</span></label>
+									<button id="outfitting_fit_stored_reload"><svg class="iconsvg reload"><use xlink:href="#icon_reload"/></svg></button>
+									<button id="outfitting_fit_stored_save"><svg class="iconsvg save"><use xlink:href="#icon_save"/></svg></button>
+									<button id="outfitting_fit_stored_saveas"><svg class="iconsvg saveas"><use xlink:href="#icon_saveas"/></svg></button>
+									<button id="outfitting_fit_stored_rename"><svg class="iconsvg rename"><use xlink:href="#icon_rename"/></svg></button>
+									<button id="outfitting_fit_stored_delete"><svg class="iconsvg delete"><use xlink:href="#icon_delete"/></svg></button>
+								</div>
+								<span></span>
+								<div id="outfitting_cols_popout" class="popout">
+									<input type="checkbox" id="outfitting_cols_toggle" class="toggleinput">
+									<label for="outfitting_cols_toggle"><svg class="iconsvg eye"><use xlink:href="#icon_eye"/></svg> <span edsy-text="ui-slots-show">SHOW</span></label>
 									<div>
 										<label class="togglebutton"><input name="outfitting_show_mass" type="checkbox" value="1"><div class="togglebox" edsy-text="ui-slots-show-mass">Mass</div></label>
 										<label class="togglebutton"><input name="outfitting_show_power" type="checkbox" value="1"><div class="togglebox" edsy-text="ui-slots-show-power">Power</div></label>
@@ -267,9 +295,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 								</div>
 								<div id="outfitting_ops_popout" class="popout">
 									<input type="checkbox" id="outfitting_ops_toggle" class="toggleinput">
-									<label for="outfitting_ops_toggle"><span edsy-text="ui-slots-operations-import">Import...</span></button>
-										<button id="outfitting_fit_export"><span edsy-text="ui-slots-operations-export">Export...</span></button>
-										<button id="outfitting_fit_discounts"><span edsy-text="ui-slots-operations-clone">Clone Discounts</span></button>
+									<label for="outfitting_ops_toggle"><svg class="iconsvg menudots"><use xlink:href="#icon_menudots"/></svg><span edsy-text="ui-slots-operations">OPS</span></label>
+									<div>
+										<button id="outfitting_fit_import"><svg class="iconsvg import"><use xlink:href="#icon_import"/></svg> <span edsy-text="ui-slots-operations-import">Import...</span></button>
+										<button id="outfitting_fit_export"><svg class="iconsvg export"><use xlink:href="#icon_export"/></svg> <span edsy-text="ui-slots-operations-export">Export...</span></button>
+										<button id="outfitting_fit_discounts"><svg class="iconsvg copy"><use xlink:href="#icon_copy"/></svg> <span edsy-text="ui-slots-operations-clone">Clone Discounts</span></button>
 									</div>
 								</div>
 							</div>
@@ -299,7 +329,680 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 								<select id="outfitting_details_stored" name="outfitting_details_stored">
 									<option value="" edsy-text="option-stock">(Stock)</option>
 								</select>
-								<button id="outfitting_details_stored_reload"><span edsy-text="ui-retrofit-export">Export Retrofit Report ...</span></button>
+								<button id="outfitting_details_stored_reload"><svg class="iconsvg reload"><use xlink:href="#icon_reload"/></svg></button>
+								<button id="outfitting_details_stored_save"><svg class="iconsvg save"><use xlink:href="#icon_save"/></svg></button>
+								<button id="outfitting_details_stored_saveas"><svg class="iconsvg saveas"><use xlink:href="#icon_saveas"/></svg></button>
+								<button id="outfitting_details_stored_rename"><svg class="iconsvg rename"><use xlink:href="#icon_rename"/></svg></button>
+								<button id="outfitting_details_stored_delete"><svg class="iconsvg delete"><use xlink:href="#icon_delete"/></svg></button>
+							</div>
+							<div id="outfitting_details_container">
+								<div id="outfitting_details_module" class="">
+									<header id="outfitting_details_label"></header>
+									<div id="details_rank"></div>
+									<div id="details_cost">
+										<div class="details_cost_row">
+											<input type="text" name="cost" value="">
+											<span edsy-text="unit-credits-abbr">Cr</span>
+											<span id="details_cost_mod"></span>
+											<label class="togglebutton"><input name="discount" type="checkbox" value="0"><div class="togglebox" edsy-text="ui-details-discount-actual">Actual</div></label>
+										</div>
+										<div class="details_cost_row" id="details_cost_discounts">
+											<label class="togglebutton"><input name="discount" type="checkbox" value="0"><div class="togglebox"></div></label>
+										</div>
+									</div>
+									<div id="details_engineering">
+										<div id="engineering_controls">
+											<div id="engineering_selects">
+												<select name="blueprint"><option value="" edsy-text="option-no-blueprint">(No Blueprint)</option></select>
+												<div class="togglebutton">
+													<label class="checkbox left">
+														<input type="checkbox" name="pre_engineered">
+														<div>
+															<div class="check"></div>
+															<span edsy-text="ui-details-blueprint-preeng">Pre</span>
+														</div>
+													</label>
+													<span edsy-text="ui-details-blueprint-grade">Grade</span>
+													<input id="blueprint_grade_1" name="blueprint_grade" type="radio" value="1">
+													<input id="blueprint_grade_2" name="blueprint_grade" type="radio" value="2">
+													<input id="blueprint_grade_3" name="blueprint_grade" type="radio" value="3">
+													<input id="blueprint_grade_4" name="blueprint_grade" type="radio" value="4">
+													<input id="blueprint_grade_5" name="blueprint_grade" type="radio" value="5">
+													<label for="blueprint_grade_1"><svg class="iconsvg engineer"><use xlink:href="#icon_engineer"/></svg><svg class="iconsvg engineered"><use xlink:href="#icon_engineered"/></svg></label>
+													<label for="blueprint_grade_2"><svg class="iconsvg engineer"><use xlink:href="#icon_engineer"/></svg><svg class="iconsvg engineered"><use xlink:href="#icon_engineered"/></svg></label>
+													<label for="blueprint_grade_3"><svg class="iconsvg engineer"><use xlink:href="#icon_engineer"/></svg><svg class="iconsvg engineered"><use xlink:href="#icon_engineered"/></svg></label>
+													<label for="blueprint_grade_4"><svg class="iconsvg engineer"><use xlink:href="#icon_engineer"/></svg><svg class="iconsvg engineered"><use xlink:href="#icon_engineered"/></svg></label>
+													<label for="blueprint_grade_5"><svg class="iconsvg engineer"><use xlink:href="#icon_engineer"/></svg><svg class="iconsvg engineered"><use xlink:href="#icon_engineered"/></svg></label>
+												</div>
+												<select name="expeffect"><option value="" edsy-text="option-no-expeffect">(No Experimental Effect)</option></select>
+											</div>
+											<div id="engineering_roll">
+												<div class="outer">
+													<div class="mask"><div id="roll_ring1" class="inner"></div></div>
+													<div class="mask"><div id="roll_ring2" class="inner"></div></div>
+													<div class="middle">
+														<input type="text" id="blueprint_roll" name="blueprint_roll" value="">
+													</div>
+												</div>
+											</div>
+											<div id="engineering_rollbuttons">
+												<button name="blueprint_roll_preset1" value="0.5" edsy-vals="{&quot;number&quot;:0.5,&quot;number%&quot;:true}" edsy-text="interp-number">50%</button>
+												<button name="blueprint_roll_preset2" value="0.8" edsy-vals="{&quot;number&quot;:0.8,&quot;number%&quot;:true}" edsy-text="interp-number">80%</button>
+												<button name="blueprint_roll_preset3" value="1.0" edsy-vals="{&quot;number&quot;:1.0,&quot;number%&quot;:true}" edsy-text="interp-number">100%</button>
+											</div>
+										</div>
+										<div id="details_special"></div>
+									</div>
+								</div>
+							</div>
+							<div id="outfitting_details_buttons">
+								<button id="outfitting_details_button_back" name="back" edsy-text="ui-button-back">Back</button>
+								<button id="outfitting_details_button_replace" name="replace">Replace</button>
+							</div>
+						</form>
+					</div>
+					<form id="outfitting_bottom" name="stats">
+						<input type="checkbox" id="stats_show" class="toggleinput" value="1" checked>
+						<input type="checkbox" id="stats_toggle_1" class="toggleinput stats_toggle" value="8" checked>
+						<input type="checkbox" id="stats_toggle_2" class="toggleinput stats_toggle" value="7" checked>
+						<input type="checkbox" id="stats_toggle_3" class="toggleinput stats_toggle" value="6" checked>
+						<input type="checkbox" id="stats_toggle_4" class="toggleinput stats_toggle" value="5" checked>
+						<input type="checkbox" id="stats_toggle_5" class="toggleinput stats_toggle" value="4" checked>
+						<input type="checkbox" id="stats_toggle_6" class="toggleinput stats_toggle" value="3" checked>
+						<input type="checkbox" id="stats_toggle_7" class="toggleinput stats_toggle" value="2" checked>
+						<input type="checkbox" id="stats_toggle_8" class="toggleinput stats_toggle" value="1" checked>
+						<div id="stats_show_handle">
+							<label for="stats_show" class="stats_show_label">
+								<div class="show">&#9650; &#9650; &#9650;  <span edsy-text="ui-stats-show">SHOW STATS</span>  &#9650; &#9650; &#9650;</div>
+								<div class="hide">&#9660; &#9660; &#9660;  <span edsy-text="ui-stats-hide">HIDE STATS</span>  &#9660; &#9660; &#9660;</div>
+							</label>
+						</div>
+						<div id="outfitting_stats">
+							<div id="stats_toggles_left" class="stats_toggles">
+								<label for="stats_toggle_1" class="stats_toggle_label stats_toggle_label_1"><abbr edsy-title="ui-stats-totals-desc" title="Totals and capacities" edsy-text="ui-stats-totals-abbr">TTL</abbr></label>
+								<label for="stats_toggle_2" class="stats_toggle_label stats_toggle_label_2"><abbr edsy-title="ui-stats-nav-desc" title="Navigational (FSD and Thruster) statistics" edsy-text="ui-stats-nav-abbr">NAV</abbr></label>
+								<label for="stats_toggle_3" class="stats_toggle_label stats_toggle_label_3"><abbr edsy-title="ui-stats-handling-desc" title="Handling statistics" edsy-text="ui-stats-handling-abbr">HND</abbr></label>
+								<label for="stats_toggle_4" class="stats_toggle_label stats_toggle_label_4"><abbr edsy-title="ui-stats-thermal-desc" title="Thermal statistics" edsy-text="ui-stats-thermal-abbr">THM</abbr></label>
+							</div>
+							<div id="stats_toggles_right" class="stats_toggles">
+								<label for="stats_toggle_5" class="stats_toggle_label stats_toggle_label_5"><abbr edsy-title="ui-stats-shield-desc" title="Shield statistics" edsy-text="ui-stats-shield-abbr">SHD</abbr></label>
+								<label for="stats_toggle_6" class="stats_toggle_label stats_toggle_label_6"><abbr edsy-title="ui-stats-armour-desc" title="Armour statistics" edsy-text="ui-stats-armour-abbr">ARM</abbr></label>
+								<label for="stats_toggle_7" class="stats_toggle_label stats_toggle_label_7"><abbr edsy-title="ui-stats-weapon-desc" title="Weapon statistics" edsy-text="ui-stats-weapon-abbr">WPN</abbr></label>
+								<label for="stats_toggle_8" class="stats_toggle_label stats_toggle_label_8"><abbr edsy-title="ui-stats-price-desc" title="Prices" edsy-text="ui-stats-price-abbr">PRC</abbr></label>
+							</div>
+							<div id="outfitting_stats_wrapper">
+								<div id="outfitting_stats_container">
+									<div id="outfitting_stats_1" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_1" class="stats_toggle_label stats_toggle_label_1"><abbr edsy-title="ui-stats-totals-desc" title="Totals and capacities" edsy-text="ui-stats-totals-abbr">TTL</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-totals-mass-desc" title="Current mass and maximum laden mass (in tons)" edsy-text="ui-stats-totals-mass-abbr">MASS</abbr></td>
+													<td><abbr edsy-title="ui-stats-totals-fuel-desc" title="Current fuel and total capacity (in tons)" edsy-text="ui-stats-totals-fuel-abbr">FUEL</abbr></td>
+													<td><abbr edsy-title="ui-stats-totals-cargo-desc" title="Current cargo and total capacity (in tons)" edsy-text="ui-stats-totals-cargo-abbr">CRGO</abbr></td>
+													<td><abbr edsy-title="ui-stats-totals-passenger-desc" title="Total passenger capacity" edsy-text="ui-stats-totals-passenger-abbr">PSGR</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-current-desc" title="Current values used to calculate other statistics" edsy-text="ui-stats-totals-current-abbr">CUR</abbr></th>
+													<td id="outfitting_stats_cur_mass"></td>
+													<td><input type="text" name="stats_cur_fuel"><small edsy-text="unit-tons-abbr">T</small></td>
+													<td><input type="text" name="stats_cur_cargo"><small edsy-text="unit-tons-abbr">T</small></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-maximum-desc" title="Maximum value or capacity" edsy-text="ui-stats-totals-maximum-abbr">MAX</abbr></th>
+													<td id="outfitting_stats_max_mass"></td>
+													<td id="outfitting_stats_max_fuel"></td>
+													<td id="outfitting_stats_max_cargo"></td>
+													<td id="outfitting_stats_max_psgr"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-crew-desc" title="Crew power assignments" edsy-text="ui-stats-totals-crew-abbr">CRW</abbr></th>
+													<td colspan=4>
+														<div id="outfitting_fit_crewdist" class="outfitting_powerdist">
+															<button id="outfitting_fit_crewdist_avl" class="" name="crewdist_avl"><div class="crewpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-crew-available-abbr">AVL</div></button>
+															<button id="outfitting_fit_crewdist_sys" class="" name="crewdist_sys"><div class="crewpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-systems-abbr">SYS</div></button>
+															<button id="outfitting_fit_crewdist_eng" class="" name="crewdist_eng"><div class="crewpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-engines-abbr">ENG</div></button>
+															<button id="outfitting_fit_crewdist_wep" class="" name="crewdist_wep"><div class="crewpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-weapons-abbr">WEP</div></button>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-distributor-desc" title="Power distributor settings" edsy-text="ui-stats-totals-distributor-abbr">DST</abbr></th>
+													<td colspan=4>
+														<div id="outfitting_fit_powerdist" class="outfitting_powerdist">
+															<button id="outfitting_fit_powerdist_rst" class="" name="powerdist_rst"><div class="powerpips"></div><div edsy-text="ui-stats-totals-distributor-reset-abbr">RST</div></button>
+															<button id="outfitting_fit_powerdist_sys" class="" name="powerdist_sys"><div class="powerpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-systems-abbr">SYS</div></button>
+															<button id="outfitting_fit_powerdist_eng" class="" name="powerdist_eng"><div class="powerpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-engines-abbr">ENG</div></button>
+															<button id="outfitting_fit_powerdist_wep" class="" name="powerdist_wep"><div class="powerpips"><span></span><span></span><span></span><span></span></div><div edsy-text="ui-stats-totals-distributor-weapons-abbr">WEP</div></button>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-retracted-desc" title="Power draw (in megawatts) with hardpoints retracted" edsy-text="ui-stats-totals-retracted-abbr">RET</abbr></th>
+													<td colspan=1 id="outfitting_stats_power_ret"></td>
+													<td colspan=3 class="nopad"
+														><div class="outfitting_stats_powerbar"
+															><span class="marker marker40"></span
+															><span class="marker marker50"></span
+															><span class="marker marker100"></span
+															><div
+																><span class="overload"></span
+																><abbr id="outfitting_stats_power_ret_1"><span>1</span></abbr
+																><abbr id="outfitting_stats_power_ret_2"><span>2</span></abbr
+																><abbr id="outfitting_stats_power_ret_3"><span>3</span></abbr
+																><abbr id="outfitting_stats_power_ret_4"><span>4</span></abbr
+																><abbr id="outfitting_stats_power_ret_5"><span>5</span></abbr
+															></div
+														></div
+													></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-totals-deployed-desc" title="Power draw (in megawatts) with hardpoints deployed" edsy-text="ui-stats-totals-deployed-abbr">DEP</abbr></th>
+													<td colspan=1 id="outfitting_stats_power_dep"></td>
+													<td colspan=3 class="nopad"
+														><div class="outfitting_stats_powerbar"
+															><span class="marker marker40"></span
+															><span class="marker marker50"></span
+															><span class="marker marker100"></span
+															><div
+																><span class="overload"></span
+																><abbr id="outfitting_stats_power_dep_1"><span>1</span></abbr
+																><abbr id="outfitting_stats_power_dep_2"><span>2</span></abbr
+																><abbr id="outfitting_stats_power_dep_3"><span>3</span></abbr
+																><abbr id="outfitting_stats_power_dep_4"><span>4</span></abbr
+																><abbr id="outfitting_stats_power_dep_5"><span>5</span></abbr
+															></div
+														></div
+													></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_2" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_2" class="stats_toggle_label stats_toggle_label_2"><abbr edsy-title="ui-stats-nav-desc" title="Navigational (FSD and Thruster) statistics" edsy-text="ui-stats-nav-abbr">NAV</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-nav-jump-desc" title="Single jump range (in light-years) and fuel scoop time to refuel per max-range jump" edsy-text="ui-stats-nav-jump-abbr">JMP</abbr></td>
+													<td><abbr edsy-title="ui-stats-nav-range-desc" title="Total jump range (in light-years) of max-range jumps on a full fuel tank, and fuel scoop time to refuel per tank" edsy-text="ui-stats-nav-range-abbr">RNG</abbr></td>
+													<td><abbr edsy-title="ui-stats-nav-speed-desc" title="Thruster speed (in meters per second) and fuel scoop rate (in tons per second)" edsy-text="ui-stats-nav-speed-abbr">SPD</abbr></td>
+													<td><abbr edsy-title="ui-stats-nav-boost-desc" title="Boost speed (in meters per second)" edsy-text="ui-stats-nav-boost-abbr">BST</abbr></td>
+													<td><abbr edsy-title="ui-stats-nav-frequency-desc" title="Time for ENG capacitor to recharge for one boost" edsy-text="ui-stats-nav-frequency-abbr">FRQ</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-nav-current-desc" title="Current values using configured ENG pips, fuel and cargo settings" edsy-text="ui-stats-nav-current-abbr">CUR</abbr></th>
+													<td id="outfitting_stats_cur_jump"></td>
+													<td id="outfitting_stats_cur_range"></td>
+													<td id="outfitting_stats_cur_speed"></td>
+													<td id="outfitting_stats_cur_boost"></td>
+													<td id="outfitting_stats_cur_boostfreq"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-nav-laden-desc" title="Values with 4 ENG pips, full fuel, and full cargo" edsy-text="ui-stats-nav-laden-abbr">LDN</abbr></th>
+													<td id="outfitting_stats_laden_jump"></td>
+													<td id="outfitting_stats_laden_range"></td>
+													<td id="outfitting_stats_laden_speed"></td>
+													<td id="outfitting_stats_laden_boost"></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-nav-unladen-desc" title="Values with 4 ENG pips, full fuel, and no cargo" edsy-text="ui-stats-nav-unladen-abbr">UNL</abbr></th>
+													<td id="outfitting_stats_unladen_jump"></td>
+													<td id="outfitting_stats_unladen_range"></td>
+													<td id="outfitting_stats_unladen_speed"></td>
+													<td id="outfitting_stats_unladen_boost"></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-nav-maximum-desc" title="Maximum values with 4 ENG pips, minimal or no fuel, and no cargo" edsy-text="ui-stats-nav-maximum-abbr">MAX</abbr></th>
+													<td id="outfitting_stats_max_jump"></td>
+													<td></td>
+													<td id="outfitting_stats_max_speed"></td>
+													<td id="outfitting_stats_max_boost"></td>
+													<td id="outfitting_stats_max_boostfreq"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-nav-scoop-desc" title="Fuel scooping time per jump, time per tank, and rate" edsy-text="ui-stats-nav-scoop-abbr">SCP</abbr></th>
+													<td id="outfitting_stats_scoop_jump"></td>
+													<td id="outfitting_stats_scoop_range"></td>
+													<td id="outfitting_stats_scoop_speed"></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th>&nbsp;</th>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_3" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_3" class="stats_toggle_label stats_toggle_label_3"><abbr edsy-title="ui-stats-handling-desc" title="Handling statistics" edsy-text="ui-stats-handling-abbr">HND</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-handling-pitch-desc" title="Pitch (nose up/down) speed (in degrees per second) and 180-degree flip time" edsy-text="ui-stats-handling-pitch-abbr">PIT</abbr></td>
+													<td><abbr edsy-title="ui-stats-handling-roll-desc" title="Roll (tilt left/right) speed (in degrees per second) and 180-degree flip time" edsy-text="ui-stats-handling-roll-abbr">ROL</abbr></td>
+													<td><abbr edsy-title="ui-stats-handling-yaw-desc" title="Yaw (nose left/right) speed (in degrees per second) and 180-degree flip time" edsy-text="ui-stats-handling-yaw-abbr">YAW</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th rowspan=2 class="vam"><abbr edsy-title="ui-stats-handling-current-desc" title="Current values using configured ENG pips, fuel and cargo settings" edsy-text="ui-stats-handling-current-abbr">CUR</abbr></th>
+													<td id="outfitting_stats_cur_pitch"></td>
+													<td id="outfitting_stats_cur_roll"></td>
+													<td id="outfitting_stats_cur_yaw"></td>
+												</tr>
+												<tr>
+													<!-- th>&nbsp;</th -->
+													<td id="outfitting_stats_cur_pitchtime"></td>
+													<td id="outfitting_stats_cur_rolltime"></td>
+													<td id="outfitting_stats_cur_yawtime"></td>
+												</tr>
+												<tr>
+													<th rowspan=2 class="vam"><abbr edsy-title="ui-stats-handling-maximum-desc" title="Maximum values with 4 ENG pips, minimal or no fuel, and no cargo" edsy-text="ui-stats-handling-maximum-abbr">MAX</abbr></th>
+													<td id="outfitting_stats_max_pitch"></td>
+													<td id="outfitting_stats_max_roll"></td>
+													<td id="outfitting_stats_max_yaw"></td>
+												</tr>
+												<tr>
+													<!-- th>&nbsp;</th -->
+													<td id="outfitting_stats_max_pitchtime"></td>
+													<td id="outfitting_stats_max_rolltime"></td>
+													<td id="outfitting_stats_max_yawtime"></td>
+												</tr>
+												<tr>
+													<th rowspan=2 class="vam"><abbr edsy-title="ui-stats-handling-boost-desc" title="Values during engine boost"><!-- TODO boost --></abbr></th>
+													<td id="outfitting_stats_bst_pitch"></td>
+													<td id="outfitting_stats_bst_roll"></td>
+													<td id="outfitting_stats_bst_yaw"></td>
+												</tr>
+												<tr>
+													<!-- th>&nbsp;</th -->
+													<td id="outfitting_stats_bst_pitchtime"></td>
+													<td id="outfitting_stats_bst_rolltime"></td>
+													<td id="outfitting_stats_bst_yawtime"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_4" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_4" class="stats_toggle_label stats_toggle_label_4"><abbr edsy-title="ui-stats-thermal-desc" title="Thermal statistics" edsy-text="ui-stats-thermal-abbr">THM</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-thermal-level-desc" title="Heat level at equilibrium, or time from 66% to 100% heat if overheating" edsy-text="ui-stats-thermal-level-abbr">LVL</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-thermal-idle-desc" title="Values at idle, with thermal load only from power draw and power plant efficiency" edsy-text="ui-stats-thermal-idle-abbr">IDL</abbr></th>
+													<td id="outfitting_stats_idl_heat"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-thermal-thrust-desc" title="Values under maximum thrust" edsy-text="ui-stats-thermal-thrust-abbr">THR</abbr></th>
+													<td id="outfitting_stats_thr_heat"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-thermal-fsd-desc" title="Values under maximum thrust with FSD charging" edsy-text="ui-stats-thermal-fsd-abbr">FSD</abbr></th>
+													<td id="outfitting_stats_fsd_heat"></td>
+												</tr>
+												<tr>
+													<th rowspan=2 class="vam"><abbr edsy-title="ui-stats-thermal-weapons-desc" title="Values under maximum thrust with all weapons firing, with a full and a nearly empty WEP capacitor" edsy-text="ui-stats-thermal-weapons-abbr">WEP</abbr></th>
+													<td id="outfitting_stats_wpnfull_heat"></td>
+												</tr>
+												<tr>
+													<!-- th>&nbsp;</th -->
+													<td id="outfitting_stats_wpnempty_heat"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-thermal-scb-desc" title="Values under maximum thrust with SCBs firing" edsy-text="ui-stats-thermal-scb-abbr">SCB</abbr></th>
+													<td id="outfitting_stats_scb_heat"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_5" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_5" class="stats_toggle_label stats_toggle_label_5"><abbr edsy-title="ui-stats-shield-desc" title="Shield statistics" edsy-text="ui-stats-shield-abbr">SHD</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-shield-resist-desc" title="Damage resistance (in %)" edsy-text="ui-stats-shield-resist-abbr">RES</abbr></td>
+													<td><abbr edsy-title="ui-stats-shield-strength-desc" title="Raw and effective maximum strength (in megajoules)" edsy-text="ui-stats-shield-strength-abbr">STR</abbr></td>
+													<!-- <td><abbr edsy-title="ui-stats-shield-regen-desc" title="Raw and effective regeneration rate (in megajoules per second)" edsy-text="ui-stats-shield-regen-abbr">RGN</abbr></td> -->
+													<td><abbr edsy-title="ui-stats-shield-reinforce-desc" title="Raw and effective Shield Cell Bank reinforcement total (in megajoules)" edsy-text="ui-stats-shield-reinforce-abbr">RNF</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-raw-desc" title="Raw values" edsy-text="ui-stats-shield-raw-abbr">RAW</abbr></th>
+													<td></td>
+													<td id="outfitting_stats_raw_shield_strength"></td>
+													<!-- <td id="outfitting_stats_raw_shield_regen"></td> -->
+													<td id="outfitting_stats_raw_shield_reinf"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-sys-desc" title="Base resistance from SYS pips, and effective values vs. absolute and non-weapon damage" edsy-text="ui-stats-shield-sys-abbr">SYS</abbr></th>
+													<td id="outfitting_stats_abs_shield_resist"></td>
+													<td id="outfitting_stats_abs_shield_strength"></td>
+													<!-- <td id="outfitting_stats_abs_shield_regen"></td> -->
+													<td id="outfitting_stats_abs_shield_reinf"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-kinetic-desc" title="Kinetic resistance, and effective values vs. kinetic damage (including both KIN and SYS resistance)" edsy-text="ui-stats-shield-kinetic-abbr">KIN</abbr></th>
+													<td id="outfitting_stats_kin_shield_resist"></td>
+													<td id="outfitting_stats_kin_shield_strength"></td>
+													<!-- <td id="outfitting_stats_kin_shield_regen"></td> -->
+													<td id="outfitting_stats_kin_shield_reinf"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-thermal-desc" title="Thermal resistance, and effective values vs. thermal damage (including both THM and SYS resistance)" edsy-text="ui-stats-shield-thermal-abbr">THM</abbr></th>
+													<td id="outfitting_stats_thm_shield_resist"></td>
+													<td id="outfitting_stats_thm_shield_strength"></td>
+													<!-- <td id="outfitting_stats_thm_shield_regen"></td> -->
+													<td id="outfitting_stats_thm_shield_reinf"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-explosive-desc" title="Explosive resistance, and effective values vs. explosive damage (including both EXP and SYS resistance)" edsy-text="ui-stats-shield-explosive-abbr">EXP</abbr></th>
+													<td id="outfitting_stats_exp_shield_resist"></td>
+													<td id="outfitting_stats_exp_shield_strength"></td>
+													<!-- <td id="outfitting_stats_exp_shield_regen"></td> -->
+													<td id="outfitting_stats_exp_shield_reinf"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-shield-rebuild-desc" title="Time to rebuild from 0% to 50%, including SYS pips and 16s delay, from a full SYS capacitor" edsy-text="ui-stats-shield-rebuild-abbr">BLD</abbr></th>
+													<td id="outfitting_stats_shield_build" class="other"></td>
+													<th><abbr edsy-title="ui-stats-shield-rebuildgen-desc" title="Time to regenerate from 50% to 100%, including SYS pips, from an empty SYS capacitor" edsy-text="ui-stats-shield-rebuildgen-abbr">RGN</abbr></th>
+													<!-- <td></td> -->
+													<td id="outfitting_stats_shield_regen" class="other"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_6" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_6" class="stats_toggle_label stats_toggle_label_6"><abbr edsy-title="ui-stats-armour-desc" title="Armour statistics" edsy-text="ui-stats-armour-abbr">ARM</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-armour-resist-desc" title="Hull hardness, and damage resistance (in %)" edsy-text="ui-stats-armour-resist-abbr">RES</abbr></td>
+													<td><abbr edsy-title="ui-stats-armour-integrity-desc" title="Raw and effective integrity" edsy-text="ui-stats-armour-integrity-abbr">INT</abbr></td>
+													<td><abbr edsy-title="ui-stats-armour-repair-desc" title="Raw and effective Repair Limpet repair total, assuming full cargo of limpets" edsy-text="ui-stats-armour-repair-abbr">REP</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-raw-desc" title="Raw values" edsy-text="ui-stats-armour-raw-abbr">RAW</abbr></th>
+													<td id="outfitting_stats_raw_armour_hardness"></td>
+													<td id="outfitting_stats_raw_armour_integ"></td>
+													<td id="outfitting_stats_raw_armour_repair"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-mrp-desc" title="Module Reinforcement Packages total protection value (in %) and integrity" edsy-text="ui-stats-armour-mrp-abbr">MRP</abbr></th>
+													<td id="outfitting_stats_mod_armour_protect"></td>
+													<td id="outfitting_stats_mod_armour_integ"></td>
+													<td></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-kinetic-desc" title="Kinetic resistance, and effective values vs. kinetic damage (including resistance)" edsy-text="ui-stats-armour-kinetic-abbr">KIN</abbr></th>
+													<td id="outfitting_stats_kin_armour_resist"></td>
+													<td id="outfitting_stats_kin_armour_integ"></td>
+													<td id="outfitting_stats_kin_armour_repair"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-thermal-desc" title="Thermal resistance, and effective values vs. thermal damage (including resistance)" edsy-text="ui-stats-armour-thermal-abbr">THM</abbr></th>
+													<td id="outfitting_stats_thm_armour_resist"></td>
+													<td id="outfitting_stats_thm_armour_integ"></td>
+													<td id="outfitting_stats_thm_armour_repair"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-explosive-desc" title="Explosive resistance, and effective values vs. explosive damage (including resistance)" edsy-text="ui-stats-armour-explosive-abbr">EXP</abbr></th>
+													<td id="outfitting_stats_exp_armour_resist"></td>
+													<td id="outfitting_stats_exp_armour_integ"></td>
+													<td id="outfitting_stats_exp_armour_repair"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-armour-caustic-desc" title="Caustic resistance, and effective values vs. caustic damage (including resistance)" edsy-text="ui-stats-armour-caustic-abbr">CAU</abbr></th>
+													<td id="outfitting_stats_cau_armour_resist"></td>
+													<td id="outfitting_stats_cau_armour_integ"></td>
+													<td id="outfitting_stats_cau_armour_repair"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_7" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_7" class="stats_toggle_label stats_toggle_label_7"><abbr edsy-title="ui-stats-weapon-desc" title="Weapon statistics" edsy-text="ui-stats-weapon-abbr">WPN</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-weapon-burst-desc" title="Burst damage per second from all weapons, while WEP capacitor and ammo last" edsy-text="ui-stats-weapon-burst-abbr">BST</abbr></td>
+													<td></td>
+													<td><abbr edsy-title="ui-stats-weapon-duration-desc" title="Burst damage duration until WEP capacitor or ammo are exhausted" edsy-text="ui-stats-weapon-duration-abbr">DUR</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-raw-desc" title="Raw damage per second" edsy-text="ui-stats-weapon-raw-abbr">RAW</abbr></th>
+													<td id="outfitting_stats_wpn_raw_burst"></td>
+													<th><abbr edsy-title="ui-stats-weapon-duration-current-desc" title="Current capacitor duration using configured power distributor settings" edsy-text="ui-stats-weapon-duration-current-abbr">CUR</abbr></th>
+													<td id="outfitting_stats_wpn_cur_dur"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-absolute-desc" title="Absolute damage proportion" edsy-text="ui-stats-weapon-absolute-abbr">ABS</abbr></th>
+													<td id="outfitting_stats_wpn_abs_burst"></td>
+													<th><abbr edsy-title="ui-stats-weapon-duration-maximum-desc" title="Maximum capacitor duration with 4 WEP pips" edsy-text="ui-stats-weapon-duration-maximum-abbr">MAX</abbr></th>
+													<td id="outfitting_stats_wpn_max_dur"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-kinetic-desc" title="Kinetic damage proportion" edsy-text="ui-stats-weapon-kinetic-abbr">KIN</abbr></th>
+													<td id="outfitting_stats_wpn_kin_burst"></td>
+													<th><abbr edsy-title="ui-stats-weapon-duration-ammo-desc" title="Ammo duration with 4 WEP pips" edsy-text="ui-stats-weapon-duration-ammo-abbr">AMM</abbr></th>
+													<td id="outfitting_stats_wpn_amm_dur"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-thermal-desc" title="Thermal damage proportion" edsy-text="ui-stats-weapon-thermal-abbr">THM</abbr></th>
+													<td id="outfitting_stats_wpn_thm_burst"></td>
+													<td></td>
+													<th class="header"><abbr edsy-title="ui-stats-weapon-sustained-desc" title="Sustainable damage proportion once WEP capacitor is drained" edsy-text="ui-stats-weapon-sustained-abbr">SUS</abbr></th>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-explosive-desc" title="Explosive damage proportion" edsy-text="ui-stats-weapon-explosive-abbr">EXP</abbr></th>
+													<td id="outfitting_stats_wpn_exp_burst"></td>
+													<th><abbr edsy-title="ui-stats-weapon-sustained-current-desc" title="Current value using configured power distributor settings" edsy-text="ui-stats-weapon-sustained-current-abbr">CUR</abbr></th>
+													<td id="outfitting_stats_wpn_cur_sus"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-weapon-antixeno-desc" title="Anti-xeno damage proportion" edsy-text="ui-stats-weapon-antixeno-abbr">A-X</abbr></th>
+													<td id="outfitting_stats_wpn_axe_burst"></td>
+													<th><abbr edsy-title="ui-stats-weapon-sustained-maximum-desc" title="Maximum value with 4 WEP pips" edsy-text="ui-stats-weapon-sustained-maximum-abbr">MAX</abbr></th>
+													<td id="outfitting_stats_wpn_max_sus"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div id="outfitting_stats_8" class="outfitting_stats_panel">
+										<table>
+											<thead>
+												<tr>
+													<th><label for="stats_toggle_8" class="stats_toggle_label stats_toggle_label_8"><abbr edsy-title="ui-stats-price-desc" title="Prices" edsy-text="ui-stats-price-abbr">PRC</abbr></label></th>
+													<td><abbr edsy-title="ui-stats-price-credits-desc" title="Price (in credits)" edsy-text="ui-stats-price-credits-abbr">CR</abbr></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-refuel-desc" title="Refuel price for all tanks" edsy-text="ui-stats-price-refuel-abbr">RFL</abbr></th>
+													<td id="outfitting_prc_fuel"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-replace-desc" title="Replacement price for all vehicles" edsy-text="ui-stats-price-replace-abbr">RPL</abbr></th>
+													<td id="outfitting_prc_vehicle"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-restock-desc" title="Restock price for all AFMUs, SCBs and utility mounts" edsy-text="ui-stats-price-restock-abbr">RSK</abbr></th>
+													<td id="outfitting_prc_misc"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-rearm-desc" title="Rearm price for all hardpoint weapons" edsy-text="ui-stats-price-rearm-abbr">RAR</abbr></th>
+													<td id="outfitting_prc_ammo"></td>
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-rebuy-desc" title="Insurance rebuy price" edsy-text="ui-stats-price-rebuy-abbr">RBY</abbr></th>
+													<td id="outfitting_stats_rebuy"></td><!-- TODO rename -->
+												</tr>
+												<tr>
+													<th><abbr edsy-title="ui-stats-price-buy-desc" title="Total buy price" edsy-text="ui-stats-price-buy-abbr">BUY</abbr></th>
+													<td id="outfitting_stats_price"></td><!-- TODO rename -->
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<form id="page_body_analysis" name="analysis" class="">
+					<div id="analysis_tabs">
+						<label class="togglebutton"><input name="tab" type="radio" value="retrofit"><div class="togglebox" edsy-text="ui-retrofit">Retrofit</div></label>
+						<label class="togglebutton"><input name="tab" type="radio" value="compare"><!-- TODO <div class="togglebox" edsy-text="ui-compare">Compare</div> --></label>
+					</div>
+					<div id="analysis_container">
+						<div id="analysis_compare_container"></div>
+						<div id="analysis_retrofit_container">
+							<div class="analysis_retrofit_section">
+								<div id="analysis_retrofit_builds" class="analysis_retrofit_panel">
+									<div class="analysis_retrofit_divider">
+										<header edsy-text="ui-retrofit-builds">Builds</header>
+									</div>
+									<div class="scroller">
+										<table id="analysis_retrofit_builds_table" class="striped">
+											<thead>
+												<tr>
+													<td class="stickytop" width="0%"><label class="checkbox"><input type="checkbox" name="retrofit_builds_show_all" checked><div><div class="check"></div></div></label></td>
+													<th class="stickytop" width="50%" edsy-text="ui-retrofit-target-build">Target Build</th>
+													<th class="stickytop" width="50%" edsy-text="ui-retrofit-base-build">Base Build</th>
+													<td class="stickytop tar" width="0%"><button name="retrofit_builds_add"><svg class="iconsvg plus"><use xlink:href="#icon_plus"/></svg></button></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><label class="checkbox"><input type="checkbox" name="retrofit_builds_show_" checked><div><div class="check"></div></div></label></td>
+													<td><select name="retrofit_builds_target_">
+														<option value="" selected edsy-text="option-current-build">(Current Build)</option>
+													</select></td>
+													<td><select name="retrofit_builds_base_">
+														<option value="	stock" selected edsy-text="option-stock-ship">(Stock Ship)</option>
+														<option value="" selected edsy-text="option-current-build">(Current Build)</option>
+													</select></td>
+													<td class="tar"><button name="retrofit_builds_delete_"><svg class="iconsvg minus"><use xlink:href="#icon_minus"/></svg></button></td>
+												</tr>
+											</tbody>
+											<!-- TODO delete in favor of + button
+											<tfoot>
+												<tr>
+													<td></td>
+													<th><select name="retrofit_builds_add">
+														<option value="" selected>(Add Retrofit...)</option>
+														<option value="" selected>(Current Build)</option>
+													</select></th>
+													<th></th>
+													<td></td>
+												</tr>
+											</tfoot>
+											-->
+										</table>
+									</div>
+								</div>
+								<div id="analysis_retrofit_setup" class="analysis_retrofit_panel">
+									<div class="analysis_retrofit_divider">
+										<header edsy-text="ui-retrofit-settings">Settings</header>
+									</div>
+									<table>
+										<tbody>
+											<tr>
+												<td edsy-text="ui-retrofit-settings-rebuy-discounted">Re-buy if discounted less than</td>
+												<td colspan=2><select name="retrofit_setup_discount"></select></td>
+											</tr>
+											<tr>
+												<td edsy-text="ui-retrofit-settings-rebuy-engineered">Re-buy if engineered up to</td>
+												<td colspan=2><select name="retrofit_setup_disceng">
+													<option value="0" selected edsy-text="ui-retrofit-settings-rebuy-engineered-0">grade 0 (unengineered)</option>
+													<option value="1" edsy-text="ui-retrofit-settings-rebuy-engineered-1">grade 1</option>
+													<option value="2" edsy-text="ui-retrofit-settings-rebuy-engineered-2">grade 2</option>
+													<option value="3" edsy-text="ui-retrofit-settings-rebuy-engineered-3">grade 3</option>
+													<option value="4" edsy-text="ui-retrofit-settings-rebuy-engineered-4">grade 4</option>
+													<option value="5" edsy-text="ui-retrofit-settings-rebuy-engineered-5">grade 5 (always)</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td edsy-text="ui-retrofit-settings-blueprint">Apply blueprints up to</td>
+												<td><select name="retrofit_setup_bpgrade">
+													<option value="0" edsy-text="ui-retrofit-settings-blueprint-grade0">grade 0 (ignore)</option>
+													<option value="1" edsy-text="ui-retrofit-settings-blueprint-grade1">grade 1</option>
+													<option value="2" edsy-text="ui-retrofit-settings-blueprint-grade2">grade 2</option>
+													<option value="3" edsy-text="ui-retrofit-settings-blueprint-grade3">grade 3</option>
+													<option value="4" edsy-text="ui-retrofit-settings-blueprint-grade4">grade 4</option>
+													<option value="5" selected edsy-text="ui-retrofit-settings-blueprint-grade5">grade 5</option>
+												</select></td>
+												<td><select name="retrofit_setup_bproll">
+													<option value="0"    edsy-vals="{&quot;number&quot;:0.00,&quot;number%&quot;:true}" edsy-text="interp-number">0%</option>
+													<option value="0.05" edsy-vals="{&quot;number&quot;:0.05,&quot;number%&quot;:true}" edsy-text="interp-number">5%</option>
+													<option value="0.10" edsy-vals="{&quot;number&quot;:0.10,&quot;number%&quot;:true}" edsy-text="interp-number">10%</option>
+													<option value="0.15" edsy-vals="{&quot;number&quot;:0.15,&quot;number%&quot;:true}" edsy-text="interp-number">15%</option>
+													<option value="0.20" edsy-vals="{&quot;number&quot;:0.20,&quot;number%&quot;:true}" edsy-text="interp-number">20%</option>
+													<option value="0.25" edsy-vals="{&quot;number&quot;:0.25,&quot;number%&quot;:true}" edsy-text="interp-number">25%</option>
+													<option value="0.30" edsy-vals="{&quot;number&quot;:0.30,&quot;number%&quot;:true}" edsy-text="interp-number">30%</option>
+													<option value="0.35" edsy-vals="{&quot;number&quot;:0.35,&quot;number%&quot;:true}" edsy-text="interp-number">35%</option>
+													<option value="0.40" edsy-vals="{&quot;number&quot;:0.40,&quot;number%&quot;:true}" edsy-text="interp-number">40%</option>
+													<option value="0.45" edsy-vals="{&quot;number&quot;:0.45,&quot;number%&quot;:true}" edsy-text="interp-number">45%</option>
+													<option value="0.50" edsy-vals="{&quot;number&quot;:0.50,&quot;number%&quot;:true}" edsy-text="interp-number">50%</option>
+													<option value="0.55" edsy-vals="{&quot;number&quot;:0.55,&quot;number%&quot;:true}" edsy-text="interp-number">55%</option>
+													<option value="0.60" edsy-vals="{&quot;number&quot;:0.60,&quot;number%&quot;:true}" edsy-text="interp-number">60%</option>
+													<option value="0.65" edsy-vals="{&quot;number&quot;:0.65,&quot;number%&quot;:true}" edsy-text="interp-number">65%</option>
+													<option value="0.70" edsy-vals="{&quot;number&quot;:0.70,&quot;number%&quot;:true}" edsy-text="interp-number">70%</option>
+													<option value="0.75" edsy-vals="{&quot;number&quot;:0.75,&quot;number%&quot;:true}" edsy-text="interp-number">75%</option>
+													<option value="0.80" edsy-vals="{&quot;number&quot;:0.80,&quot;number%&quot;:true}" edsy-text="interp-number">80%</option>
+													<option value="0.85" edsy-vals="{&quot;number&quot;:0.85,&quot;number%&quot;:true}" edsy-text="interp-number">85%</option>
+													<option value="0.90" edsy-vals="{&quot;number&quot;:0.90,&quot;number%&quot;:true}" edsy-text="interp-number">90%</option>
+													<option value="0.95" edsy-vals="{&quot;number&quot;:0.95,&quot;number%&quot;:true}" edsy-text="interp-number">95%</option>
+													<option value="1"    edsy-vals="{&quot;number&quot;:1.00,&quot;number%&quot;:true}" edsy-text="interp-number">100%</option>
+												</select></td>
+											</tr>
+											<tr>
+												<td edsy-text="ui-retrofit-settings-rolls">Rolls to complete each grade</td>
+												<td colspan=2>
+													<input type="text" name="retrofit_setup_rolls1" size=2 value="1.5">
+													<input type="text" name="retrofit_setup_rolls2" size=2 value="2">
+													<input type="text" name="retrofit_setup_rolls3" size=2 value="3">
+													<input type="text" name="retrofit_setup_rolls4" size=2 value="4.5">
+													<input type="text" name="retrofit_setup_rolls5" size=2 value="9">
+												</td>
+											</tr>
+											<tr>
+												<td edsy-text="ui-retrofit-settings-expeffects">Apply experimental effects</td>
+												<td colspan=2><select name="retrofit_setup_expeffect">
+													<option value="" edsy-text="ui-retrofit-settings-expeffects-never">never</option>
+													<option value="wpn" edsy-text="ui-retrofit-settings-expeffects-wpn">to weapons only</option>
+													<option value="wpn,cpp" edsy-text="ui-retrofit-settings-expeffects-wpn-pp">to weapons and PPs</option>
+													<option value="wpn,cpp,cfsd,cfsdo" edsy-text="ui-retrofit-settings-expeffects-wpn-pp-fsd">to weapons, PPs, and FSDs</option>
+													<option value="all" selected edsy-text="ui-retrofit-settings-expeffects-always">always</option>
+												</select></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="analysis_retrofit_buttons">
+								<button name="retrofit_builds_run" edsy-text="ui-retrofit-generate">Generate Retrofit Report</button>
+								<button name="retrofit_export" id="retrofit_export"><svg class="iconsvg export"><use xlink:href="#icon_export"/></svg> <span edsy-text="ui-retrofit-export">Export Retrofit Report ...</span></button>
 							</div>
 							<div class="analysis_retrofit_section">
 								<div id="analysis_retrofit_steps" class="analysis_retrofit_panel">
@@ -558,27 +1261,29 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 						</section>
 						<footer><!-- edsy-text="not-localized" -->
 							EDSY was created using assets and imagery from <a href="http://www.elitedangerous.com/">Elite Dangerous</a>, with the permission of <a href="http://frontier.co.uk/">Frontier Developments plc</a>, for non-commercial purposes. It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
-						
-
-
-<div id="page_body_loading">
-<img height="2em" src="loading.svg" width="2em"/>
-</div>
-<div id="popup_modal">
-<form id="popup_form" name="popup">
-<div id="popup_box">
-<div id="popup_desc"></div>
-<textarea id="popup_textarea" name="textbox"></textarea>
-<div id="popup_table_container">
-<table id="popup_table"></table>
-</div>
-<div id="popup_controls">
-<div id="popup_status"></div>
-<button edsy-text="ui-button-cancel" id="popup_cancel" name="cancel" value="cancel">Cancel</button>
-<button edsy-text="ui-button-okay" id="popup_okay" name="okay" value="okay">Okay</button>
-</div>
-</div>
-</form>
-</div>
-</body>
+						</footer>
+					</div>
+				</form>
+				<div id="page_body_loading">
+					<img src="loading.svg" width="2em" height="2em">
+				</div>
+			</div>
+		</div>
+		<div id="popup_modal">
+			<form id="popup_form" name="popup">
+				<div id="popup_box">
+					<div id="popup_desc"></div>
+					<textarea id="popup_textarea" name="textbox"></textarea>
+					<div id="popup_table_container">
+						<table id="popup_table"></table>
+					</div>
+					<div id="popup_controls">
+						<div id="popup_status"></div>
+						<button id="popup_cancel" name="cancel" value="cancel" edsy-text="ui-button-cancel">Cancel</button>
+						<button id="popup_okay" name="okay" value="okay" edsy-text="ui-button-okay">Okay</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
 </html>
