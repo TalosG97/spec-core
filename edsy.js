@@ -1,5 +1,4 @@
-
-// HARD DISABLE VERSION CHECK LOGIC FOR GITHUB DEPLOYMENT
+// 🔧 FORCE DISABLE VERSION CHECK SYSTEM
 try {
   window._edsy_skipUpdateCheck = true;
   localStorage.setItem("vhtml", "100000000");
@@ -8,7 +7,6 @@ try {
   localStorage.setItem("vdb", "100000000");
   localStorage.setItem("last_modified", "20250805");
 } catch (e) {}
-
 
 /*
 EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
