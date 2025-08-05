@@ -10,8 +10,8 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 */
 
 :root {
-	--edsy-versions-css: v-419039901-419039901-419039901-419039901; /* HTML,CSS,DB,JS */
-	--edsy-lastmodified-css: d-20241212;
+	--edsy-versions-css: v-100000000-100000000-100000000-100000000; /* HTML,CSS,DB,JS */
+	--edsy-lastmodified-css: d-20250805;
 	
 	--colorblack: black;
 	--colorwhite: white;
@@ -3763,71 +3763,4 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	align-self: flex-end;
 	margin: 0.25rem;
 	padding: 0.125rem 0.5rem;
-}
-
-/* === EDGE GLASS THEME ADDITIONS === */
-
-/* EDGE refined glass look for Ship List */
-#shipyard_container {
-  background-color: rgba(26, 26, 64, 0.4);  /* soft navy translucent */
-  border: 1px solid rgba(90, 118, 240, 0.45);  /* soft edge highlight */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-
-#shipyard_tabs {
-  background-color: rgba(26, 26, 64, 0.35);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-}
-
-#shipyard_container .content,
-#shipyard_container .list,
-#shipyard_container .panel,
-#shipyard_container .body,
-#shipyard_container table,
-#shipyard_container .striped {
-  background: transparent !important;
-}
-
-#shipyard_container table {
-  border: 1px solid rgba(90, 118, 240, 0.2);
-}
-
-#shipyard_container table tr:hover {
-  background-color: rgba(32, 178, 170, 0.1);
-  transition: background-color 0.2s ease;
-}
-
-#shipyard_container button,
-#shipyard_container .button {
-  background-color: rgba(90, 118, 240, 0.15);
-  border-radius: 8px;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-
-/* === EDGE SCROLLABLE SHIPYARD TABLE === */
-#shipyard_ships_container,
-#shipyard_storedbuilds_container {
-  max-height: 75vh;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-#shipyard_container table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-#shipyard_container th,
-#shipyard_container td {
-  white-space: nowrap;
 }
