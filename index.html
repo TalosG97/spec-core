@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+<head>
+<meta charset="utf-8"/>
 <!--
 EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
 It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
@@ -12,206 +13,206 @@ and is provided under a Creative Commons Attribution-NonCommercial 4.0 Internati
 The Elite Dangerous game logic and data in this file remains the property of Frontier Developments plc, and is used here as authorized by
 Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerous-media-usage-rules.510879/).
 -->
-		<title>EDGE</title>
-		<meta name="application-name" content="EDSY">
-		<meta name="edsy-versions-html" id="edsy_versions_html" content="419039901,419039901,419039901,419039901"><!-- HTML,CSS,DB,JS -->
-		<meta name="last-modified" id="last_modified" content="20241212">
-		<meta name="author" content="taleden">
-		<meta name="description" content="EDSY is a ship outfitting tool for Elite Dangerous">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'">
-		<script async src="nocache"></script>
-		<script defer src="pako.min.js"></script>
-		<script defer src="eddb.js"></script>
-		<script defer src="edsy.js"></script>
-		<link rel="preload" as="font" href="EuroCaps.woff2" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="edsy.css">
-		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
-		<link rel="icon" sizes="16x16" href="favicon-16.png">
-		<link rel="icon" sizes="32x32" href="favicon-32.png">
-		<link rel="icon" sizes="48x48" href="favicon-48.png">
-		<link rel="icon" sizes="152x152" href="favicon-152.png">
-		<link rel="icon" sizes="196x196" href="favicon-196.png">
-		<link rel="apple-touch-icon" href="favicon-196.png">
-		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
-		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
-	</head>
-	<body class="">
-		<div id="svg_defs">
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-				<defs>
-					<symbol id="icon_unknown" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 2,4 a 4.5,4 0 1 1 7.75,2.75 l -2.25,2.25 h -2.5 v -1.5 l 2.5,-2.5 a 1.75,1.25 0 1 0 -2.75,-1 z"/>
-						<circle cx="6.5" cy="11.5" r="1.75"/>
-					</symbol>
-					<symbol id="icon_menudots" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<circle cx="6.5" cy="1.5" r="1.5"/>
-						<circle cx="6.5" cy="6.5" r="1.5"/>
-						<circle cx="6.5" cy="11.5" r="1.5"/>
-					</symbol>
-					<symbol id="icon_minus" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1,5 h 11 v 3 h -11 z"/>
-					</symbol>
-					<symbol id="icon_plus" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1,5 h 4 v -4 h 3 v 4 h 4 v 3 h -4 v 4 h -3 v -4 h -4 z"/>
-					</symbol>
-					<symbol id="icon_copy" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1,0 h 9 v 2 h 2 v 11 h -9 v -2 h -2 z M 2,1 v 9 h 1 v -8 h 6 v -1 z M 4,3 v 9 h 7 v -9 z"/>
-					</symbol>
-					<symbol id="icon_ignore" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0.75 a 5.75,5.75 0 1 1 0,11.5 a 5.75,5.75 0 1 1 0,-11.5 M 6.5,2.25 a 4.25,4.25 0 1 0 0,8.5 a 4.25,4.25 0 1 0 0,-8.5 z M 11.25,0.5 l 1.25,1.25 -10.75,10.75 -1.25,-1.25 z"/>
-					</symbol>
-					<symbol id="icon_eye" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,6.5 a 6.5,3.75 0 0 1 13,0 a 6.5,3.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,2.5 0 0 0 10.5,0 a 5.25,2.5 0 0 0 -10.5,0 z"/>
-						<circle cx="6.5" cy="6.5" r="1.75"/>
-					</symbol>
-					<symbol id="icon_save" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z"/>
-					</symbol>
-					<symbol id="icon_saveas" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z M 6,6 h 1 v 2 h 2 v 1 h -2 v 2 h -1 v -2 h -2 v -1 h 2 z"/>
-					</symbol>
-					<symbol id="icon_reload" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 12,8 a 5.75,5.75 0 1 1 0,-3 l -1.5,0 a 4.25,4.25 0 1 0 0,3 z M 13,0.25 v 5.75 h -5.75 z"/>
-					</symbol>
-					<symbol id="icon_rename" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 2,2 h 4 a 2,2 0 0 1 2,2 v 7 h -6 a 2,2 0 0 1 -2,-2 v -2 a 2,2 0 0 1 2,-2 h 4 a 1,1 0 0 0 -1,-1 h -5 a 2,2 0 0 1 2,-2 z M 3,7 a 1,1 0 0 0 0,2 h 3 v -2 z M 8,0 a 3,3 0 0 1 3,3 v 7 a 3,3 0 0 1 -3,3 v -1 a 2,2 0 0 0 2,-2 v -7 a 2,2 0 0 0 -2,-2 z M 13,0 v 1 a 2,2 0 0 0 -2,2 h -1 a 3,3 0 0 1 3,-3 z M 13,13 a 3,3 0 0 1 -3,-3 h 1 a 2,2 0 0 0 2,2 z"/>
-					</symbol>
-					<symbol id="icon_delete" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 3,0 h 7 v 1 h 3 v 1 h -2 v 9.75 l -2,1.25 h -5 l -2,-1.25 v -9.75 h -2 v -1 h 3 z M 3,2 v 9 l 1.5,1 h 4 l 1.5,-1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 z"/>
-					</symbol>
-					<symbol id="icon_clipboard" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,6 h 5 v -2.5 l 4,4 -4,4 v -2.5 h -5 z M 3,1 h 10 v 12 h -10 v -3 h 1 v 2 h 8 v -10 h -1 v 1 h -6 v -1 h -1 v 3 h -1 z"/>
-						<circle cx="8" cy="1.5" r="1.5"/>
-					</symbol>
-					<symbol id="icon_xref" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6,0 v 1 h -5 v 11 h 11 v -5 h 1 v 6 h -13 v -13 z M 13,0 v 5.75 l -1.75,-1.75 l -3.5,3.5 l -2.25,-2.25 l 3.5,-3.5 l -1.75,-1.75 z"/>
-					</symbol>
-					<symbol id="icon_import" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 6.5,0 l 4,4 h -2.5 v 5 h -3 v -5 h -2.5 z"/>
-					</symbol>
-					<symbol id="icon_export" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 5,0 h 3 v 5 h 2.5 l -4,4 l -4,-4 h 2.5 z"/>
-					</symbol>
-					<symbol id="icon_shipyard" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1.5,7.5 l 1.5,2.5 3.5,-3.5 3.5,3.5 1.5,-2.5 M 3,10 l 2,-6 1.5,2.5 1.5,-2.5 2,6" stroke="currentColor" stroke-width="1" stroke-linejoin="round" fill="none"/>
-						<path d="M 5,3 l 3,0 4.5,4.5 0.5,3.5 -13,0 0.5,-3.5 z M 5.75,4 l -4,4 -0.25,2 10,0 -0.25,-2 -4,-4 z"/>
-					</symbol>
-					<symbol id="icon_repair" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<circle cx="2" cy="11" r="2"/>
-						<polygon points="8,3.25 9.75,5 3.75,11 2,9.25"/>
-						<path d="M 11.25,0 l -1.5,1.5 v 1.75 h 1.75 l 1.5,-1.5 v 1 a 2.75,2.75 0 1 1 -2.75,-2.75 z"/>
-					</symbol>
-					<symbol id="icon_analysis" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1,3 h 2 v 10 h -2 z M 4,9 h 2 v 4 h -2 z M 7,0 h 2 v 13 h -2 z M 10,6 h 2 v 7 h -2 z"/>
-					</symbol>
-					<symbol id="icon_warning" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 l 6.5,13 -13,0 z M 6.5,2.5 l -4.75,9.5 9.5,0 z M 5.75,5.5 a 0.75,0.75 0 0 1 1.5,0 v 3 a 0.75,0.75 0 0 1 -1.5,0 z"/>
-						<circle cx="6.5" cy="10.5" r="0.75"/>
-					</symbol>
-					<symbol id="icon_fixed" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 1.75,6.5 a 4.75,4.75 0 0 1 9.5,0 a 4.75,4.75 0 0 1 -9.5,0 z M 3,6.5 a 3.5,3.5 0 0 0 7,0 a 3.5,3.5 0 0 0 -7,0 z M 6,0 h 1 v 4 h -1 z M 6,9 h 1 v 4 h -1 z M 0,6 h 4 v 1 h -4 z M 9,6 h 4 v 1 h -4 z"/>
-					</symbol>
-					<symbol id="icon_gimballed" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 2.75,6.5 0 0 1 0,13 a 2.75,6.5 0 0 1 0,-13 z M 6.5,1.25 a 1.5,5.25 0 0 0 0,10.5 a 1.5,5.25 0 0 0 0,-10.5 z"/>
-						<path d="M 0,6.5 a 6.5,2.75 0 0 1 13,0 a 6.5,2.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,1.5 0 0 0 10.5,0 a 5.25,1.5 0 0 0 -10.5,0 z"/>
-					</symbol>
-					<symbol id="icon_turreted" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 2,2 h 6 l 2,4.5 l -1,3.5 h -8 l -1,-3.5 z M 9,6 h 4 v 1 h -4 z M 2.75,3 l -1.5,3.5 l 0.75,2.5 h 6 l 0.75,-2.5 l -1.5,-3.5 z M 1,11 h 8 v 1 h -8 z"/>
-					</symbol>
-					<symbol id="icon_dumbfire" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.25,0 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 9.25,2 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 11.25,5 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z"/>
-						<circle cx="4.5" cy="3.5" r="0.75"/><circle cx="2.5" cy="5.5" r="0.75"/><circle cx="0.5" cy="7.5" r="0.75"/>
-						<circle cx="7.5" cy="5.5" r="0.75"/><circle cx="5.5" cy="7.5" r="0.75"/><circle cx="3.5" cy="9.5" r="0.75"/><circle cx="1.5" cy="11.5" r="0.75"/>
-						<circle cx="9.5" cy="8.5" r="0.75"/><circle cx="7.5" cy="10.5" r="0.75"/><circle cx="5.5" cy="12.5" r="0.75"/>
-					</symbol>
-					<symbol id="icon_seeker" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 10,0 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,4 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,8 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z"/>
-						<circle cx="8.5" cy="1.5" r="0.75"/><circle cx="6.5" cy="1.5" r="0.75"/><circle cx="4.5" cy="1.5" r="0.75"/><circle cx="2.5" cy="2.5" r="0.75"/><circle cx="1.5" cy="4.5" r="0.75"/><circle cx="0.5" cy="6.5" r="0.75"/><circle cx="0.5" cy="8.5" r="0.75"/><circle cx="0.5" cy="10.5" r="0.75"/><circle cx="0.5" cy="12.5" r="0.75"/>
-						<circle cx="8.5" cy="5.5" r="0.75"/><circle cx="6.5" cy="5.5" r="0.75"/><circle cx="4.5" cy="6.5" r="0.75"/><circle cx="3.5" cy="8.5" r="0.75"/><circle cx="3.5" cy="10.5" r="0.75"/><circle cx="3.5" cy="12.5" r="0.75"/>
-						<circle cx="8.5" cy="9.5" r="0.75"/><circle cx="6.5" cy="10.5" r="0.75"/><circle cx="6.5" cy="12.5" r="0.75"/>
-					</symbol>
-					<symbol id="icon_guardian" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,1 l 4,0 -2,3.5 z M 9,1 l 4,0 -2,3.5 z M 4.5,9 l 4,0 -2,3.5 z M 6.5,0.75 l 3.5,6.25 -7,0 z M 6.5,2.75 l -1.75,3.25 3.5,0 z"/>
-					</symbol>
-					<symbol id="icon_powerplay" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 l 6.5,6.5 -6.5,6.5 -6.5,-6.5 z M 2,2 h 9 v 9 h -9 z"/>
-					</symbol>
-					<symbol id="icon_engineer" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 6.5,1.25 l -4.5,2.5 0,4.5 4.5,2.5 4.5,-2.5 0,-4.5 z M 6.5,3.5 a 2.5,2.5 0 0 1 0,5 a 2.5,2.5 0 0 1 0,-5 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"/>
-					</symbol>
-					<symbol id="icon_engineered" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"/>
-					</symbol>
-					<symbol id="icon_techbroker" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,2 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
-						<path d="M 9.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
-						<path d="M 6.5,8 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
-						<path d="M 3.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"/>
-						<path d="M 3.75,2 a 2.75,2 0 0 1 5.5,0 h -1.25 a 1.5,1 0 0 0 -3,0 z"/>
-						<path d="M 3.75,11 a 2.75,2 0 0 0 5.5,0 h -1.25 a 1.5,1 0 0 1 -3,0 z"/>
-						<path d="M 0,5 v -1 a 2,2 0 0 1 2,-2 v 1 a 1,1 0 0 0 -1,1 v 1 z"/>
-						<path d="M 13,5 v -1 a 2,2 0 0 0 -2,-2 v 1 a 1,1 0 0 1 1,1 v 1 z"/>
-						<path d="M 0,6 h 2.5 v 1 h -1.5 v 2 a 1,1 0 0 0 1,1 v 1 a 2,2 0 0 1 -2,-2 z"/>
-						<path d="M 13,6 h -2.5 v 1 h 1.5 v 2 a 1,1 0 0 1 -1,1 v 1 a 2,2 0 0 0 2,-2 z"/>
-					</symbol>
-					<symbol id="icon_community" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<!--
+<title>EDGE</title>
+<meta content="EDSY" name="application-name"/>
+<meta content="419039901,419039901,419039901,419039901" id="edsy_versions_html" name="edsy-versions-html"/><!-- HTML,CSS,DB,JS -->
+<meta content="20241212" id="last_modified" name="last-modified"/>
+<meta content="taleden" name="author"/>
+<meta content="EDSY is a ship outfitting tool for Elite Dangerous" name="description"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'" http-equiv="Content-Security-Policy"/>
+<script async="" src="nocache"></script>
+<script defer="" src="pako.min.js"></script>
+<script defer="" src="eddb.js"></script>
+<script defer="" src="edsy.js"></script>
+<link as="font" crossorigin="anonymous" href="EuroCaps.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="anonymous" href="Sintony.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="anonymous" href="Telegrama.woff2" rel="preload" type="font/woff2"/>
+<link href="edsy.css" rel="stylesheet" type="text/css"/>
+<link href="favicon.ico" rel="icon" sizes="16x16 32x32"/>
+<link href="favicon-16.png" rel="icon" sizes="16x16"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32"/>
+<link href="favicon-48.png" rel="icon" sizes="48x48"/>
+<link href="favicon-152.png" rel="icon" sizes="152x152"/>
+<link href="favicon-196.png" rel="icon" sizes="196x196"/>
+<link href="favicon-196.png" rel="apple-touch-icon"/>
+<link href="favicon-196.png" rel="apple-touch-icon-precomposed"/>
+<link color="#ff7f00" href="favicon.svg" rel="mask-icon"/>
+</head>
+<body class="">
+<div id="svg_defs">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol fill="currentColor" id="icon_unknown" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 2,4 a 4.5,4 0 1 1 7.75,2.75 l -2.25,2.25 h -2.5 v -1.5 l 2.5,-2.5 a 1.75,1.25 0 1 0 -2.75,-1 z"></path>
+<circle cx="6.5" cy="11.5" r="1.75"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_menudots" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<circle cx="6.5" cy="1.5" r="1.5"></circle>
+<circle cx="6.5" cy="6.5" r="1.5"></circle>
+<circle cx="6.5" cy="11.5" r="1.5"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_minus" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1,5 h 11 v 3 h -11 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_plus" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1,5 h 4 v -4 h 3 v 4 h 4 v 3 h -4 v 4 h -3 v -4 h -4 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_copy" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1,0 h 9 v 2 h 2 v 11 h -9 v -2 h -2 z M 2,1 v 9 h 1 v -8 h 6 v -1 z M 4,3 v 9 h 7 v -9 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_ignore" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0.75 a 5.75,5.75 0 1 1 0,11.5 a 5.75,5.75 0 1 1 0,-11.5 M 6.5,2.25 a 4.25,4.25 0 1 0 0,8.5 a 4.25,4.25 0 1 0 0,-8.5 z M 11.25,0.5 l 1.25,1.25 -10.75,10.75 -1.25,-1.25 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_eye" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,6.5 a 6.5,3.75 0 0 1 13,0 a 6.5,3.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,2.5 0 0 0 10.5,0 a 5.25,2.5 0 0 0 -10.5,0 z"></path>
+<circle cx="6.5" cy="6.5" r="1.75"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_save" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_saveas" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,0 h 3 v 4 h 7 v -4 h 1.5 l 1.5,1.5 v 11.5 h -13 z M 7,0 h 2 v 3 h -2 z M 1,5 v 7 h 11 v -7 z M 6,6 h 1 v 2 h 2 v 1 h -2 v 2 h -1 v -2 h -2 v -1 h 2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_reload" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 12,8 a 5.75,5.75 0 1 1 0,-3 l -1.5,0 a 4.25,4.25 0 1 0 0,3 z M 13,0.25 v 5.75 h -5.75 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_rename" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 2,2 h 4 a 2,2 0 0 1 2,2 v 7 h -6 a 2,2 0 0 1 -2,-2 v -2 a 2,2 0 0 1 2,-2 h 4 a 1,1 0 0 0 -1,-1 h -5 a 2,2 0 0 1 2,-2 z M 3,7 a 1,1 0 0 0 0,2 h 3 v -2 z M 8,0 a 3,3 0 0 1 3,3 v 7 a 3,3 0 0 1 -3,3 v -1 a 2,2 0 0 0 2,-2 v -7 a 2,2 0 0 0 -2,-2 z M 13,0 v 1 a 2,2 0 0 0 -2,2 h -1 a 3,3 0 0 1 3,-3 z M 13,13 a 3,3 0 0 1 -3,-3 h 1 a 2,2 0 0 0 2,2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_delete" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 3,0 h 7 v 1 h 3 v 1 h -2 v 9.75 l -2,1.25 h -5 l -2,-1.25 v -9.75 h -2 v -1 h 3 z M 3,2 v 9 l 1.5,1 h 4 l 1.5,-1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 h -1 v 9 h -1 v -9 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_clipboard" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,6 h 5 v -2.5 l 4,4 -4,4 v -2.5 h -5 z M 3,1 h 10 v 12 h -10 v -3 h 1 v 2 h 8 v -10 h -1 v 1 h -6 v -1 h -1 v 3 h -1 z"></path>
+<circle cx="8" cy="1.5" r="1.5"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_xref" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6,0 v 1 h -5 v 11 h 11 v -5 h 1 v 6 h -13 v -13 z M 13,0 v 5.75 l -1.75,-1.75 l -3.5,3.5 l -2.25,-2.25 l 3.5,-3.5 l -1.75,-1.75 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_import" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 6.5,0 l 4,4 h -2.5 v 5 h -3 v -5 h -2.5 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_export" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,9 h 2 v 2 h 9 v -2 h 2 v 4 h -13 z M 5,0 h 3 v 5 h 2.5 l -4,4 l -4,-4 h 2.5 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_shipyard" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1.5,7.5 l 1.5,2.5 3.5,-3.5 3.5,3.5 1.5,-2.5 M 3,10 l 2,-6 1.5,2.5 1.5,-2.5 2,6" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1"></path>
+<path d="M 5,3 l 3,0 4.5,4.5 0.5,3.5 -13,0 0.5,-3.5 z M 5.75,4 l -4,4 -0.25,2 10,0 -0.25,-2 -4,-4 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_repair" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<circle cx="2" cy="11" r="2"></circle>
+<polygon points="8,3.25 9.75,5 3.75,11 2,9.25"></polygon>
+<path d="M 11.25,0 l -1.5,1.5 v 1.75 h 1.75 l 1.5,-1.5 v 1 a 2.75,2.75 0 1 1 -2.75,-2.75 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_analysis" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1,3 h 2 v 10 h -2 z M 4,9 h 2 v 4 h -2 z M 7,0 h 2 v 13 h -2 z M 10,6 h 2 v 7 h -2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_warning" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 l 6.5,13 -13,0 z M 6.5,2.5 l -4.75,9.5 9.5,0 z M 5.75,5.5 a 0.75,0.75 0 0 1 1.5,0 v 3 a 0.75,0.75 0 0 1 -1.5,0 z"></path>
+<circle cx="6.5" cy="10.5" r="0.75"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_fixed" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 1.75,6.5 a 4.75,4.75 0 0 1 9.5,0 a 4.75,4.75 0 0 1 -9.5,0 z M 3,6.5 a 3.5,3.5 0 0 0 7,0 a 3.5,3.5 0 0 0 -7,0 z M 6,0 h 1 v 4 h -1 z M 6,9 h 1 v 4 h -1 z M 0,6 h 4 v 1 h -4 z M 9,6 h 4 v 1 h -4 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_gimballed" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 2.75,6.5 0 0 1 0,13 a 2.75,6.5 0 0 1 0,-13 z M 6.5,1.25 a 1.5,5.25 0 0 0 0,10.5 a 1.5,5.25 0 0 0 0,-10.5 z"></path>
+<path d="M 0,6.5 a 6.5,2.75 0 0 1 13,0 a 6.5,2.75 0 0 1 -13,0 z M 1.25,6.5 a 5.25,1.5 0 0 0 10.5,0 a 5.25,1.5 0 0 0 -10.5,0 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_turreted" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 2,2 h 6 l 2,4.5 l -1,3.5 h -8 l -1,-3.5 z M 9,6 h 4 v 1 h -4 z M 2.75,3 l -1.5,3.5 l 0.75,2.5 h 6 l 0.75,-2.5 l -1.5,-3.5 z M 1,11 h 8 v 1 h -8 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_dumbfire" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.25,0 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 9.25,2 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z M 11.25,5 l 1.75,0 0,1.75 -1.5,1.5 -1.75,-1.75 z"></path>
+<circle cx="4.5" cy="3.5" r="0.75"></circle><circle cx="2.5" cy="5.5" r="0.75"></circle><circle cx="0.5" cy="7.5" r="0.75"></circle>
+<circle cx="7.5" cy="5.5" r="0.75"></circle><circle cx="5.5" cy="7.5" r="0.75"></circle><circle cx="3.5" cy="9.5" r="0.75"></circle><circle cx="1.5" cy="11.5" r="0.75"></circle>
+<circle cx="9.5" cy="8.5" r="0.75"></circle><circle cx="7.5" cy="10.5" r="0.75"></circle><circle cx="5.5" cy="12.5" r="0.75"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_seeker" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 10,0 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,4 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z M 10,8 l 1.5,0 1.5,1.5 -1.5,1.5 -1.5,0 z"></path>
+<circle cx="8.5" cy="1.5" r="0.75"></circle><circle cx="6.5" cy="1.5" r="0.75"></circle><circle cx="4.5" cy="1.5" r="0.75"></circle><circle cx="2.5" cy="2.5" r="0.75"></circle><circle cx="1.5" cy="4.5" r="0.75"></circle><circle cx="0.5" cy="6.5" r="0.75"></circle><circle cx="0.5" cy="8.5" r="0.75"></circle><circle cx="0.5" cy="10.5" r="0.75"></circle><circle cx="0.5" cy="12.5" r="0.75"></circle>
+<circle cx="8.5" cy="5.5" r="0.75"></circle><circle cx="6.5" cy="5.5" r="0.75"></circle><circle cx="4.5" cy="6.5" r="0.75"></circle><circle cx="3.5" cy="8.5" r="0.75"></circle><circle cx="3.5" cy="10.5" r="0.75"></circle><circle cx="3.5" cy="12.5" r="0.75"></circle>
+<circle cx="8.5" cy="9.5" r="0.75"></circle><circle cx="6.5" cy="10.5" r="0.75"></circle><circle cx="6.5" cy="12.5" r="0.75"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_guardian" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,1 l 4,0 -2,3.5 z M 9,1 l 4,0 -2,3.5 z M 4.5,9 l 4,0 -2,3.5 z M 6.5,0.75 l 3.5,6.25 -7,0 z M 6.5,2.75 l -1.75,3.25 3.5,0 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_powerplay" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 l 6.5,6.5 -6.5,6.5 -6.5,-6.5 z M 2,2 h 9 v 9 h -9 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_engineer" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 6.5,1.25 l -4.5,2.5 0,4.5 4.5,2.5 4.5,-2.5 0,-4.5 z M 6.5,3.5 a 2.5,2.5 0 0 1 0,5 a 2.5,2.5 0 0 1 0,-5 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_engineered" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 l 6,3.25 0,6 -5.5,3 -6,-3.25 0,-6 z M 5.75,7.25 a 1.5,1.5 0 0 0 2,-2 a 1.5,1.5 0 0 0 -2,2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_techbroker" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,2 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
+<path d="M 9.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
+<path d="M 6.5,8 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
+<path d="M 3.5,5 a 1.5,1.5 0 0 1 0,3 a 1.5,1.5 0 0 1 0,-3 m 0,0.75 a 0.75,0.75 0 0 0 0,1.5 a 0.75,0.75 0 0 0 0,-1.5 z"></path>
+<path d="M 3.75,2 a 2.75,2 0 0 1 5.5,0 h -1.25 a 1.5,1 0 0 0 -3,0 z"></path>
+<path d="M 3.75,11 a 2.75,2 0 0 0 5.5,0 h -1.25 a 1.5,1 0 0 1 -3,0 z"></path>
+<path d="M 0,5 v -1 a 2,2 0 0 1 2,-2 v 1 a 1,1 0 0 0 -1,1 v 1 z"></path>
+<path d="M 13,5 v -1 a 2,2 0 0 0 -2,-2 v 1 a 1,1 0 0 1 1,1 v 1 z"></path>
+<path d="M 0,6 h 2.5 v 1 h -1.5 v 2 a 1,1 0 0 0 1,1 v 1 a 2,2 0 0 1 -2,-2 z"></path>
+<path d="M 13,6 h -2.5 v 1 h 1.5 v 2 a 1,1 0 0 1 -1,1 v 1 a 2,2 0 0 0 2,-2 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_community" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<!--
 						<ellipse cx="6.5" cy="7" rx="1.5" ry="2.5"/>
 						<path d="M 3,11 a 3.5,2 0 0 1 7,0 z"/>
 						<path d="M 0,9 a 3.5,2 0 0 1 2.625,-1.875 a 1.5,2.5 0 1 1 2.25,-3 l -0.875,1.875 v 2.5 l -1,0.5 z"/>
 						<path d="M 13,9 a 3.5,2 0 0 0 -2.625,-1.875 a 1.5,2.5 0 1 0 -2.25,-3 l 0.875,1.875 v 2.5 l 1,0.5 z"/>
 						-->
-						<path d="M 5,0 h 0.75 v 3 l -2.5,1.75 l -3.25,-0.75 v -0.25 z"/>
-						<path d="M 8,0 h -0.75 v 3 l 2.5,1.75 l 3.25,-0.75 v -0.25 z"/>
-						<path d="M 0,7 v -1.25 l 2.875,0.625 l 0.875,2.625 l -2.125,3 z"/>
-						<path d="M 13,7 v -1.25 l -2.875,0.625 l -0.875,2.625 l 2.125,3 z"/>
-						<path d="M 5,10 h 3 l 2,3 h -7 z"/>
-					</symbol>
-					<symbol id="icon_blueprint_rand_band" viewbox="0 0 13 13" stroke="none" fill="black" opacity="0.33" shape-rendering="geometricPrecision">
-						<path d="M 5.125,0.125 a 6.5,6.5 0 0 1 2.75,0 l -0.375,2.5 a 4,4 0 0 0 -2,0 z"/>
-					</symbol>
-					<symbol id="icon_blueprint_rand" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(22.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(67.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(112.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(157.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(202.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(247.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(292.5,6.5,6.5)"/>
-						<use xlink:href="#icon_blueprint_rand_band" transform="rotate(337.5,6.5,6.5)"/>
-						<path d="M 3.875,6 a 2.75,1.75 0 1 1 5.25,0 l -2.125,2 h -1 v -0.5 l 1.75,-1.5 a 1.75,0.75 0 1 0 -2.5,0 z"/>
-						<circle cx="6.5" cy="9.5" r="0.5"/>
-					</symbol>
-					<symbol id="icon_blueprint_min" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z" fill="black" opacity="0.33"/>
-					</symbol>
-					<symbol id="icon_blueprint_avg" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
-						<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"/>
-					</symbol>
-					<symbol id="icon_blueprint_high" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
-						<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"/>
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 v -2.5 a 4,4 0 0 0 0,-8 z" transform="rotate(108,6.5,6.5)"/>
-					</symbol>
-					<symbol id="icon_blueprint_max" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"/>
-					</symbol>
-					<symbol id="icon_maximize" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 0,0 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 13,0 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 0,13 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 13,13 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"/>
-					</symbol>
-					<symbol id="icon_minimize" viewbox="0 0 13 13" stroke="none" fill="currentColor" shape-rendering="geometricPrecision">
-						<path d="M 7,7 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 5,7 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 7,5 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 5,5 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"/>
-					</symbol>
-				</defs>
-			</svg>
-		</div>
-		<!-- TODO --
+<path d="M 5,0 h 0.75 v 3 l -2.5,1.75 l -3.25,-0.75 v -0.25 z"></path>
+<path d="M 8,0 h -0.75 v 3 l 2.5,1.75 l 3.25,-0.75 v -0.25 z"></path>
+<path d="M 0,7 v -1.25 l 2.875,0.625 l 0.875,2.625 l -2.125,3 z"></path>
+<path d="M 13,7 v -1.25 l -2.875,0.625 l -0.875,2.625 l 2.125,3 z"></path>
+<path d="M 5,10 h 3 l 2,3 h -7 z"></path>
+</symbol>
+<symbol fill="black" id="icon_blueprint_rand_band" opacity="0.33" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 5.125,0.125 a 6.5,6.5 0 0 1 2.75,0 l -0.375,2.5 a 4,4 0 0 0 -2,0 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_blueprint_rand" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
+<use transform="rotate(22.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(67.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(112.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(157.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(202.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(247.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(292.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<use transform="rotate(337.5,6.5,6.5)" xlink:href="#icon_blueprint_rand_band"></use>
+<path d="M 3.875,6 a 2.75,1.75 0 1 1 5.25,0 l -2.125,2 h -1 v -0.5 l 1.75,-1.5 a 1.75,0.75 0 1 0 -2.5,0 z"></path>
+<circle cx="6.5" cy="9.5" r="0.5"></circle>
+</symbol>
+<symbol fill="currentColor" id="icon_blueprint_min" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z" fill="black" opacity="0.33"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_blueprint_avg" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
+<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_blueprint_high" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
+<path d="M 6.5,13 a 6.5,6.5 0 0 1 0,-13 v 2.5 a 4,4 0 0 0 0,8 z" fill="black" opacity="0.33"></path>
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 v -2.5 a 4,4 0 0 0 0,-8 z" transform="rotate(108,6.5,6.5)"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_blueprint_max" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 6.5,0 a 6.5,6.5 0 0 1 0,13 a 6.5,6.5 0 0 1 0,-13 z M 6.5,2.5 a 4,4 0 0 0 0,8 a 4,4 0 0 0 0,-8 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_maximize" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 0,0 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 13,0 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 0,13 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 13,13 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"></path>
+</symbol>
+<symbol fill="currentColor" id="icon_minimize" shape-rendering="geometricPrecision" stroke="none" viewbox="0 0 13 13">
+<path d="M 7,7 h 4.75 l -1.75,1.75 2.75,2.75 -1.25,1.25 -2.75,-2.75 -1.75,1.75 z M 5,7 v 4.75 l -1.75,-1.75 -2.75,2.75 -1.25,-1.25 2.75,-2.75 -1.75,-1.75 z M 7,5 v -4.75 l 1.75,1.75 2.75,-2.75 1.25,1.25 -2.75,2.75 1.75,1.75 z M 5,5 h -4.75 l 1.75,-1.75 -2.75,-2.75 1.25,-1.25 2.75,2.75 1.75,-1.75 z"></path>
+</symbol>
+</defs>
+</svg>
+</div>
+<!-- TODO --
 		<div style="z-index:9999;position:absolute;background-color:white;color:black;"><div id="query_info"></div>
 						</div>
 					</abbr>
@@ -557,29 +558,29 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 						</section>
 						<footer><!-- edsy-text="not-localized" -->
 							EDSY was created using assets and imagery from <a href="http://www.elitedangerous.com/">Elite Dangerous</a>, with the permission of <a href="http://frontier.co.uk/">Frontier Developments plc</a>, for non-commercial purposes. It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
-						</footer>
-					</div>
-				</form>
-				<div id="page_body_loading">
-					<img src="loading.svg" width="2em" height="2em">
-				</div>
-			</div>
-		</div>
-		<div id="popup_modal">
-			<form id="popup_form" name="popup">
-				<div id="popup_box">
-					<div id="popup_desc"></div>
-					<textarea id="popup_textarea" name="textbox"></textarea>
-					<div id="popup_table_container">
-						<table id="popup_table"></table>
-					</div>
-					<div id="popup_controls">
-						<div id="popup_status"></div>
-						<button id="popup_cancel" name="cancel" value="cancel" edsy-text="ui-button-cancel">Cancel</button>
-						<button id="popup_okay" name="okay" value="okay" edsy-text="ui-button-okay">Okay</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</body>
+						
+
+
+<div id="page_body_loading">
+<img height="2em" src="loading.svg" width="2em"/>
+</div>
+
+
+<div id="popup_modal">
+<form id="popup_form" name="popup">
+<div id="popup_box">
+<div id="popup_desc"></div>
+<textarea id="popup_textarea" name="textbox"></textarea>
+<div id="popup_table_container">
+<table id="popup_table"></table>
+</div>
+<div id="popup_controls">
+<div id="popup_status"></div>
+<button edsy-text="ui-button-cancel" id="popup_cancel" name="cancel" value="cancel">Cancel</button>
+<button edsy-text="ui-button-okay" id="popup_okay" name="okay" value="okay">Okay</button>
+</div>
+</div>
+</form>
+</div>
+</body>
 </html>
