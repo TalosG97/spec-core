@@ -3811,3 +3811,23 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
   color: white;
   border: 1px solid rgba(255,255,255,0.1);
 }
+
+
+/* === EDGE SCROLLABLE SHIPYARD TABLE === */
+#shipyard_ships_container,
+#shipyard_storedbuilds_container {
+  max-height: 75vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+#shipyard_container table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+#shipyard_container th,
+#shipyard_container td {
+  white-space: nowrap;
+}
