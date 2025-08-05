@@ -12553,3 +12553,6 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		this.Slot = Slot;
 	}
 })();
+
+
+// Hard-disabled update system.
