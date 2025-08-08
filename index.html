@@ -39,6 +39,20 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
 	</head>
 	<body class="">
+  <div id="loading">
+    <img src="loading.svg" alt="Loading..." />
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loading = document.getElementById("loading");
+      const app = document.getElementById("page_body");
+      if (loading && app) {
+        loading.style.display = "none";
+        app.style.display = "block";
+      }
+    });
+  </script>
+
 		<div id="svg_defs">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 				<defs>
@@ -1255,7 +1269,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 							<ul>
 								<li><a href="https://discord.gg/5JSnnV4" edsy-text="ui-help-contact-discord">discord</a></li>
 								<li><a href="https://forums.frontier.co.uk/threads/518673/" edsy-text="ui-help-contact-forum">forum</a></li>
-								<li><a href="https://www.reddit.com/message/compose/?to=taleden&subject=EDSY" edsy-text="ui-help-contact-reddit">reddit</a></li>
+								<li><a href="https://www.reddit.com/message/compose/?to=taleden&subject=EDGE" edsy-text="ui-help-contact-reddit">reddit</a></li>
 								<li><a href="#" id="contact_email" edsy-text="ui-help-contact-email">email</a></li>
 							</ul>
 						</section>
@@ -1264,9 +1278,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 						</footer>
 					</div>
 				</form>
-				<div id="page_body_loading">
-					<img src="loading.svg" width="2em" height="2em">
-				</div>
+				
 			</div>
 		</div>
 		<div id="popup_modal">
