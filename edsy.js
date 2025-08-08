@@ -9,10 +9,10 @@ try {
 } catch (e) {}
 
 /*
-EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
+EDGE was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
 It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
 
-Except where noted otherwise, all design, markup and script code for EDSY is copyright (c) 2015-2024 taleden
+Except where noted otherwise, all design, markup and script code for EDGE is copyright (c) 2015-2024 taleden
 and is provided under a Creative Commons Attribution-NonCommercial 4.0 International License (http://creativecommons.org/licenses/by-nc/4.0/).
 
 The Elite Dangerous game logic and data in this file remains the property of Frontier Developments plc, and is used here as authorized by
@@ -3036,9 +3036,9 @@ window.edsy = new (function() {
 		}, // getHash()
 		
 		
-		getEDSYURL: function() {
+		getEDGEURL: function() {
 			return window.location.protocol + '//' + window.location.hostname + window.location.pathname + '#/L=' + this.getHash();
-		}, // getEDSYURL()
+		}, // getEDGEURL()
 		
 		
 		exportText: function() {
@@ -3184,9 +3184,9 @@ window.edsy = new (function() {
 				[
 					{
 						"header": {
-							"appName": "EDSY",
+							"appName": "EDGE",
 							"appVersion": VERSIONS[3],
-							"appURL": this.getEDSYURL()
+							"appURL": this.getEDGEURL()
 						},
 						"data": this.exportJournal()
 					}
@@ -5645,7 +5645,7 @@ if (true && current.dev) console.log(json.Ship+' '+modulejson.Item+' leftover '+
 		input.size = 50;
 		input.className = 'export';
 		input.name = 'export_url';
-		input.value = current.fit.getEDSYURL();
+		input.value = current.fit.getEDGEURL();
 		input.addEventListener('focus', onUIPopupExportFieldFocus);
 		div.appendChild(input);
 		td.appendChild(div);
@@ -6214,7 +6214,7 @@ if (true && current.dev) console.log(json.Ship+' '+modulejson.Item+' leftover '+
 				}
 			}
 			if (json) {
-				if (json['format'] === 'edsy') { // EDSY backup
+				if (json['format'] === 'edsy') { // EDGE backup
 					if (json['imports']) {
 						importdata.imports = importdata.imports || {};
 						for (var importhash in json['imports']) {
@@ -10793,7 +10793,7 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		request.open('POST', 'shortlink', true);
 		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		request.timeout = 10000;
-		request.send('service=' + encodeURIComponent(service) + '&url=' + encodeURIComponent(current.fit.getEDSYURL()));
+		request.send('service=' + encodeURIComponent(service) + '&url=' + encodeURIComponent(current.fit.getEDGEURL()));
 	}; // onUIPopupExportShortButtonClick()
 	
 	
@@ -12220,19 +12220,19 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		var ok = true;
 		if (vH[0] < vM[0]) {
 			ok = false;
-			console.log('ERROR: EDSY HTML version mismatch: (' + vH[0] + ') / ' + vC[0] + ' / ' + vD[0] + ' / ' + vJ[0]);
+			console.log('ERROR: EDGE HTML version mismatch: (' + vH[0] + ') / ' + vC[0] + ' / ' + vD[0] + ' / ' + vJ[0]);
 		}
 		if (vC[1] < vM[1]) {
 			ok = false;
-			console.log('ERROR: EDSY CSS version mismatch: ' + vH[1] + ' / (' + vC[1] + ') / ' + vD[1] + ' / ' + vJ[1]);
+			console.log('ERROR: EDGE CSS version mismatch: ' + vH[1] + ' / (' + vC[1] + ') / ' + vD[1] + ' / ' + vJ[1]);
 		}
 		if (vD[2] < vM[2]) {
 			ok = false;
-			console.log('ERROR: EDSY DB version mismatch: ' + vH[2] + ' / ' + vC[2] + ' / (' + vD[2] + ') / ' + vJ[2]);
+			console.log('ERROR: EDGE DB version mismatch: ' + vH[2] + ' / ' + vC[2] + ' / (' + vD[2] + ') / ' + vJ[2]);
 		}
 		if (vJ[3] < vM[3]) {
 			ok = false;
-			console.log('ERROR: EDSY JS version mismatch: ' + vH[3] + ' / ' + vC[3] + ' / ' + vD[3] + ' / (' + vJ[3] + ')');
+			console.log('ERROR: EDGE JS version mismatch: ' + vH[3] + ' / ' + vC[3] + ' / ' + vD[3] + ' / (' + vJ[3] + ')');
 		}
 		return ok;
 	}; // verifyVersionSync()
@@ -12546,7 +12546,7 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 	cache.feature.cancelFullscreen = false;
 	
 	// if we're in interactive mode, queue the remaining UI init
-	if (document.title === 'EDSY') {
+	if (document.title === 'EDGE') {
 		window.addEventListener('DOMContentLoaded', function() { loadTranslations(false).then(onDOMContentLoaded); });
 	} else {
 		this.Build = Build;
