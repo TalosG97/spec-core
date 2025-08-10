@@ -10,3 +10,52 @@ html, body { background-color: #05070d !important; }
   display: block;
 }
 body > *:not(#starfield) { position: relative; z-index: 2; }
+
+
+/* Splash screen styles */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+#splash-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#splash-overlay {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  font-family: monospace;
+}
+
+#splash-text {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  white-space: pre;
+}
+
+#enter-btn {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#enter-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
