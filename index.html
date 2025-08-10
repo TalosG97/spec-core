@@ -19,7 +19,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<meta name="author" content="taleden">
 		<meta name="description" content="EDSY is a ship outfitting tool for Elite Dangerous">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self';">
 		<script async src="nocache"></script>
 		<script defer src="pako.min.js"></script>
 		<script defer src="eddb.js"></script>
@@ -28,8 +28,8 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="edsy.css">
-		    <link rel="stylesheet" type="text/css" href="starfield.css">
-<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="galaxy.css">
+		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
 		<link rel="icon" sizes="16x16" href="favicon-16.png">
 		<link rel="icon" sizes="32x32" href="favicon-32.png">
 		<link rel="icon" sizes="48x48" href="favicon-48.png">
@@ -38,9 +38,22 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="apple-touch-icon" href="favicon-196.png">
 		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
 		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
-	    <script defer src="starfield.js"></script>
+		<link rel="stylesheet" type="text/css" href="galaxy.css">
+		<script defer src="galaxy.js"></script>
+		<script defer src="galaxy-init.js"></script>
 </head>
 	<body class="">
+
+  <div id="splash-screen">
+    <video id="splash-video" autoplay muted loop playsinline>
+      <source src="welcome.mp4" type="video/mp4">
+    </video>
+    <div id="splash-overlay">
+      <h1 id="splash-text"></h1>
+      <button id="enter-btn" style="display:none;">Enter StellarOps</button>
+    </div>
+  </div>
+
 		<div id="svg_defs">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 				<defs>
@@ -1287,5 +1300,68 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 				</div>
 			</form>
 		</div>
-	</body>
+	
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const text = 'CMDR, welcome to "StellarOps"';
+  const splashText = document.getElementById("splash-text");
+  const btn = document.getElementById("enter-btn");
+  let i = 0;
+
+  function typeLetter() {
+    if (i < text.length) {
+      splashText.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeLetter, 80);
+    } else {
+      setTimeout(() => btn.style.display = "inline-block", 500);
+    }
+  }
+
+  btn.addEventListener("click", function(){
+    document.getElementById("splash-screen").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("splash-screen").style.display = "none";
+    }, 1000);
+  });
+
+  typeLetter();
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const text = 'CMDR, welcome to "StellarOps"';
+  const splashText = document.getElementById("splash-text");
+  const btn = document.getElementById("enter-btn");
+  const splash = document.getElementById("splash-screen");
+  let i = 0;
+
+  function typeLetter() {
+    if (i < text.length) {
+      splashText.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeLetter, 80);
+    } else {
+      setTimeout(() => {
+        btn.style.display = "inline-block";
+        btn.focus();
+      }, 400);
+    }
+  }
+
+  btn.addEventListener("click", function(){
+    splash.style.transition = "opacity 600ms ease";
+    splash.style.opacity = "0";
+    setTimeout(() => {
+      splash.style.display = "none";
+    }, 650);
+  });
+
+  typeLetter();
+});
+</script>
+
+</body>
 </html>
