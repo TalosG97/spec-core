@@ -1,5 +1,5 @@
 :root {}
-html, body { background-color: #000 !important; }
+html, body { background-color: #05070d !important; } /* very dark blue */
 #starfield {
   position: fixed;
   inset: 0;
@@ -9,5 +9,4 @@ html, body { background-color: #000 !important; }
   z-index: 0;
   display: block;
 }
-/* Ensure the app UI sits above */
 body > *:not(#starfield) { position: relative; z-index: 2; }
