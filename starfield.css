@@ -1,16 +1,13 @@
-:root {
-  /* keep EDSY palette, but ensure a dark base for stars */
-}
-/* Ensure the space backdrop shows through */
+:root {}
 html, body { background-color: #000 !important; }
 #starfield {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   z-index: 0;
   display: block;
 }
-/* Make sure app UI renders above the background */
-body > *:not(#starfield) { position: relative; z-index: 1; }
+/* Ensure the app UI sits above */
+body > *:not(#starfield) { position: relative; z-index: 2; }
