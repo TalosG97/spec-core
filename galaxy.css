@@ -1,0 +1,3 @@
+
+/* Galaxy background override: allow canvas to be visible */
+html, body { background-color: transparent !important; }
