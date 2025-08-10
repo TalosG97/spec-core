@@ -1,5 +1,0 @@
-
-/* Fullscreen mount, sits behind UI */
-html, body { background: #000 !important; }
-#galaxy_mount { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-#galaxy_ogl { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
