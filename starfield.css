@@ -280,4 +280,3 @@ body.splash-active { position: fixed; width: 100%; top: 0; left: 0; right: 0; }
 }
 #enter-btn.enter:hover { background: rgba(255,255,255,0.22); }
 #enter-btn.enter:active { transform: translateY(1px); }
-
