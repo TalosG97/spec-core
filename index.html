@@ -41,6 +41,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="stylesheet" type="text/css" href="galaxy.css">
 		<script defer src="galaxy.js"></script>
 		<script defer src="galaxy-init.js"></script>
+    <script defer src="splash.js"></script>
 </head>
 	<body class="">
 
@@ -1302,84 +1303,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		</div>
 	
 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const text = 'CMDR, welcome to "StellarOps"';
-  const splash = document.getElementById("splash-screen");
-  const splashText = document.getElementById("splash-text");
-  const btn = document.getElementById("enter-btn");
-
-  // lock scroll while splash is visible
-  document.documentElement.classList.add("splash-active");
-  document.body.classList.add("splash-active");
-
-  // Typewriter
-  let i = 0;
-  function typeNext() {
-    if (i < text.length) {
-      splashText.textContent += text.charAt(i++);
-      setTimeout(typeNext, 70);
-    } else {
-      setTimeout(() => { btn.style.display = "inline-block"; btn.focus(); }, 300);
-    }
-  }
-
-  // Hide splash
-  function dismissSplash() {
-    splash.classList.add("splash-hide");
-    // re-enable scroll shortly after transition
-    setTimeout(() => {
-      splash.style.display = "none";
-      document.documentElement.classList.remove("splash-active");
-      document.body.classList.remove("splash-active");
-    }, 650);
-  }
-
-  btn.addEventListener("click", dismissSplash);
-
-  // also allow Enter key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && btn.style.display !== "none") dismissSplash();
-  });
-
-  typeNext();
-});
-</script>
 
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const text = 'CMDR, welcome to "StellarOps"';
-  const splashText = document.getElementById("splash-text");
-  const btn = document.getElementById("enter-btn");
-  const splash = document.getElementById("splash-screen");
-  let i = 0;
 
-  function typeLetter() {
-    if (i < text.length) {
-      splashText.textContent += text.charAt(i);
-      i++;
-      setTimeout(typeLetter, 80);
-    } else {
-      setTimeout(() => {
-        btn.style.display = "inline-block";
-        btn.focus();
-      }, 400);
-    }
-  }
 
-  btn.addEventListener("click", function(){
-    splash.style.transition = "opacity 600ms ease";
-    splash.style.opacity = "0";
-    setTimeout(() => {
-      splash.style.display = "none";
-    }, 650);
-  });
-
-  typeLetter();
-});
-</script>
 
 </body>
 </html>
