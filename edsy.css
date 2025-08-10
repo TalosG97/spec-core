@@ -909,11 +909,15 @@ TABLE.striped .togglebutton INPUT:active + DIV .iconsvg {
 
 
 #page_body_loading {
-	flex: 0 0 auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	height: 33%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: url('loading.svg') center center no-repeat;
+    background-size: contain;
+    z-index: 9999;
 }
 
 #page_body_loading IMG {
