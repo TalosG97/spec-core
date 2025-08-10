@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="splash-active">
+<html lang="en" class="splash-active" class="splash-active">
 	<head>
 		<meta charset="utf-8">
 <!--
@@ -27,9 +27,8 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="preload" as="font" href="EuroCaps.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="edsy.css">
-		<link rel="stylesheet" type="text/css" href="galaxy.css">
-		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="edsy.css"><link rel="stylesheet" type="text/css" href="starfield.css">
+<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
 		<link rel="icon" sizes="16x16" href="favicon-16.png">
 		<link rel="icon" sizes="32x32" href="favicon-32.png">
 		<link rel="icon" sizes="48x48" href="favicon-48.png">
@@ -37,13 +36,19 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="icon" sizes="196x196" href="favicon-196.png">
 		<link rel="apple-touch-icon" href="favicon-196.png">
 		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
-		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
-		<link rel="stylesheet" type="text/css" href="galaxy.css">
-		<script defer src="galaxy.js"></script>
-		<script defer src="galaxy-init.js"></script>
+		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">    <script defer src="starfield.js"></script>
     <script defer src="splash.js"></script>
 </head>
 	<body class="">
+<div id="splash-screen" aria-hidden="false">
+  <video id="splash-video" autoplay muted loop playsinline>
+    <source src="welcome.mp4" type="video/mp4">
+  </video>
+  <div id="splash-overlay">
+    <h1 id="splash-text" aria-live="polite"></h1>
+    <button id="enter-btn" class="enter" style="display:none;" aria-label="Enter StellarOps">Press Enter</button>
+    <div id="enter-hint" style="display:none;margin-top:.5rem;opacity:.8;">or press Enter ↵</div>
+
 <div id="splash-screen" aria-hidden="false">
   <video id="splash-video" autoplay muted loop playsinline>
     <source src="welcome.mp4" type="video/mp4">
@@ -56,14 +61,6 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 </div>
 
 
-  <div id="splash-screen">
-    <video id="splash-video" autoplay muted loop playsinline>
-      <source src="welcome.mp4" type="video/mp4">
-    </video>
-    <div id="splash-overlay">
-      <h1 id="splash-text"></h1>
-      <button id="enter-btn" style="display:none;">Enter StellarOps</button>
-    </div>
   </div>
 
 		<div id="svg_defs">
