@@ -28,6 +28,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="edsy.css">
+		<link rel="stylesheet" type="text/css" href="galaxy.css">
 		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
 		<link rel="icon" sizes="16x16" href="favicon-16.png">
 		<link rel="icon" sizes="32x32" href="favicon-32.png">
@@ -37,7 +38,8 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="apple-touch-icon" href="favicon-196.png">
 		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
 		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
-			<script defer src="galaxy.js"></script>
+			<script defer src="galaxy-init.js"></script>
+		<script defer src="galaxy.js"></script>
 	</head>
 	<body class="">
 		<div id="svg_defs">
@@ -1286,31 +1288,5 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 				</div>
 			</form>
 		</div>
-	
-		<script>
-		// Initialize the galaxy background once the page is ready
-		window.addEventListener('DOMContentLoaded', function () {
-			// You can tweak any of these values later:
-			GalaxyBackground.init({
-				focal: [0.5, 0.5],
-				rotation: [1.0, 0.0],
-				starSpeed: 0.5,
-				density: 1.2,
-				hueShift: 140,
-				disableAnimation: false,
-				speed: 1.0,
-				mouseInteraction: true,
-				glowIntensity: 0.35,
-				saturation: 0.2,
-				mouseRepulsion: true,
-				twinkleIntensity: 0.35,
-				rotationSpeed: 0.08,
-				repulsionStrength: 2.0,
-				autoCenterRepulsion: 0.0,
-				transparent: true
-			});
-		});
-		</script>
-
 	</body>
 </html>
