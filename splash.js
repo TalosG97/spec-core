@@ -9,11 +9,12 @@
     var btn = document.getElementById('enter-btn');
     var hint = document.getElementById('enter-hint');
 
-    // Lock page scroll under splash
+    // Start locked
     document.documentElement.classList.add('splash-active');
     document.body.classList.add('splash-active');
+    window.scrollTo(0,0);
 
-    // Typewriter effect
+    // Typewriter
     var i = 0;
     (function typeNext(){
       if (i < text.length){
@@ -22,29 +23,28 @@
       } else {
         setTimeout(function(){
           btn.style.display = 'inline-block';
-          hint.style.display = 'block';
+          if (hint) hint.style.display = 'block';
           btn.focus();
         }, 300);
       }
     })();
 
     function dismiss(){
-      if (!splash) return;
+      // Fade overlay
       splash.classList.add('splash-hide');
+      // Ensure user is at top and unlock after fade
       setTimeout(function(){
-        splash.style.display = 'none';
+        window.scrollTo(0,0);
         document.documentElement.classList.remove('splash-active');
         document.body.classList.remove('splash-active');
+        splash.remove(); // remove from DOM to avoid any stacking
       }, 650);
     }
 
-    // Click button or press Enter to proceed
     btn.addEventListener('click', dismiss);
     document.addEventListener('keydown', function(e){
       if (e.key === 'Enter' && btn.style.display !== 'none') dismiss();
     });
-
-    // Also allow clicking the overlay to continue once visible
     splash.addEventListener('click', function(e){
       if (btn.style.display !== 'none' && !e.target.closest('button')) dismiss();
     });
