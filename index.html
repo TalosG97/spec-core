@@ -1301,33 +1301,51 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 			</form>
 		</div>
 	
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   const text = 'CMDR, welcome to "StellarOps"';
+  const splash = document.getElementById("splash-screen");
   const splashText = document.getElementById("splash-text");
   const btn = document.getElementById("enter-btn");
-  let i = 0;
 
-  function typeLetter() {
+  // lock scroll while splash is visible
+  document.documentElement.classList.add("splash-active");
+  document.body.classList.add("splash-active");
+
+  // Typewriter
+  let i = 0;
+  function typeNext() {
     if (i < text.length) {
-      splashText.textContent += text.charAt(i);
-      i++;
-      setTimeout(typeLetter, 80);
+      splashText.textContent += text.charAt(i++);
+      setTimeout(typeNext, 70);
     } else {
-      setTimeout(() => btn.style.display = "inline-block", 500);
+      setTimeout(() => { btn.style.display = "inline-block"; btn.focus(); }, 300);
     }
   }
 
-  btn.addEventListener("click", function(){
-    document.getElementById("splash-screen").style.opacity = "0";
+  // Hide splash
+  function dismissSplash() {
+    splash.classList.add("splash-hide");
+    // re-enable scroll shortly after transition
     setTimeout(() => {
-      document.getElementById("splash-screen").style.display = "none";
-    }, 1000);
+      splash.style.display = "none";
+      document.documentElement.classList.remove("splash-active");
+      document.body.classList.remove("splash-active");
+    }, 650);
+  }
+
+  btn.addEventListener("click", dismissSplash);
+
+  // also allow Enter key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && btn.style.display !== "none") dismissSplash();
   });
 
-  typeLetter();
+  typeNext();
 });
 </script>
+
 
 
 <script>
