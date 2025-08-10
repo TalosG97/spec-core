@@ -1,5 +1,5 @@
 :root {}
-html, body { background-color: #05070d !important; } /* very dark blue */
+html, body { background-color: #05070d !important; }
 #starfield {
   position: fixed;
   inset: 0;
