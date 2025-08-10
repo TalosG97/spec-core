@@ -19,7 +19,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<meta name="author" content="taleden">
 		<meta name="description" content="EDSY is a ship outfitting tool for Elite Dangerous">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action https://inara.cz; object-src 'none'; style-src 'self' 'unsafe-inline'">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self';">
 		<script async src="nocache"></script>
 		<script defer src="pako.min.js"></script>
 		<script defer src="eddb.js"></script>
@@ -38,7 +38,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="apple-touch-icon" href="favicon-196.png">
 		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
 		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
-			<script src="ogl.umd.js"></script>
+			<script src="https://unpkg.com/ogl@0.0.110/dist/ogl.umd.js"></script>
 		<script defer src="galaxy.js"></script>
 		<script defer src="galaxy-init.js"></script>
 </head>
