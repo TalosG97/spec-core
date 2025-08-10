@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  // Create and insert the canvas
   var canvas = document.createElement('canvas');
   canvas.id = 'starfield';
   document.addEventListener('DOMContentLoaded', function () {
@@ -28,7 +27,6 @@
   }
 
   function onResize() {
-    // throttle resize
     if (resize._raf) cancelAnimationFrame(resize._raf);
     resize._raf = requestAnimationFrame(function () {
       resize();
@@ -47,28 +45,26 @@
   }
 
   function createStars() {
-    // Number of stars scales with area but is capped for perf
-    var base = Math.ceil((width * height) / 12000);
-    var count = Math.min(350, Math.max(120, base));
-
+    var base = Math.ceil((width * height) / 14000);
+    var count = Math.min(320, Math.max(110, base));
     stars = new Array(count);
-    for (var i = 0; i < count; i++) {
-      stars[i] = spawnStar(true);
-    }
+    for (var i = 0; i < count; i++) stars[i] = spawnStar(true);
   }
 
   function spawnStar(init) {
-    // Layers: slow, medium, fast for parallax
     var layer = Math.random();
-    var speed = layer < 0.6 ? 0.08 : (layer < 0.9 ? 0.16 : 0.32); // px per ms
-    var size = layer < 0.6 ? rand(0.6, 1.0) : (layer < 0.9 ? rand(0.9, 1.6) : rand(1.3, 2.2));
+    // random direction (unit vector) with slight bias to horizontal so it doesn't look like snow
+    var angle = (Math.random() * Math.PI * 2);
+    var dirx = Math.cos(angle), diry = Math.sin(angle) * 0.5; // reduce vertical component
+    var speed = layer < 0.6 ? rand(0.02, 0.05) : (layer < 0.9 ? rand(0.05, 0.09) : rand(0.09, 0.14)); // px per ms
+    var size  = layer < 0.6 ? rand(0.6, 1.0) : (layer < 0.9 ? rand(0.9, 1.6) : rand(1.3, 2.2));
     return {
-      x: init ? Math.random() * width : rand(-10, width + 10),
-      y: init ? Math.random() * height : -10,
-      vx: rand(-0.02, 0.02),
-      vy: speed,
+      x: init ? Math.random() * width : (dirx < 0 ? width + 5 : -5),
+      y: init ? Math.random() * height : (diry < 0 ? height + 5 : -5),
+      vx: dirx * speed,
+      vy: diry * speed,
       r: size,
-      twinkle: rand(0, Math.PI * 2)
+      twinkle: rand(0, Math.PI * 2),
     };
   }
 
@@ -77,44 +73,39 @@
     if (!running) return;
     requestAnimationFrame(loop);
     now = now || performance.now();
-    var dt = Math.min(32, now - last); // clamp delta for stability
+    var dt = Math.min(32, now - last);
     last = now;
 
     ctx.clearRect(0, 0, width, height);
 
-    // subtle nebula gradient (very faint)
-    var g = ctx.createRadialGradient(width * 0.7, height * 0.3, 0, width * 0.7, height * 0.3, Math.max(width, height));
-    g.addColorStop(0, 'rgba(80,110,255,0.05)');
+    // faint radial tint for depth
+    var g = ctx.createRadialGradient(width * 0.65, height * 0.35, 0, width * 0.65, height * 0.35, Math.max(width, height));
+    g.addColorStop(0, 'rgba(90,120,255,0.05)');
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, width, height);
 
-    // draw stars
     for (var i = 0; i < stars.length; i++) {
       var s = stars[i];
       s.x += s.vx * dt;
       s.y += s.vy * dt;
 
-      // wrap
-      if (s.y - s.r > height) {
-        stars[i] = spawnStar(false);
-        continue;
-      }
-      if (s.x < -20) s.x = width + 20;
-      if (s.x > width + 20) s.x = -20;
+      // wrap around screen edges
+      if (s.x < -10) s.x = width + 10;
+      else if (s.x > width + 10) s.x = -10;
+      if (s.y < -10) s.y = height + 10;
+      else if (s.y > height + 10) s.y = -10;
 
-      // twinkle
+      // twinkle + slight color variance (cool whites)
       s.twinkle += dt * 0.006;
       var alpha = 0.6 + 0.4 * Math.sin(s.twinkle);
-
-      // soft glow
+      var glow = '#a9c3ff';
       ctx.globalAlpha = alpha * 0.25;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
-      ctx.fillStyle = '#9bbcff';
+      ctx.fillStyle = glow;
       ctx.fill();
 
-      // core
       ctx.globalAlpha = alpha;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
