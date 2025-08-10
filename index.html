@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="splash-active" class="splash-active">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 <!--
@@ -21,11 +21,15 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self';">
 		<script async src="nocache"></script>
+		<script defer src="pako.min.js"></script>
+		<script defer src="eddb.js"></script>
+		<script defer src="edsy.js"></script>
 		<link rel="preload" as="font" href="EuroCaps.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Sintony.woff2" type="font/woff2" crossorigin="anonymous">
 		<link rel="preload" as="font" href="Telegrama.woff2" type="font/woff2" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="edsy.css"><link rel="stylesheet" type="text/css" href="starfield.css">
-<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="edsy.css">
+		<link rel="stylesheet" type="text/css" href="galaxy.css">
+		<link rel="icon" sizes="16x16 32x32" href="favicon.ico">
 		<link rel="icon" sizes="16x16" href="favicon-16.png">
 		<link rel="icon" sizes="32x32" href="favicon-32.png">
 		<link rel="icon" sizes="48x48" href="favicon-48.png">
@@ -34,31 +38,11 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 		<link rel="apple-touch-icon" href="favicon-196.png">
 		<link rel="apple-touch-icon-precomposed" href="favicon-196.png">
 		<link rel="mask-icon" href="favicon.svg" color="#ff7f00">
+		<link rel="stylesheet" type="text/css" href="galaxy.css">
+		<script defer src="galaxy.js"></script>
+		<script defer src="galaxy-init.js"></script>
 </head>
 	<body class="">
-<div id="splash-screen" aria-hidden="false">
-  <video id="splash-video" autoplay muted loop playsinline>
-    <source src="welcome.mp4" type="video/mp4">
-  </video>
-  <div id="splash-overlay">
-    <h1 id="splash-text" aria-live="polite"></h1>
-    <button id="enter-btn" class="enter" style="display:none;" aria-label="Enter StellarOps">Press Enter</button>
-    <div id="enter-hint" style="display:none;margin-top:.5rem;opacity:.8;">or press Enter ↵</div>
-
-<div id="splash-screen" aria-hidden="false">
-  <video id="splash-video" autoplay muted loop playsinline>
-    <source src="welcome.mp4" type="video/mp4">
-  </video>
-  <div id="splash-overlay">
-    <h1 id="splash-text" aria-live="polite"></h1>
-    <button id="enter-btn" class="enter" style="display:none;" aria-label="Enter StellarOps">Press Enter</button>
-    <div id="enter-hint" style="display:none;margin-top:.5rem;opacity:.8;">or press Enter ↵</div>
-  </div>
-</div>
-
-
-  </div>
-
 		<div id="svg_defs">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 				<defs>
@@ -1305,20 +1289,5 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 				</div>
 			</form>
 		</div>
-	
-
-
-
-
-
-
-
-
-    <script defer src="pako.min.js"></script>
-    <script defer src="eddb.js"></script>
-    <script defer src="edsy.js"></script>
-    <script defer src="starfield.js"></script>
-    <script defer src="splash.js"></script>
-
-</body>
+	</body>
 </html>
