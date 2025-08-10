@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="splash-active">
 	<head>
 		<meta charset="utf-8">
 <!--
@@ -44,6 +44,17 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
     <script defer src="splash.js"></script>
 </head>
 	<body class="">
+<div id="splash-screen" aria-hidden="false">
+  <video id="splash-video" autoplay muted loop playsinline>
+    <source src="welcome.mp4" type="video/mp4">
+  </video>
+  <div id="splash-overlay">
+    <h1 id="splash-text" aria-live="polite"></h1>
+    <button id="enter-btn" class="enter" style="display:none;" aria-label="Enter StellarOps">Press Enter</button>
+    <div id="enter-hint" style="display:none;margin-top:.5rem;opacity:.8;">or press Enter ↵</div>
+  </div>
+</div>
+
 
   <div id="splash-screen">
     <video id="splash-video" autoplay muted loop playsinline>
