@@ -10,7 +10,7 @@ Frontier Customer Services (https://forums.frontier.co.uk/threads/elite-dangerou
 */
 
 :root {
-	--edsy-versions-css: v-419039901-419039901-419039901-419039901; /* HTML,CSS,DB,JS */
+	 --edsy-versions-css: v-419039901-419039901-421039901-421039901; /* HTML,CSS,DB,JS */
 	--edsy-lastmodified-css: d-20241212;
 	
 	--colorblack: black;
@@ -3764,3 +3764,4 @@ BODY.onlybest.experimental #outfitting_modules.SLOT #outfitting_modules_picker.s
 	margin: 0.25rem;
 	padding: 0.125rem 0.5rem;
 }
+
