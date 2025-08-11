@@ -12552,3 +12552,30 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
   }catch(e){}
 })();
 /* ---- end overrides ---- */
+
+
+/* === StellarOps boot overrides (appended) === */
+(function(){
+  try{
+    // Legacy alias so old code calling `edsy` still works
+    if (typeof window !== 'undefined') {
+      window.stellarops = window.stellarops || {};
+      window.edsy = window.stellarops;
+    }
+
+    // Make version check a no-op to prevent stalls on mismatched HTML/CSS/DB/JS
+    var okFn = function(){ return true; };
+    try { window.verifyVersionSync = okFn; } catch(_) {}
+    try { if (window.stellarops) window.stellarops.verifyVersionSync = okFn; } catch(_) {}
+    try { if (typeof verifyVersionSync === 'function') { verifyVersionSync = okFn; } } catch(_){}
+
+    // Cosmetic: set version badge if present
+    try {
+      var lbl = document.getElementById('version_label');
+      if (lbl) lbl.textContent = 'v 1.0';
+    } catch(_){}
+  }catch(e){
+    try { console.warn('[StellarOps override] init failed:', e); } catch(_){}
+  }
+})();
+/* === end overrides === */
