@@ -1,4 +1,3 @@
-(function(){try{if(typeof window.stellarops==='undefined'){window.stellarops={}};if(typeof window.edsy==='undefined'){window.edsy=window.stellarops;}}catch(e){}})();
 /*
 EDSY was created using assets and imagery from Elite Dangerous, with the permission of Frontier Developments plc, for non-commercial purposes.
 It is not endorsed by nor reflects the views or opinions of Frontier Developments and no employee of Frontier Developments was involved in the making of it.
@@ -12213,7 +12212,7 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 			vlabel.title = '';
 		}
 	} catch (e) { /* ignore */ }
-	// Always OK: never block on version mismatches or redirect to update.html
+	// Always OK: never block on version mismatches or redirect to #
 	return true;
 }; // verifyVersionSync()
 	
@@ -12468,7 +12467,7 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 					("<h1>" + getTranslation('message-version') + "</h1><h3>" + getTranslation('message-version-desc') + "</h3>"),
 					"",
 					null, true,
-					function() { window.location = 'update.html'; }, null
+					function() { window.location = '#'; }, null
 			);
 			return false;
 		}
@@ -12533,3 +12532,23 @@ if(false && current.dev) console.log("setCurrentSlot(): slot "+slotgroup+ " #"+s
 		this.Slot = Slot;
 	}
 })();
+
+
+/* ---- StellarOps overrides ---- */
+(function(){
+  try{
+    window.stellarops = window.stellarops || {};
+    window.edsy = window.stellarops;
+    var okFn = function(){ 
+      try{
+        var lbl = document.getElementById('version_label');
+        if(lbl) { lbl.textContent = 'v 1.0'; }
+      }catch(e){}
+      return true; 
+    };
+    window.verifyVersionSync = okFn;
+    if (window.stellarops) window.stellarops.verifyVersionSync = okFn;
+    if (typeof verifyVersionSync === 'function') { verifyVersionSync = okFn; }
+  }catch(e){}
+})();
+/* ---- end overrides ---- */
